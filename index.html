@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rr.production's | Foreign Extra Casting Japan</title>
+  <meta name="description" content="Rr.production's casts international extras for Japanese films, TV dramas, and commercials. No experience needed. Apply via WhatsApp only." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:    #C9A84C;
+      --gold-lt: #E8C96E;
+      --dark:    #0D0D0D;
+      --dark2:   #141414;
+      --dark3:   #1C1C1C;
+      --dark4:   #252525;
+      --light:   #F5F5F0;
+      --muted:   #888;
+      --green:   #25D366;
+      --green-dk:#1ebe5c;
+      --radius:  12px;
+      --max:     1100px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-alt { background: var(--dark2); }
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .section-title span { color: var(--gold); }
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 56px;
+    }
+    .gold-line {
+      width: 48px; height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin: 12px auto 0;
+    }
+
+    /* ── NAV BAR ── */
+    #lang-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .lang-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 60px;
+    }
+    .logo {
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.06em; color: var(--gold);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .logo small { color: var(--muted); font-weight: 300; font-size: 0.68em; margin-left: 4px; }
+    .lang-btns { display: flex; gap: 6px; }
+    .lang-btn {
+      padding: 4px 12px;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover, .lang-btn.active {
+      background: var(--gold); border-color: var(--gold); color: var(--dark);
+    }
+    nav { display: flex; gap: 2px; align-items: center; }
+    .nav-link {
+      padding: 4px 10px; font-size: 0.8rem;
+      color: var(--muted); border-radius: 20px;
+      transition: color 0.2s; white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--gold); }
+    .hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; color: var(--light);
+      font-size: 1.4rem; padding: 4px;
+    }
+    .mobile-nav {
+      display: none; flex-direction: column;
+      background: var(--dark2);
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      padding: 14px 24px; font-size: 0.9rem;
+      color: var(--muted);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.2s, background 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--gold); background: rgba(201,168,76,0.05); }
+
+    /* ── STICKY MOBILE CTA ── */
+    #sticky-cta {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+      padding: 12px 20px 20px;
+      background: rgba(13,13,13,0.97);
+      border-top: 1px solid rgba(37,211,102,0.25);
+      backdrop-filter: blur(8px);
+    }
+    #sticky-cta a {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 15px;
+      background: var(--green); color: #fff;
+      border-radius: 40px; font-weight: 700; font-size: 1rem;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      padding: 80px 0 60px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.05) 0%, transparent 50%),
+        linear-gradient(180deg, #0D0D0D 0%, #111118 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image:
+        linear-gradient(rgba(201,168,76,1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-tag {
+      display: inline-block; padding: 6px 18px;
+      border: 1px solid var(--gold); border-radius: 20px;
+      color: var(--gold); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 700; line-height: 1.12;
+      letter-spacing: -0.01em; margin-bottom: 24px;
+    }
+    .hero-title .accent { color: var(--gold); }
+    .hero-desc {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: rgba(245,245,240,0.7);
+      max-width: 560px; margin: 0 auto 36px; line-height: 1.85;
+    }
+    .btn-wa-hero {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 40px; background: var(--green); color: #fff;
+      border-radius: 40px; font-weight: 700; font-size: 1rem;
+      border: 2px solid var(--green); transition: all 0.25s;
+    }
+    .btn-wa-hero:hover {
+      background: var(--green-dk); border-color: var(--green-dk);
+      transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+    }
+    .no-dm-notice {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 0.78rem; color: rgba(245,245,240,0.45); margin-top: 12px;
+    }
+    .no-dm-notice strong { color: rgba(245,245,240,0.65); }
+    .platform-wrap {
+      margin-top: 52px; padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .platform-label {
+      font-size: 0.65rem; color: rgba(245,245,240,0.3);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .platform-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .platform-badge {
+      padding: 5px 14px;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      font-size: 0.75rem; font-weight: 600;
+      color: rgba(245,245,240,0.45); letter-spacing: 0.06em;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: start;
+    }
+    .trust-box {
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: var(--radius); padding: 32px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .trust-item { display: flex; align-items: flex-start; gap: 14px; }
+    .trust-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .trust-text h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
+    .trust-text p { font-size: 0.8rem; color: var(--muted); }
+    .about-text h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 20px; }
+    .about-text h2 span { color: var(--gold); }
+    .about-text p { color: rgba(245,245,240,0.75); margin-bottom: 16px; font-size: 0.95rem; line-height: 1.85; }
+    .check-list { list-style: none; margin-top: 20px; }
+    .check-list li {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.875rem; color: rgba(245,245,240,0.8);
+    }
+    .check-list li::before { content: '✦'; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── FIT SECTION ── */
+    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .fit-card { border-radius: var(--radius); padding: 28px; }
+    .fit-card.good { background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.22); }
+    .fit-card.bad  { background: rgba(220,60,60,0.05);  border: 1px solid rgba(220,60,60,0.18); }
+    .fit-card-title {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .fit-card.good .fit-card-title { color: #25D366; }
+    .fit-card.bad  .fit-card-title { color: #e55; }
+    .fit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .fit-list li {
+      font-size: 0.875rem; color: rgba(245,245,240,0.8);
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .fit-list li .mk { flex-shrink: 0; margin-top: 1px; font-size: 0.9rem; }
+    .fit-card.good .mk { color: #25D366; }
+    .fit-card.bad  .mk { color: #e55; }
+
+    /* ── FLOW ── */
+    .flow-steps { display: flex; flex-direction: column; max-width: 720px; margin: 0 auto; }
+    .flow-step {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0; position: relative;
+    }
+    .flow-step:not(:last-child)::after {
+      content: ''; position: absolute;
+      left: 23px; top: 60px; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, rgba(201,168,76,0.5), rgba(201,168,76,0.1));
+    }
+    .step-num {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: var(--gold); color: var(--dark);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.1rem; z-index: 1;
+    }
+    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .step-content p { font-size: 0.875rem; color: rgba(245,245,240,0.7); line-height: 1.75; }
+    .step-badge {
+      display: inline-block; margin-top: 8px;
+      padding: 3px 10px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.28);
+      border-radius: 20px; font-size: 0.7rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.06em;
+    }
+
+    /* ── WHAT TO SEND ── */
+    .send-box {
+      max-width: 600px; margin: 0 auto;
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--radius); padding: 36px 32px;
+    }
+    .send-box h3 {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .send-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .send-list li {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 0.9rem; color: rgba(245,245,240,0.85);
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03); border-radius: 8px;
+    }
+    .send-num {
+      width: 26px; height: 26px; flex-shrink: 0;
+      background: var(--gold); color: var(--dark);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.75rem;
+    }
+    .send-note {
+      font-size: 0.8rem; color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px;
+    }
+
+    /* ── RULES ── */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .rule-card {
+      background: var(--dark3); border-radius: var(--radius);
+      padding: 24px; border-left: 3px solid;
+    }
+    .rule-card.critical  { border-color: #e55; }
+    .rule-card.important { border-color: var(--gold); }
+    .rule-card.info      { border-color: rgba(255,255,255,0.18); }
+    .rule-card h3 {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .rule-card.critical h3  { color: #e66; }
+    .rule-card.important h3 { color: var(--gold); }
+    .rule-card.info h3      { color: rgba(245,245,240,0.45); }
+    .rule-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .rule-list li {
+      font-size: 0.855rem; color: rgba(245,245,240,0.75);
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .rule-list li::before { content: '—'; color: var(--muted); flex-shrink: 0; }
+
+    /* ── PAYMENT ── */
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .payment-card {
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .payment-card-icon { font-size: 2rem; margin-bottom: 12px; }
+    .payment-card h3 {
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .payment-card p { font-size: 0.875rem; color: rgba(245,245,240,0.75); line-height: 1.75; }
+    .payment-card strong { color: var(--light); }
+    .warn-tag {
+      display: inline-block; margin-top: 8px;
+      padding: 2px 8px;
+      background: rgba(220,60,60,0.1); border: 1px solid rgba(220,60,60,0.22);
+      border-radius: 4px; font-size: 0.7rem; font-weight: 600; color: #e77;
+    }
+
+    /* ── WORKS ── */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 16px; margin-bottom: 20px;
+    }
+    .work-item {
+      background: var(--dark3);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: var(--radius); padding: 20px 16px;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: border-color 0.2s;
+    }
+    .work-item:hover { border-color: rgba(201,168,76,0.35); }
+    .work-type {
+      display: inline-block; padding: 2px 10px;
+      background: rgba(201,168,76,0.12); color: var(--gold);
+      border-radius: 12px; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.08em; width: fit-content;
+    }
+    .work-title { font-size: 0.88rem; font-weight: 600; line-height: 1.4; }
+    .work-platform { font-size: 0.72rem; color: rgba(201,168,76,0.7); font-weight: 600; }
+    .work-meta { font-size: 0.75rem; color: var(--muted); }
+    .works-note {
+      font-size: 0.78rem; color: var(--muted); text-align: center;
+      margin-top: 20px; padding: 14px;
+      border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;
+    }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 780px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; cursor: pointer;
+      font-weight: 600; font-size: 0.95rem; gap: 16px; transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--gold); }
+    .faq-icon {
+      font-size: 1.3rem; color: var(--gold);
+      flex-shrink: 0; line-height: 1; transition: transform 0.25s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      display: none; padding: 0 0 20px;
+      font-size: 0.875rem; color: rgba(245,245,240,0.7); line-height: 1.85;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── APPLY CTA ── */
+    #apply {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(37,211,102,0.07) 0%, transparent 60%),
+        var(--dark2);
+    }
+    .apply-inner { text-align: center; }
+    .apply-inner h2 { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 16px; }
+    .apply-inner h2 span { color: var(--gold); }
+    .apply-inner > p { color: rgba(245,245,240,0.65); max-width: 520px; margin: 0 auto 28px; font-size: 0.92rem; line-height: 1.8; }
+    .btn-wa-main {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 18px 44px; background: var(--green); color: #fff;
+      border-radius: 40px; font-weight: 700; font-size: 1.05rem;
+      border: 2px solid var(--green); transition: all 0.25s;
+    }
+    .btn-wa-main:hover {
+      background: var(--green-dk); border-color: var(--green-dk);
+      transform: translateY(-2px); box-shadow: 0 10px 28px rgba(37,211,102,0.35);
+    }
+    .apply-checks {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      margin: 24px 0 32px;
+    }
+    .apply-check {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.8rem; color: rgba(245,245,240,0.5);
+    }
+    .apply-check::before { content: '✓'; color: var(--green); font-weight: 700; }
+    .apply-nodm { margin-top: 20px; font-size: 0.78rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(201,168,76,0.12);
+      padding: 40px 0 32px; text-align: center;
+    }
+    .footer-logo { font-size: 1.3rem; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); }
+    .footer-links {
+      display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+      margin: 16px 0;
+    }
+    .footer-links a { font-size: 0.78rem; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── i18n ── */
+    [data-lang] { display: none; }
+    [data-lang].active { display: block; }
+    span[data-lang].active { display: inline; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: block; }
+      .about-grid { grid-template-columns: 1fr; }
+      .fit-grid { grid-template-columns: 1fr; }
+      .section { padding: 72px 0; }
+      footer { padding-bottom: 90px; }
+      #sticky-cta { display: block; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.1rem; }
+      .send-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════ STICKY MOBILE CTA ════ -->
+<div id="sticky-cta" style="display:none;">
+  <a href="https://wa.me/817085101040" target="_blank" rel="noopener">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+    <span data-lang="en" class="active">Apply via WhatsApp</span>
+    <span data-lang="es">Aplicar por WhatsApp</span>
+    <span data-lang="ja">WhatsAppで応募する</span>
+  </a>
+</div>
+
+<!-- ════ NAV ════ -->
+<div id="lang-bar">
+  <div class="lang-inner">
+    <div class="logo">Rr.production's <small>| Extra Casting Japan</small></div>
+    <nav>
+      <a href="#about"   class="nav-link">About</a>
+      <a href="#how"     class="nav-link">How It Works</a>
+      <a href="#rules"   class="nav-link">Rules</a>
+      <a href="#works"   class="nav-link">Past Works</a>
+      <a href="#faq"     class="nav-link">FAQ</a>
+      <a href="#apply"   class="nav-link">Apply</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="lang-btns">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn"        onclick="setLang('es')">ES</button>
+        <button class="lang-btn"        onclick="setLang('ja')">JA</button>
+      </div>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#about"  onclick="toggleMenu()">About</a>
+    <a href="#how"    onclick="toggleMenu()">How It Works</a>
+    <a href="#rules"  onclick="toggleMenu()">Rules</a>
+    <a href="#works"  onclick="toggleMenu()">Past Works</a>
+    <a href="#faq"    onclick="toggleMenu()">FAQ</a>
+    <a href="#apply"  onclick="toggleMenu()">Apply Now</a>
+  </div>
+</div>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container hero-content">
+
+    <div class="hero-tag">
+      <span data-lang="en" class="active">Foreign Extra Casting · Japan</span>
+      <span data-lang="es">Casting de Extras · Japón</span>
+      <span data-lang="ja">外国人エキストラ募集 · 日本</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span data-lang="en" class="active">Be Part of Japan's<br><span class="accent">Films, Dramas &amp; Commercials</span></span>
+      <span data-lang="es">Sé Parte de las<br><span class="accent">Películas y Dramas de Japón</span></span>
+      <span data-lang="ja">映画・ドラマ・CMに<br><span class="accent">出演しませんか</span></span>
+    </h1>
+
+    <p class="hero-desc">
+      <span data-lang="en" class="active">We cast international extras for Japanese productions. No experience needed. Selection-based. Applications via WhatsApp only.</span>
+      <span data-lang="es">Convocamos extras internacionales para producciones japonesas. Sin experiencia. Selección rigurosa. Solo por WhatsApp.</span>
+      <span data-lang="ja">外国人エキストラを中心に募集しています。未経験歓迎・選考制・応募はWhatsAppのみ。</span>
+    </p>
+
+    <div style="margin-bottom:12px;">
+      <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-wa-hero">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+        <span data-lang="en" class="active">Apply via WhatsApp</span>
+        <span data-lang="es">Aplicar por WhatsApp</span>
+        <span data-lang="ja">WhatsAppで応募する</span>
+      </a>
+    </div>
+    <div class="no-dm-notice">
+      <span>⛔</span>
+      <span data-lang="en" class="active"><strong>WhatsApp only.</strong> No DM applications accepted.</span>
+      <span data-lang="es"><strong>Solo WhatsApp.</strong> No se aceptan DMs.</span>
+      <span data-lang="ja"><strong>WhatsAppのみ。</strong> DM応募不可。</span>
+    </div>
+
+    <div class="platform-wrap">
+      <p class="platform-label">
+        <span data-lang="en" class="active">Past project platforms include</span>
+        <span data-lang="es">Plataformas de proyectos anteriores</span>
+        <span data-lang="ja">過去参加作品の放映先</span>
+      </p>
+      <div class="platform-badges">
+        <span class="platform-badge">Netflix</span>
+        <span class="platform-badge">ABEMA</span>
+        <span class="platform-badge">TV</span>
+        <span class="platform-badge">Theaters</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════ ABOUT ════ -->
+<section class="section section-alt" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="trust-box reveal">
+        <div class="trust-item">
+          <div class="trust-icon">🎬</div>
+          <div class="trust-text">
+            <h4><span data-lang="en" class="active">International Extra Specialists</span><span data-lang="es">Especialistas en Extras Internacionales</span><span data-lang="ja">外国人エキストラ専門</span></h4>
+            <p><span data-lang="en" class="active">Films, dramas, commercials &amp; music videos</span><span data-lang="es">Películas, dramas, comerciales y videos musicales</span><span data-lang="ja">映画・ドラマ・CM・MV</span></p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">💬</div>
+          <div class="trust-text">
+            <h4><span data-lang="en" class="active">Multilingual Support</span><span data-lang="es">Soporte Multilingüe</span><span data-lang="ja">多言語サポート</span></h4>
+            <p><span data-lang="en" class="active">English · Spanish · Japanese</span><span data-lang="es">Inglés · Español · Japonés</span><span data-lang="ja">英語・スペイン語・日本語対応</span></p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📱</div>
+          <div class="trust-text">
+            <h4><span data-lang="en" class="active">WhatsApp-Based Operations</span><span data-lang="es">Operaciones vía WhatsApp</span><span data-lang="ja">WhatsApp完結</span></h4>
+            <p><span data-lang="en" class="active">All comms, confirmations &amp; updates via WhatsApp</span><span data-lang="es">Todas las comunicaciones por WhatsApp</span><span data-lang="ja">応募・確認・連絡はすべてWhatsApp</span></p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🗾</div>
+          <div class="trust-text">
+            <h4><span data-lang="en" class="active">Kanto-Based, Japan-Wide</span><span data-lang="es">Base en Kanto, todo Japón</span><span data-lang="ja">関東中心・全国対応</span></h4>
+            <p><span data-lang="en" class="active">Mainly Tokyo &amp; Kanto. Some projects across Japan.</span><span data-lang="es">Principalmente Tokio y Kanto. Algunos proyectos en todo Japón.</span><span data-lang="ja">主に東京・関東。案件によっては全国各地。</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <h2>
+          <span data-lang="en" class="active">Who is <span>Rr.production's?</span></span>
+          <span data-lang="es">¿Quiénes somos <span>nosotros?</span></span>
+          <span data-lang="ja">Rr.production'sとは<span>何ですか？</span></span>
+        </h2>
+        <p>
+          <span data-lang="en" class="active">Rr.production's is a professional extra casting team placing international talent in Japanese films, TV dramas, commercials, and music videos. As an extra, you appear in background scenes — restaurant crowds, street scenes, office settings — with no lines and no acting experience required.</span>
+          <span data-lang="es">Rr.production's es un equipo profesional de casting que conecta talento internacional con producciones japonesas. Como extra, apareces en escenas de fondo — multitudes en restaurantes, calles, oficinas — sin diálogos ni experiencia actoral.</span>
+          <span data-lang="ja">Rr.production'sは、日本の映像制作に外国人エキストラを専門にキャスティングするプロチームです。エキストラとして、背景のシーン（レストラン・街頭・オフィス等）に登場します。セリフなし・演技経験不問です。</span>
+        </p>
+        <p>
+          <span data-lang="en" class="active">You apply via WhatsApp, we review your profile, and selected participants are added to our project group. Clear, simple, no surprises.</span>
+          <span data-lang="es">Aplicas por WhatsApp, revisamos tu perfil, y los seleccionados son añadidos al grupo del proyecto. Claro, simple, sin sorpresas.</span>
+          <span data-lang="ja">WhatsAppで応募 → プロフィール確認 → 採用者はグループに追加。シンプルで透明なプロセスです。</span>
+        </p>
+        <ul class="check-list">
+          <li><span data-lang="en" class="active">No experience required — beginners welcome</span><span data-lang="es">Sin experiencia — principiantes bienvenidos</span><span data-lang="ja">未経験者大歓迎</span></li>
+          <li><span data-lang="en" class="active">Selection-based — reliability matters</span><span data-lang="es">Selección rigurosa — la fiabilidad importa</span><span data-lang="ja">選考制 — 信頼性と返信速度を重視</span></li>
+          <li><span data-lang="en" class="active">Free to apply — you get paid, never pay us</span><span data-lang="es">Gratis aplicar — tú cobras, no nos pagas</span><span data-lang="ja">応募無料 — 支払いを受け取る立場です</span></li>
+          <li><span data-lang="en" class="active">Bank transfer · end of month · paid 10th of next month</span><span data-lang="es">Transferencia bancaria · fin de mes · pago el día 10</span><span data-lang="ja">銀行振込 · 月末締め · 翌月10日払い</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ IS THIS RIGHT FOR YOU ════ -->
+<section class="section" id="fit">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">Is This <span>Right for You?</span></span>
+      <span data-lang="es">¿Es Esto <span>Para Ti?</span></span>
+      <span data-lang="ja">あなたに<span>向いていますか？</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <p class="section-sub reveal">
+      <span data-lang="en" class="active">Read before you apply — it will save everyone time</span>
+      <span data-lang="es">Lee antes de aplicar — ahorrará tiempo a todos</span>
+      <span data-lang="ja">応募前にご確認ください</span>
+    </p>
+    <div class="fit-grid reveal">
+      <div class="fit-card good">
+        <div class="fit-card-title"><span>✓</span> <span data-lang="en" class="active">Good fit</span><span data-lang="es">Buen candidato/a</span><span data-lang="ja">応募歓迎</span></div>
+        <ul class="fit-list">
+          <li><span class="mk">✓</span><span data-lang="en" class="active">You look foreign or have an international background</span><span data-lang="es">Tienes apariencia extranjera o de origen internacional</span><span data-lang="ja">外国人に見える方・国際的なバックグラウンドをお持ちの方</span></li>
+          <li><span class="mk">✓</span><span data-lang="en" class="active">No acting experience needed</span><span data-lang="es">Sin experiencia actoral necesaria</span><span data-lang="ja">演技経験不問</span></li>
+          <li><span class="mk">✓</span><span data-lang="en" class="active">Always on time</span><span data-lang="es">Siempre puntual</span><span data-lang="ja">時間厳守ができる方</span></li>
+          <li><span class="mk">✓</span><span data-lang="en" class="active">You reply to messages quickly</span><span data-lang="es">Respondes mensajes rápidamente</span><span data-lang="ja">メッセージの返信が早い方</span></li>
+          <li><span class="mk">✓</span><span data-lang="en" class="active">You can wait for details until the day before</span><span data-lang="es">Puedes esperar los detalles hasta el día anterior</span><span data-lang="ja">前日詳細共有の運用に対応できる方</span></li>
+          <li><span class="mk">✓</span><span data-lang="en" class="active">You use WhatsApp regularly</span><span data-lang="es">Usas WhatsApp con regularidad</span><span data-lang="ja">WhatsAppでやり取りできる方</span></li>
+          <li><span class="mk">✓</span><span data-lang="en" class="active">You can follow simple on-set instructions</span><span data-lang="es">Puedes seguir instrucciones simples en el set</span><span data-lang="ja">現場での簡単な指示に従える方</span></li>
+        </ul>
+      </div>
+      <div class="fit-card bad">
+        <div class="fit-card-title"><span>✗</span> <span data-lang="en" class="active">Not a fit</span><span data-lang="es">No es para ti</span><span data-lang="ja">応募非推奨</span></div>
+        <ul class="fit-list">
+          <li><span class="mk">✗</span><span data-lang="en" class="active">You reply slowly to messages</span><span data-lang="es">Respondes mensajes lentamente</span><span data-lang="ja">返信が遅い方</span></li>
+          <li><span class="mk">✗</span><span data-lang="en" class="active">You need to know all details well in advance</span><span data-lang="es">Necesitas todos los detalles con anticipación</span><span data-lang="ja">前日まで詳細を待てない方</span></li>
+          <li><span class="mk">✗</span><span data-lang="en" class="active">You tend to be late</span><span data-lang="es">Tiendes a llegar tarde</span><span data-lang="ja">遅刻しやすい方</span></li>
+          <li><span class="mk">✗</span><span data-lang="en" class="active">You might cancel last-minute</span><span data-lang="es">Podrías cancelar a última hora</span><span data-lang="ja">直前キャンセルの可能性がある方</span></li>
+          <li><span class="mk">✗</span><span data-lang="en" class="active">You find it hard to follow rules on set</span><span data-lang="es">Te cuesta seguir reglas en el set</span><span data-lang="ja">現場ルールを守りにくい方</span></li>
+          <li><span class="mk">✗</span><span data-lang="en" class="active">You don't use WhatsApp</span><span data-lang="es">No usas WhatsApp</span><span data-lang="ja">WhatsAppを使えない方</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ HOW IT WORKS ════ -->
+<section class="section section-alt" id="how">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">How It <span>Works</span></span>
+      <span data-lang="es">Cómo <span>Funciona</span></span>
+      <span data-lang="ja">応募から参加までの<span>流れ</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <p class="section-sub reveal">
+      <span data-lang="en" class="active">5 steps from application to shoot day</span>
+      <span data-lang="es">5 pasos desde la aplicación hasta el día del rodaje</span>
+      <span data-lang="ja">応募から撮影当日まで5ステップ</span>
+    </p>
+    <div class="flow-steps">
+
+      <div class="flow-step reveal">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3><span data-lang="en" class="active">Apply via WhatsApp</span><span data-lang="es">Aplica por WhatsApp</span><span data-lang="ja">WhatsAppで応募</span></h3>
+          <p><span data-lang="en" class="active">Send your full name, age, nationality, prefecture of residence, and recent photos (face &amp; full body) to our WhatsApp. No forms, no email — WhatsApp only.</span><span data-lang="es">Envía tu nombre completo, edad, nacionalidad, prefectura de residencia y fotos recientes (cara y cuerpo completo) a nuestro WhatsApp. Sin formularios, sin email — solo WhatsApp.</span><span data-lang="ja">氏名・年齢・国籍・居住都道府県・写真（顔＆全身）をWhatsAppで送ってください。フォームなし・メールなし・WhatsAppのみ。</span></p>
+          <span class="step-badge">WhatsApp only · No DM</span>
+        </div>
+      </div>
+
+      <div class="flow-step reveal">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3><span data-lang="en" class="active">Selection Review</span><span data-lang="es">Revisión de Selección</span><span data-lang="ja">選考審査</span></h3>
+          <p><span data-lang="en" class="active">We review applications based on each project's requirements. Only selected participants are contacted. If you don't hear back, this project wasn't a match — re-apply for future projects anytime.</span><span data-lang="es">Revisamos las aplicaciones según los requisitos de cada proyecto. Solo los seleccionados son contactados. Si no recibes respuesta, este proyecto no fue compatible — aplica de nuevo cuando quieras.</span><span data-lang="ja">案件の要件に合わせて全応募を確認します。採用者のみご連絡します。返信がない場合は今回のプロジェクトとマッチしなかったためです。次回の案件への再応募を歓迎します。</span></p>
+          <span class="step-badge">Selection-based · Selected applicants only</span>
+        </div>
+      </div>
+
+      <div class="flow-step reveal">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3><span data-lang="en" class="active">WhatsApp Group = You're Confirmed</span><span data-lang="es">Grupo de WhatsApp = Confirmado/a</span><span data-lang="ja">WhatsAppグループ追加 ＝ 採用確定</span></h3>
+          <p><span data-lang="en" class="active">If selected, you'll be added to our WhatsApp group. Being added to the group means you are confirmed for the shoot. No separate confirmation message is sent.</span><span data-lang="es">Si eres seleccionado/a, serás añadido/a a nuestro grupo de WhatsApp. Ser añadido/a al grupo significa que estás confirmado/a para el rodaje. No se envía mensaje de confirmación por separado.</span><span data-lang="ja">採用が決まったら、WhatsAppグループに追加されます。グループ追加＝採用確定です。別途確認メッセージは送りません。</span></p>
+          <span class="step-badge">Group added = confirmed</span>
+        </div>
+      </div>
+
+      <div class="flow-step reveal">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3><span data-lang="en" class="active">Details Shared the Day Before</span><span data-lang="es">Detalles el Día Anterior</span><span data-lang="ja">前日に詳細を共有</span></h3>
+          <p><span data-lang="en" class="active">The exact meeting point, call time, and wardrobe instructions are shared in the WhatsApp group the day before the shoot. This is our standard process — there are no early details. Please check the group regularly once added.</span><span data-lang="es">El punto de encuentro exacto, la hora de llamada y las instrucciones de vestuario se comparten en el grupo de WhatsApp el día anterior al rodaje. Este es nuestro proceso estándar — no hay detalles anticipados. Por favor revisa el grupo regularmente.</span><span data-lang="ja">集合場所・集合時間・服装指定などは、撮影前日にWhatsAppグループで共有されます。これが標準の運用であり、事前の詳細共有はありません。グループ追加後はこまめに確認してください。</span></p>
+          <span class="step-badge">Day before · Via WhatsApp group</span>
+        </div>
+      </div>
+
+      <div class="flow-step reveal">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3><span data-lang="en" class="active">Shoot Day &amp; Payment</span><span data-lang="es">Día del Rodaje y Pago</span><span data-lang="ja">撮影当日 ＆ 報酬</span></h3>
+          <p><span data-lang="en" class="active">Arrive on time, follow staff instructions, enjoy being on a real production set. Payment via bank transfer — end of month closing, paid on the 10th of the following month.</span><span data-lang="es">Llega a tiempo, sigue las instrucciones del personal, disfruta del set de producción. Pago por transferencia bancaria — cierre a fin de mes, pago el día 10 del mes siguiente.</span><span data-lang="ja">時間通りに到着し、スタッフの指示に従って参加。報酬は銀行振込・月末締め・翌月10日払い。</span></p>
+          <span class="step-badge">Bank transfer · End of month → 10th of next month</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHAT TO SEND ════ -->
+<section class="section" id="send">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">What to <span>Send</span></span>
+      <span data-lang="es">Qué <span>Enviar</span></span>
+      <span data-lang="ja">応募時に<span>送るもの</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <p class="section-sub reveal">
+      <span data-lang="en" class="active">Send these 5 items to our WhatsApp to apply</span>
+      <span data-lang="es">Envía estos 5 elementos a nuestro WhatsApp para aplicar</span>
+      <span data-lang="ja">以下5点をWhatsAppで送って応募してください</span>
+    </p>
+    <div class="send-box reveal">
+      <h3><span data-lang="en" class="active">Required information</span><span data-lang="es">Información requerida</span><span data-lang="ja">必須応募情報</span></h3>
+      <ul class="send-list">
+        <li><span class="send-num">1</span><span data-lang="en" class="active">Full name</span><span data-lang="es">Nombre completo</span><span data-lang="ja">フルネーム</span></li>
+        <li><span class="send-num">2</span><span data-lang="en" class="active">Age</span><span data-lang="es">Edad</span><span data-lang="ja">年齢</span></li>
+        <li><span class="send-num">3</span><span data-lang="en" class="active">Nationality</span><span data-lang="es">Nacionalidad</span><span data-lang="ja">国籍</span></li>
+        <li><span class="send-num">4</span><span data-lang="en" class="active">Prefecture of residence</span><span data-lang="es">Prefectura de residencia</span><span data-lang="ja">居住都道府県</span></li>
+        <li><span class="send-num">5</span><span data-lang="en" class="active">Recent photo — face &amp; full body</span><span data-lang="es">Foto reciente — cara y cuerpo completo</span><span data-lang="ja">最近の写真（顔・全身各1枚）</span></li>
+      </ul>
+      <p class="send-note">
+        <span data-lang="en" class="active">⚠ Incomplete applications may not be reviewed. Send all 5 items in one message if possible.</span>
+        <span data-lang="es">⚠ Las aplicaciones incompletas pueden no revisarse. Envía los 5 elementos en un solo mensaje si es posible.</span>
+        <span data-lang="ja">⚠ 情報が不足している場合、選考対象外となることがあります。5点まとめて1通で送ることを推奨します。</span>
+      </p>
+      <div style="text-align:center;margin-top:24px;">
+        <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-wa-main">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+          <span data-lang="en" class="active">Send Info on WhatsApp</span>
+          <span data-lang="es">Enviar Info por WhatsApp</span>
+          <span data-lang="ja">WhatsAppで情報を送る</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ RULES ════ -->
+<section class="section section-alt" id="rules">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">Before You <span>Apply</span></span>
+      <span data-lang="es">Antes de <span>Aplicar</span></span>
+      <span data-lang="ja">応募前に<span>ご確認ください</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <p class="section-sub reveal">
+      <span data-lang="en" class="active">These rules apply to all participants — please read carefully</span>
+      <span data-lang="es">Estas reglas aplican a todos los participantes — por favor lee con atención</span>
+      <span data-lang="ja">全参加者に適用されるルールです。必ずお読みください</span>
+    </p>
+    <div class="rules-grid">
+
+      <div class="rule-card critical reveal">
+        <h3><span data-lang="en" class="active">⚠ Punctuality</span><span data-lang="es">⚠ Puntualidad</span><span data-lang="ja">⚠ 時間厳守</span></h3>
+        <ul class="rule-list">
+          <li><span data-lang="en" class="active">Arrival on time is mandatory — no exceptions</span><span data-lang="es">La llegada a tiempo es obligatoria — sin excepciones</span><span data-lang="ja">時間通りの到着は必須 — 例外なし</span></li>
+          <li><span data-lang="en" class="active">Last-minute cancellations are strictly prohibited</span><span data-lang="es">Las cancelaciones de última hora están estrictamente prohibidas</span><span data-lang="ja">直前キャンセルは厳禁</span></li>
+          <li><span data-lang="en" class="active">No-shows are not tolerated</span><span data-lang="es">Las ausencias sin aviso no se toleran</span><span data-lang="ja">無断欠席は不可</span></li>
+          <li><span data-lang="en" class="active">Violations = permanent disqualification from all future projects</span><span data-lang="es">Las violaciones = descalificación permanente de todos los proyectos futuros</span><span data-lang="ja">違反者は今後の案件への参加不可</span></li>
+        </ul>
+      </div>
+
+      <div class="rule-card critical reveal">
+        <h3><span data-lang="en" class="active">⚠ On-Set Rules</span><span data-lang="es">⚠ Reglas en el Set</span><span data-lang="ja">⚠ 現場ルール</span></h3>
+        <ul class="rule-list">
+          <li><span data-lang="en" class="active">Follow all staff instructions at all times</span><span data-lang="es">Sigue las instrucciones del personal en todo momento</span><span data-lang="ja">スタッフの指示に必ず従うこと</span></li>
+          <li><span data-lang="en" class="active">No personal photos or videos on set</span><span data-lang="es">Sin fotos ni videos personales en el set</span><span data-lang="ja">現場での写真・動画撮影禁止</span></li>
+          <li><span data-lang="en" class="active">Do not post shoot information on social media</span><span data-lang="es">No publiques información del rodaje en redes sociales</span><span data-lang="ja">撮影情報のSNS投稿禁止</span></li>
+          <li><span data-lang="en" class="active">Do not join the WhatsApp group without being invited</span><span data-lang="es">No te unas al grupo de WhatsApp sin ser invitado/a</span><span data-lang="ja">無断グループ参加禁止</span></li>
+        </ul>
+      </div>
+
+      <div class="rule-card important reveal">
+        <h3><span data-lang="en" class="active">Selection &amp; Communication</span><span data-lang="es">Selección y Comunicación</span><span data-lang="ja">選考と連絡について</span></h3>
+        <ul class="rule-list">
+          <li><span data-lang="en" class="active">Slow replies may reduce your chance of selection</span><span data-lang="es">Las respuestas lentas reducen tus posibilidades de selección</span><span data-lang="ja">返信が遅い場合は採用されにくくなります</span></li>
+          <li><span data-lang="en" class="active">History of lateness or cancellations = automatic disqualification</span><span data-lang="es">Historial de tardanzas o cancelaciones = descalificación automática</span><span data-lang="ja">遅刻歴・ドタキャン歴がある方は採用不可</span></li>
+          <li><span data-lang="en" class="active">Only rule-compliant participants continue to be selected</span><span data-lang="es">Solo los participantes que siguen las reglas seguirán siendo seleccionados</span><span data-lang="ja">ルールを守れる人のみ採用が継続されます</span></li>
+        </ul>
+      </div>
+
+      <div class="rule-card info reveal">
+        <h3><span data-lang="en" class="active">Language on Set</span><span data-lang="es">Idioma en el Set</span><span data-lang="ja">現場での言語</span></h3>
+        <ul class="rule-list">
+          <li><span data-lang="en" class="active">Fluent Japanese is not required</span><span data-lang="es">No se requiere japonés fluido</span><span data-lang="ja">日本語が流暢でなくても問題ありません</span></li>
+          <li><span data-lang="en" class="active">Understanding simple instructions helps — e.g. "please go that way," "please sit down," "please run"</span><span data-lang="es">Entender instrucciones simples ayuda — ej. "ve por allá," "siéntate," "corre"</span><span data-lang="ja">「あちらへどうぞ」「座ってください」「走ってください」などの簡単な指示が理解できると参加しやすくなります</span></li>
+          <li><span data-lang="en" class="active">Staff communicates in English and Spanish</span><span data-lang="es">El personal se comunica en inglés y español</span><span data-lang="ja">スタッフは英語・スペイン語でサポートします</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ PAYMENT & CONDITIONS ════ -->
+<section class="section" id="payment">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">Payment &amp; <span>Conditions</span></span>
+      <span data-lang="es">Pago y <span>Condiciones</span></span>
+      <span data-lang="ja">報酬・<span>条件について</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <p class="section-sub reveal">
+      <span data-lang="en" class="active">Everything you need to know before committing</span>
+      <span data-lang="es">Todo lo que necesitas saber antes de comprometerte</span>
+      <span data-lang="ja">参加前に確認しておくべきこと</span>
+    </p>
+    <div class="payment-grid">
+
+      <div class="payment-card reveal">
+        <div class="payment-card-icon">🏦</div>
+        <h3><span data-lang="en" class="active">Payment Method</span><span data-lang="es">Método de Pago</span><span data-lang="ja">支払い方法</span></h3>
+        <p><span data-lang="en" class="active"><strong>Bank transfer only.</strong> A Japanese bank account is required. No cash payments.</span><span data-lang="es"><strong>Solo transferencia bancaria.</strong> Se requiere cuenta bancaria japonesa. Sin pagos en efectivo.</span><span data-lang="ja"><strong>銀行振込のみ。</strong>日本の銀行口座が必要です。現金払いは行いません。</span></p>
+      </div>
+
+      <div class="payment-card reveal">
+        <div class="payment-card-icon">📅</div>
+        <h3><span data-lang="en" class="active">Payment Schedule</span><span data-lang="es">Calendario de Pago</span><span data-lang="ja">支払いスケジュール</span></h3>
+        <p><span data-lang="en" class="active"><strong>End-of-month closing.</strong> Paid on the <strong>10th of the following month.</strong><br>Example: April work → paid May 10th.</span><span data-lang="es"><strong>Cierre a fin de mes.</strong> Pago el <strong>día 10 del mes siguiente.</strong><br>Ejemplo: trabajo en abril → pagado el 10 de mayo.</span><span data-lang="ja"><strong>月末締め。</strong>翌月<strong>10日払い。</strong><br>例：4月参加分 → 5月10日振込。</span></p>
+      </div>
+
+      <div class="payment-card reveal">
+        <div class="payment-card-icon">🚃</div>
+        <h3><span data-lang="en" class="active">Transportation</span><span data-lang="es">Transporte</span><span data-lang="ja">交通費</span></h3>
+        <p><span data-lang="en" class="active">Transportation costs are <strong>generally not covered.</strong> Please budget your own travel to and from the shoot location.</span><span data-lang="es">Los costos de transporte <strong>generalmente no están cubiertos.</strong> Por favor presupuesta tu propio transporte.</span><span data-lang="ja">交通費は<strong>基本的に支給されません。</strong>集合場所までの交通費はご自身でご負担ください。</span></p>
+        <span class="warn-tag"><span data-lang="en" class="active">Generally not covered</span><span data-lang="es">Generalmente no cubierto</span><span data-lang="ja">基本支給なし</span></span>
+      </div>
+
+      <div class="payment-card reveal">
+        <div class="payment-card-icon">📋</div>
+        <h3><span data-lang="en" class="active">Eligibility</span><span data-lang="es">Elegibilidad</span><span data-lang="ja">参加資格</span></h3>
+        <p><span data-lang="en" class="active">Must be living in Japan with a valid visa. Eligible activities may vary by visa type — please verify your status before applying.</span><span data-lang="es">Debes vivir en Japón con visa válida. Las actividades elegibles varían según el tipo de visa — verifica tu situación antes de aplicar.</span><span data-lang="ja">日本在住で有効なビザをお持ちの方が対象です。ビザの種類によって参加できる範囲が異なります。応募前にご確認ください。</span></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ PAST WORKS ════ -->
+<section class="section section-alt" id="works">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">Past <span>Productions</span></span>
+      <span data-lang="es">Producciones <span>Anteriores</span></span>
+      <span data-lang="ja">過去の<span>参加実績</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <p class="section-sub reveal">
+      <span data-lang="en" class="active">Examples of past projects — these are not current openings</span>
+      <span data-lang="es">Ejemplos de proyectos pasados — no son convocatorias actuales</span>
+      <span data-lang="ja">過去に参加した作品の一部です。現在の募集案件ではありません</span>
+    </p>
+    <div class="works-grid reveal">
+
+      <div class="work-item">
+        <span class="work-type">Short Film</span>
+        <div class="work-title">NOVA</div>
+        <div class="work-platform">ABEMA</div>
+        <div class="work-meta">2024 · Gunma</div>
+      </div>
+
+      <div class="work-item">
+        <span class="work-type">Drama</span>
+        <div class="work-title">透明なわたしたち</div>
+        <div class="work-platform">Netflix / ABEMA</div>
+        <div class="work-meta">2024 · Tochigi</div>
+      </div>
+
+      <div class="work-item">
+        <span class="work-type">Film</span>
+        <div class="work-title">ガス人間</div>
+        <div class="work-platform">Netflix</div>
+        <div class="work-meta">2024–2025 · Gunma / Shibuya / Shinjuku</div>
+      </div>
+
+      <div class="work-item">
+        <span class="work-type">Commercial</span>
+        <div class="work-title">大塚製薬<br>カロリーメイト</div>
+        <div class="work-platform">TV</div>
+        <div class="work-meta">2024 · Gunma</div>
+      </div>
+
+      <div class="work-item">
+        <span class="work-type">Drama</span>
+        <div class="work-title">東京サラダボウル</div>
+        <div class="work-platform">TV</div>
+        <div class="work-meta">2024 · Shinjuku</div>
+      </div>
+
+      <div class="work-item">
+        <span class="work-type">Film</span>
+        <div class="work-title">汝、星のごとく</div>
+        <div class="work-platform">Theaters</div>
+        <div class="work-meta">2025 · Shinjuku</div>
+      </div>
+
+      <div class="work-item">
+        <span class="work-type">Film</span>
+        <div class="work-title">This is I</div>
+        <div class="work-platform">Netflix / Theaters</div>
+        <div class="work-meta">2025 · Chiba · #1 Netflix JP</div>
+      </div>
+
+    </div>
+    <p class="works-note">
+      <span data-lang="en" class="active">These are examples of past participation only. Rr.production's has also worked on other projects that cannot be publicly disclosed. Results and availability vary by project.</span>
+      <span data-lang="es">Estos son solo ejemplos de participación pasada. Rr.production's también ha participado en otros proyectos que no se pueden divulgar. Los resultados varían según el proyecto.</span>
+      <span data-lang="ja">これらは過去参加実績の一部です。公開できない案件も複数あります。参加の内容・条件は案件ごとに異なります。</span>
+    </p>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="section" id="faq">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">Frequently Asked <span>Questions</span></span>
+      <span data-lang="es">Preguntas <span>Frecuentes</span></span>
+      <span data-lang="ja">よくある<span>質問</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <div style="height:40px"></div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">Can I apply if I don't speak Japanese?</span>
+          <span data-lang="es">¿Puedo aplicar si no hablo japonés?</span>
+          <span data-lang="ja">日本語が話せなくても応募できますか？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">Fluent Japanese is not required. However, understanding simple on-set instructions — such as "please go that way," "please sit down," or "please run" — will help you participate more smoothly. Our staff communicates in English and Spanish.</span>
+          <span data-lang="es">No se requiere japonés fluido. Sin embargo, poder entender instrucciones simples — como "ve por allá," "siéntate" o "corre" — te ayudará a participar más fluidamente. Nuestro personal se comunica en inglés y español.</span>
+          <span data-lang="ja">流暢な日本語は不要です。ただし、「あちらへどうぞ」「座ってください」「走ってください」などの簡単な指示が理解できると、現場での参加がスムーズになります。スタッフは英語・スペイン語でサポートします。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">Is there a registration or participation fee?</span>
+          <span data-lang="es">¿Hay una tarifa de registro o participación?</span>
+          <span data-lang="ja">応募・登録に費用はかかりますか？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">No. Registration and participation are completely free. You receive payment for your work — you are never asked to pay anything. If anyone asks you for money claiming to be from Rr.production's, it is a scam.</span>
+          <span data-lang="es">No. El registro y la participación son completamente gratuitos. Recibes pago por tu trabajo — nunca se te pedirá que pagues. Si alguien te pide dinero afirmando ser de Rr.production's, es una estafa.</span>
+          <span data-lang="ja">いいえ。応募・登録は完全無料です。報酬を受け取る立場であり、費用を請求されることは一切ありません。Rr.production'sを名乗り金銭を要求するものは詐欺です。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">How does the selection process work?</span>
+          <span data-lang="es">¿Cómo funciona el proceso de selección?</span>
+          <span data-lang="ja">選考はどのように行われますか？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">We review all applications based on each project's requirements (look, age, nationality, availability, etc.). Only selected participants are contacted. If you don't hear back, this project wasn't a match — please apply again for future projects. Reliability and response speed are also taken into account.</span>
+          <span data-lang="es">Revisamos todas las aplicaciones según los requisitos del proyecto (apariencia, edad, nacionalidad, disponibilidad, etc.). Solo los seleccionados son contactados. Si no recibes respuesta, aplica de nuevo para proyectos futuros. La fiabilidad y la velocidad de respuesta también se consideran.</span>
+          <span data-lang="ja">各案件の要件（見た目・年齢・国籍・スケジュール等）をもとに全応募を確認します。採用者のみご連絡します。返信がない場合は今回のプロジェクトとマッチしなかったためです。返信速度や信頼性も選考基準に含まれます。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">When do I find out the shoot details?</span>
+          <span data-lang="es">¿Cuándo me entero de los detalles del rodaje?</span>
+          <span data-lang="ja">撮影詳細はいつ分かりますか？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">Shoot details — exact meeting point, call time, and wardrobe — are shared in the WhatsApp group the day before the shoot. This is our standard process for all projects. If you need details well in advance, this system may not be a good fit.</span>
+          <span data-lang="es">Los detalles del rodaje — punto de encuentro exacto, hora de llamada y vestuario — se comparten en el grupo de WhatsApp el día anterior. Este es nuestro proceso estándar. Si necesitas los detalles con mucha anticipación, este sistema puede no ser adecuado para ti.</span>
+          <span data-lang="ja">集合場所・集合時間・服装指定などは、撮影前日にWhatsAppグループで共有されます。これがすべての案件における標準の運用です。事前に詳細が必要な方には向かない運用かもしれません。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">How and when am I paid?</span>
+          <span data-lang="es">¿Cómo y cuándo se me paga?</span>
+          <span data-lang="ja">報酬はいつ・どのように支払われますか？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">Payment is via bank transfer only. Billing closes at end of month, and payment is sent on the 10th of the following month. Example: work in April → paid May 10th. A Japanese bank account is required to receive payment.</span>
+          <span data-lang="es">El pago es solo por transferencia bancaria. La facturación cierra a fin de mes, y el pago se envía el día 10 del mes siguiente. Ejemplo: trabajo en abril → pago el 10 de mayo. Se requiere cuenta bancaria japonesa.</span>
+          <span data-lang="ja">銀行振込のみです。月末締め・翌月10日払い。例：4月参加分 → 5月10日振込。日本の銀行口座が必要です。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">Is transportation covered?</span>
+          <span data-lang="es">¿El transporte está cubierto?</span>
+          <span data-lang="ja">交通費は支給されますか？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">Transportation costs are generally not covered. Please plan and fund your own travel to and from the shoot location. Factor this in when deciding whether to apply for a specific project.</span>
+          <span data-lang="es">Los costos de transporte generalmente no están cubiertos. Por favor planifica y financia tu propio viaje. Ten esto en cuenta al decidir si aplicar para un proyecto específico.</span>
+          <span data-lang="ja">交通費は基本的に支給されません。集合場所までの交通費はご自身でご負担ください。特定の案件への応募を検討する際はこの点をご考慮ください。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">What if I need to cancel after being confirmed?</span>
+          <span data-lang="es">¿Qué pasa si necesito cancelar después de ser confirmado/a?</span>
+          <span data-lang="ja">採用確定後にキャンセルしたい場合は？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">Last-minute cancellations are strictly prohibited. Once added to the WhatsApp group (confirmed), cancellation is not accepted except in genuine emergencies. A history of cancellations will permanently disqualify you from future projects. Only apply if you are confident you can commit.</span>
+          <span data-lang="es">Las cancelaciones de última hora están estrictamente prohibidas. Una vez añadido/a al grupo (confirmado/a), la cancelación no se acepta salvo emergencias genuinas. Un historial de cancelaciones te descalificará permanentemente. Solo aplica si estás seguro/a de poder comprometerte.</span>
+          <span data-lang="ja">直前キャンセルは厳禁です。WhatsAppグループに追加（採用確定）後のキャンセルは、真に緊急の事情を除き受け付けられません。キャンセル歴がある方は今後の参加が不可となります。参加できる確証がある場合のみ応募してください。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="en" class="active">Can I post about it on social media?</span>
+          <span data-lang="es">¿Puedo publicar sobre esto en redes sociales?</span>
+          <span data-lang="ja">SNSに投稿してもいいですか？</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <span data-lang="en" class="active">No. Posting shoot information — location, production name, photos, or footage — on social media is strictly prohibited. Please respect the confidentiality of all productions. Violations may result in permanent disqualification.</span>
+          <span data-lang="es">No. Publicar información del rodaje — ubicación, nombre de la producción, fotos o videos — en redes sociales está estrictamente prohibido. Respeta la confidencialidad de todas las producciones. Las violaciones pueden resultar en descalificación permanente.</span>
+          <span data-lang="ja">いいえ。撮影場所・作品名・写真・動画などの撮影情報のSNS投稿は厳禁です。すべての作品の守秘義務を守ってください。違反した場合は今後の参加が永久に不可となります。</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:60px;">
+      <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-wa-main">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+        <span data-lang="en" class="active">Apply via WhatsApp</span>
+        <span data-lang="es">Aplicar por WhatsApp</span>
+        <span data-lang="ja">WhatsAppで応募する</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════ FINAL CTA ════ -->
+<section class="section" id="apply">
+  <div class="container">
+    <div class="apply-inner">
+      <div class="hero-tag" style="margin-bottom:24px;">
+        <span data-lang="en" class="active">Ready to Join?</span>
+        <span data-lang="es">¿Listo/a para Unirte?</span>
+        <span data-lang="ja">参加しませんか？</span>
+      </div>
+      <h2 class="reveal">
+        <span data-lang="en" class="active">Apply for <span>Upcoming Projects</span></span>
+        <span data-lang="es">Aplica para <span>Próximos Proyectos</span></span>
+        <span data-lang="ja">次の案件に<span>応募する</span></span>
+      </h2>
+      <p class="reveal">
+        <span data-lang="en" class="active">Send your info via WhatsApp. We'll be in touch if there's a project match. No experience needed — we look for reliability, punctuality, and the right look.</span>
+        <span data-lang="es">Envía tu información por WhatsApp. Te contactaremos si hay un proyecto compatible. Sin experiencia — buscamos fiabilidad, puntualidad y la apariencia correcta.</span>
+        <span data-lang="ja">WhatsAppで情報を送ってください。プロジェクトにマッチした場合はご連絡します。未経験OK。信頼性・時間厳守・見た目が選考の基準です。</span>
+      </p>
+      <div class="apply-checks reveal">
+        <span class="apply-check"><span data-lang="en" class="active">No experience needed</span><span data-lang="es">Sin experiencia</span><span data-lang="ja">未経験OK</span></span>
+        <span class="apply-check"><span data-lang="en" class="active">Free to apply</span><span data-lang="es">Gratis aplicar</span><span data-lang="ja">応募無料</span></span>
+        <span class="apply-check"><span data-lang="en" class="active">WhatsApp only</span><span data-lang="es">Solo WhatsApp</span><span data-lang="ja">WhatsAppのみ</span></span>
+        <span class="apply-check"><span data-lang="en" class="active">EN / ES / JA support</span><span data-lang="es">Soporte EN / ES / JA</span><span data-lang="ja">英語・西語・日本語対応</span></span>
+      </div>
+      <div class="reveal">
+        <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-wa-main">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+          <span data-lang="en" class="active">Apply via WhatsApp</span>
+          <span data-lang="es">Aplicar por WhatsApp</span>
+          <span data-lang="ja">WhatsAppで応募する</span>
+        </a>
+      </div>
+      <p class="apply-nodm reveal">
+        <span data-lang="en" class="active">⚠ DM applications are not accepted. WhatsApp only: wa.me/817085101040</span>
+        <span data-lang="es">⚠ No se aceptan aplicaciones por DM. Solo WhatsApp: wa.me/817085101040</span>
+        <span data-lang="ja">⚠ DM応募不可。WhatsAppのみ: wa.me/817085101040</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">Rr.production's</div>
+    <p class="footer-copy" style="margin-top:6px;">
+      <span data-lang="en" class="active">Foreign Extra Casting Japan | Kanto Region &amp; Nationwide</span>
+      <span data-lang="es">Casting de Extras Extranjeros Japón | Región Kanto y Todo el País</span>
+      <span data-lang="ja">外国人エキストラキャスティング | 関東中心・全国対応</span>
+    </p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#how">How It Works</a>
+      <a href="#rules">Rules</a>
+      <a href="#works">Past Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://wa.me/817085101040" target="_blank" rel="noopener">Apply</a>
+    </div>
+    <p class="footer-copy">© 2025 Rr.production's. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  /* ── Language switcher ── */
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.toggle('active', el.dataset.lang === lang);
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+    document.documentElement.lang = lang === 'ja' ? 'ja' : lang === 'es' ? 'es' : 'en';
+  }
+
+  /* Init English on load */
+  setLang('en');
+
+  /* ── Mobile nav ── */
+  function toggleMenu() {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  }
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  /* ── Scroll reveal ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── Sticky CTA: show on mobile after hero scrolls out ── */
+  if (window.innerWidth <= 768) {
+    const stickyCta = document.getElementById('sticky-cta');
+    const heroEl = document.getElementById('hero');
+    const applyEl = document.getElementById('apply');
+
+    const stickyObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.target === heroEl || e.target === applyEl) {
+          stickyCta.style.display = e.isIntersecting ? 'none' : 'block';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    stickyObs.observe(heroEl);
+    stickyObs.observe(applyEl);
+  }
+</script>
+
+</body>
+</html>
