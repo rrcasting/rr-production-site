@@ -60,7 +60,7 @@
 
     /* ── NAV BAR ── */
     #lang-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
       background: rgba(13,13,13,0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -74,12 +74,14 @@
     .logo {
       font-size: 1.1rem; font-weight: 700;
       letter-spacing: 0.06em; color: var(--gold);
-      white-space: nowrap; flex-shrink: 0;
+      white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis;
     }
     .logo small { color: var(--muted); font-weight: 300; font-size: 0.68em; margin-left: 4px; }
-    .lang-btns { display: flex; gap: 6px; }
+    .lang-btns { display: flex; gap: 6px; flex-shrink: 0; }
     .lang-btn {
-      padding: 4px 12px;
+      padding: 8px 14px;
+      min-height: 40px;
+      min-width: 44px;
       border: 1px solid rgba(201,168,76,0.4);
       border-radius: 20px;
       background: transparent;
@@ -88,6 +90,10 @@
       font-size: 0.75rem; font-weight: 600;
       letter-spacing: 0.05em;
       transition: all 0.2s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      z-index: 1;
     }
     .lang-btn:hover, .lang-btn.active {
       background: var(--gold); border-color: var(--gold); color: var(--dark);
@@ -102,7 +108,11 @@
     .hamburger {
       display: none; background: none; border: none;
       cursor: pointer; color: var(--light);
-      font-size: 1.4rem; padding: 4px;
+      font-size: 1.4rem; padding: 8px;
+      min-height: 40px; min-width: 40px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
     }
     .mobile-nav {
       display: none; flex-direction: column;
@@ -483,10 +493,14 @@
       .section { padding: 72px 0; }
       footer { padding-bottom: 90px; }
       #sticky-cta { display: block; }
+      .lang-inner { padding: 0 12px; gap: 8px; }
+      .logo { font-size: 0.95rem; min-width: 0; flex: 1 1 0; overflow: hidden; text-overflow: ellipsis; }
+      .logo small { display: none; }
     }
     @media (max-width: 480px) {
       .hero-title { font-size: 2.1rem; }
       .send-box { padding: 28px 20px; }
+      .lang-btn { padding: 8px 10px; min-width: 40px; font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -1192,6 +1206,14 @@
 
   /* Init English on load */
   setLang('en');
+
+  /* ── Bind lang buttons via addEventListener for reliable Android tap ── */
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const lang = this.textContent.trim().toLowerCase();
+      setLang(lang);
+    });
+  });
 
   /* ── Mobile nav ── */
   function toggleMenu() {
