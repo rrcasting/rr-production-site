@@ -460,6 +460,82 @@
     .apply-check::before { content: '✓'; color: var(--green); font-weight: 700; }
     .apply-nodm { margin-top: 20px; font-size: 0.78rem; color: var(--muted); }
 
+    /* ── LATEST CASTING ── */
+    #casting {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 60%),
+        var(--dark3);
+    }
+    .casting-desc {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: rgba(245,245,240,0.82);
+    }
+    .casting-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin: 0 auto 44px;
+      max-width: 420px;
+      line-height: 1.75;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 22px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.03);
+    }
+    .casting-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .btn-sns {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.25s;
+      border: none;
+      cursor: pointer;
+      min-width: 188px;
+      justify-content: center;
+      text-decoration: none;
+      color: #fff;
+    }
+    .btn-sns:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+    .btn-ig {
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+    .btn-ig:hover { box-shadow: 0 12px 32px rgba(220,39,67,0.4); }
+    .btn-fb { background: #1877F2; }
+    .btn-fb:hover { background: #1464d4; box-shadow: 0 12px 32px rgba(24,119,242,0.4); }
+    .btn-wa-casting {
+      background: var(--green);
+      box-shadow: 0 4px 20px rgba(37,211,102,0.28);
+    }
+    .btn-wa-casting:hover {
+      background: var(--green-dk);
+      box-shadow: 0 12px 32px rgba(37,211,102,0.45);
+    }
+    .casting-fomo {
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(245,245,240,0.38);
+      margin-top: 8px;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 580px) {
+      .casting-btns { flex-direction: column; align-items: stretch; }
+      .btn-sns { min-width: unset; width: 100%; font-size: 1rem; padding: 18px 20px; border-radius: 12px; }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--dark);
@@ -525,6 +601,7 @@
       <a href="#how"     class="nav-link">How It Works</a>
       <a href="#rules"   class="nav-link">Rules</a>
       <a href="#works"   class="nav-link">Past Works</a>
+      <a href="#casting" class="nav-link">Casting</a>
       <a href="#faq"     class="nav-link">FAQ</a>
       <a href="#apply"   class="nav-link">Apply</a>
     </nav>
@@ -541,8 +618,9 @@
     <a href="#about"  onclick="toggleMenu()">About</a>
     <a href="#how"    onclick="toggleMenu()">How It Works</a>
     <a href="#rules"  onclick="toggleMenu()">Rules</a>
-    <a href="#works"  onclick="toggleMenu()">Past Works</a>
-    <a href="#faq"    onclick="toggleMenu()">FAQ</a>
+    <a href="#works"   onclick="toggleMenu()">Past Works</a>
+    <a href="#casting" onclick="toggleMenu()">Casting</a>
+    <a href="#faq"     onclick="toggleMenu()">FAQ</a>
     <a href="#apply"  onclick="toggleMenu()">Apply Now</a>
   </div>
 </div>
@@ -988,6 +1066,69 @@
   </div>
 </section>
 
+<!-- ════ LATEST CASTING ════ -->
+<section class="section section-alt" id="casting">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">Latest <span>Casting</span></span>
+      <span data-lang="es">Casting <span>Reciente</span></span>
+      <span data-lang="ja">最新<span>募集情報</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <div style="height:40px"></div>
+
+    <p class="casting-desc reveal">
+      <span data-lang="en" class="active">For the latest casting opportunities, please check our social media.<br>All new projects are posted on Instagram and Facebook.<br>Applications are accepted via WhatsApp only.</span>
+      <span data-lang="es">Para las últimas oportunidades de casting, consulta nuestras redes sociales.<br>Todos los nuevos proyectos se publican en Instagram y Facebook.<br>Las solicitudes se aceptan solo por WhatsApp.</span>
+      <span data-lang="ja">最新の募集情報はSNSをご確認ください。<br>新規案件はInstagramとFacebookに掲載されます。<br>応募はWhatsAppのみ受け付けています。</span>
+    </p>
+
+    <div class="casting-note reveal">
+      <span data-lang="en" class="active">Full details (location, schedule, wardrobe)<br>are shared only with selected participants.</span>
+      <span data-lang="es">Los detalles completos (ubicación, horario, vestuario)<br>se comparten solo con los participantes seleccionados.</span>
+      <span data-lang="ja">詳細情報（場所・スケジュール・衣装）は<br>選ばれた参加者にのみ共有されます。</span>
+    </div>
+
+    <div class="casting-btns reveal">
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/rrproduction_casting?igsh=MWg0dWI1MWdtd3AyaQ==" target="_blank" rel="noopener" class="btn-sns btn-ig">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>
+          <span data-lang="en" class="active">View Latest Posts</span>
+          <span data-lang="es">Ver Últimas Posts</span>
+          <span data-lang="ja">最新投稿を見る</span>
+        </span>
+      </a>
+
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/share/18HoJeMUm5/" target="_blank" rel="noopener" class="btn-sns btn-fb">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <span>
+          <span data-lang="en" class="active">Check Updates</span>
+          <span data-lang="es">Ver Actualizaciones</span>
+          <span data-lang="ja">最新情報をチェック</span>
+        </span>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-sns btn-wa-casting">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+        <span>
+          <span data-lang="en" class="active">Apply via WhatsApp</span>
+          <span data-lang="es">Aplicar por WhatsApp</span>
+          <span data-lang="ja">WhatsAppで応募する</span>
+        </span>
+      </a>
+    </div>
+
+    <p class="casting-fomo reveal">
+      <span data-lang="en" class="active">Some projects may be filled quickly — check our social media regularly.</span>
+      <span data-lang="es">Algunos proyectos pueden cubrirse rápidamente. Consulta nuestras redes con frecuencia.</span>
+      <span data-lang="ja">案件はすぐに埋まる場合があります。SNSを定期的にチェックしてください。</span>
+    </p>
+  </div>
+</section>
+
 <!-- ════ FAQ ════ -->
 <section class="section" id="faq">
   <div class="container">
@@ -1182,6 +1323,7 @@
       <a href="#how">How It Works</a>
       <a href="#rules">Rules</a>
       <a href="#works">Past Works</a>
+      <a href="#casting">Casting</a>
       <a href="#faq">FAQ</a>
       <a href="https://wa.me/817085101040" target="_blank" rel="noopener">Apply</a>
     </div>
