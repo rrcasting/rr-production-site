@@ -221,6 +221,21 @@
       letter-spacing: 0.02em;
     }
     .no-dm-notice strong { color: rgba(240,237,230,0.52); }
+    .hero-info-badges {
+      display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+      margin-top: 22px; margin-bottom: 4px;
+    }
+    .hero-info-badge {
+      font-size: 0.68rem; color: rgba(240,237,230,0.35);
+      letter-spacing: 0.08em;
+    }
+    .section-eyebrow {
+      display: block; text-align: center;
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.75;
+      margin-bottom: 14px;
+    }
     .platform-wrap {
       margin-top: 60px; padding-top: 32px;
       border-top: 1px solid rgba(255,255,255,0.055);
@@ -737,9 +752,9 @@
     </h1>
 
     <p class="hero-desc">
-      <span data-lang="en" class="active">We cast international extras for Japanese productions. No experience needed. Selection-based. Applications via WhatsApp only.</span>
-      <span data-lang="es">Convocamos extras internacionales para producciones japonesas. Sin experiencia. Selección rigurosa. Solo por WhatsApp.</span>
-      <span data-lang="ja">外国人エキストラを中心に募集しています。未経験歓迎・選考制・応募はWhatsAppのみ。</span>
+      <span data-lang="en" class="active">Step into Japan's films, dramas, and commercials as an international extra. No experience needed. Selection-based — not everyone is accepted. Applications via WhatsApp only.</span>
+      <span data-lang="es">Participa en películas, dramas y comerciales japoneses como extra internacional. Sin experiencia. Selección rigurosa — no todos son aceptados. Solo por WhatsApp.</span>
+      <span data-lang="ja">日本の映画・ドラマ・CMに外国人エキストラとして参加しませんか。未経験歓迎・選考制・応募はWhatsAppのみ。</span>
     </p>
 
     <div style="margin-bottom:12px;">
@@ -755,6 +770,19 @@
       <span data-lang="en" class="active"><strong>WhatsApp only.</strong> No DM applications accepted.</span>
       <span data-lang="es"><strong>Solo WhatsApp.</strong> No se aceptan DMs.</span>
       <span data-lang="ja"><strong>WhatsAppのみ。</strong> DM応募不可。</span>
+    </div>
+
+    <div class="hero-info-badges">
+      <span class="hero-info-badge">
+        <span data-lang="en" class="active">✦ Selected participants only</span>
+        <span data-lang="es">✦ Solo participantes seleccionados</span>
+        <span data-lang="ja">✦ 選考制・採用者のみ連絡</span>
+      </span>
+      <span class="hero-info-badge">
+        <span data-lang="en" class="active">✦ Details shared the day before</span>
+        <span data-lang="es">✦ Detalles compartidos el día anterior</span>
+        <span data-lang="ja">✦ 詳細は前日に共有</span>
+      </span>
     </div>
 
     <div class="platform-wrap">
@@ -777,6 +805,7 @@
 <!-- ════ ABOUT ════ -->
 <section class="section section-alt" id="about">
   <div class="container">
+    <span class="section-eyebrow reveal">About</span>
     <div class="about-grid">
       <div class="trust-box reveal">
         <div class="trust-item">
@@ -880,6 +909,7 @@
 <!-- ════ HOW IT WORKS ════ -->
 <section class="section section-alt" id="how">
   <div class="container">
+    <span class="section-eyebrow reveal">The Process</span>
     <h2 class="section-title reveal">
       <span data-lang="en" class="active">How It <span>Works</span></span>
       <span data-lang="es">Cómo <span>Funciona</span></span>
@@ -985,6 +1015,7 @@
 <!-- ════ RULES ════ -->
 <section class="section section-alt" id="rules">
   <div class="container">
+    <span class="section-eyebrow reveal">Production Standards</span>
     <h2 class="section-title reveal">
       <span data-lang="en" class="active">Before You <span>Apply</span></span>
       <span data-lang="es">Antes de <span>Aplicar</span></span>
@@ -1088,16 +1119,17 @@
 <!-- ════ PAST WORKS ════ -->
 <section class="section section-alt" id="works">
   <div class="container">
+    <span class="section-eyebrow reveal">Track Record</span>
     <h2 class="section-title reveal">
-      <span data-lang="en" class="active">Past <span>Productions</span></span>
-      <span data-lang="es">Producciones <span>Anteriores</span></span>
+      <span data-lang="en" class="active">Selected <span>Works</span></span>
+      <span data-lang="es">Trabajos <span>Seleccionados</span></span>
       <span data-lang="ja">過去の<span>参加実績</span></span>
     </h2>
     <div class="gold-line reveal"></div>
     <p class="section-sub reveal">
-      <span data-lang="en" class="active">Examples of past projects — these are not current openings</span>
-      <span data-lang="es">Ejemplos de proyectos pasados — no son convocatorias actuales</span>
-      <span data-lang="ja">過去に参加した作品の一部です。現在の募集案件ではありません</span>
+      <span data-lang="en" class="active">Past projects only — not current openings. Rr.production's has placed international extras in the following productions.</span>
+      <span data-lang="es">Solo proyectos pasados — no son convocatorias actuales. Rr.production's ha colocado extras internacionales en las siguientes producciones.</span>
+      <span data-lang="ja">過去に参加した作品の一部です。現在の募集案件ではありません。以下の作品にエキストラを手配しています。</span>
     </p>
     <div class="works-grid reveal">
 
@@ -1162,6 +1194,7 @@
 <!-- ════ CAST GALLERY ════ -->
 <section class="section" id="gallery">
   <div class="container">
+    <span class="section-eyebrow reveal">On Location</span>
     <h2 class="section-title reveal">
       <span data-lang="en" class="active">Real Extras. <span>Real Shoots.</span></span>
       <span data-lang="es">Extras Reales. <span>Rodajes Reales.</span></span>
@@ -1213,6 +1246,7 @@
 <!-- ════ LATEST CASTING ════ -->
 <section class="section section-alt" id="casting">
   <div class="container">
+    <span class="section-eyebrow reveal">Open Calls</span>
     <h2 class="section-title reveal">
       <span data-lang="en" class="active">Latest <span>Casting</span></span>
       <span data-lang="es">Casting <span>Reciente</span></span>
@@ -1222,9 +1256,9 @@
     <div style="height:40px"></div>
 
     <p class="casting-desc reveal">
-      <span data-lang="en" class="active">For the latest casting opportunities, please check our social media.<br>All new projects are posted on Instagram and Facebook.<br>Applications are accepted via WhatsApp only.</span>
-      <span data-lang="es">Para las últimas oportunidades de casting, consulta nuestras redes sociales.<br>Todos los nuevos proyectos se publican en Instagram y Facebook.<br>Las solicitudes se aceptan solo por WhatsApp.</span>
-      <span data-lang="ja">最新の募集情報はSNSをご確認ください。<br>新規案件はInstagramとFacebookに掲載されます。<br>応募はWhatsAppのみ受け付けています。</span>
+      <span data-lang="en" class="active">Latest casting calls are posted on our Instagram and Facebook.<br>Check our social media regularly — some projects fill quickly.<br><strong>Applications are accepted via WhatsApp only.</strong></span>
+      <span data-lang="es">Las últimas convocatorias se publican en nuestro Instagram y Facebook.<br>Consulta nuestras redes con frecuencia — algunos proyectos se cubren rápido.<br><strong>Las solicitudes se aceptan solo por WhatsApp.</strong></span>
+      <span data-lang="ja">最新の募集情報はInstagramとFacebookで告知しています。<br>案件はすぐに埋まることがあります。SNSをこまめにチェックしてください。<br><strong>応募はWhatsAppのみ受け付けています。</strong></span>
     </p>
 
     <div class="casting-note reveal">
@@ -1233,34 +1267,32 @@
       <span data-lang="ja">詳細情報（場所・スケジュール・衣装）は<br>選ばれた参加者にのみ共有されます。</span>
     </div>
 
-    <div class="casting-btns reveal">
-      <!-- Instagram -->
+    <!-- WhatsApp: primary CTA -->
+    <div style="text-align:center;margin-bottom:16px;" class="reveal">
+      <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-sns btn-wa-casting" style="min-width:260px;font-size:1rem;padding:18px 36px;">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+        <span data-lang="en" class="active">Apply via WhatsApp</span>
+        <span data-lang="es">Aplicar por WhatsApp</span>
+        <span data-lang="ja">WhatsAppで応募する</span>
+      </a>
+    </div>
+
+    <!-- SNS: secondary — check latest posts -->
+    <div class="casting-btns reveal" style="margin-bottom:24px;">
       <a href="https://www.instagram.com/rrproduction_casting?igsh=MWg0dWI1MWdtd3AyaQ==" target="_blank" rel="noopener" class="btn-sns btn-ig">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         <span>
           <span data-lang="en" class="active">View Latest Posts</span>
           <span data-lang="es">Ver Últimas Posts</span>
           <span data-lang="ja">最新投稿を見る</span>
         </span>
       </a>
-
-      <!-- Facebook -->
       <a href="https://www.facebook.com/share/18HoJeMUm5/" target="_blank" rel="noopener" class="btn-sns btn-fb">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         <span>
           <span data-lang="en" class="active">Check Updates</span>
           <span data-lang="es">Ver Actualizaciones</span>
           <span data-lang="ja">最新情報をチェック</span>
-        </span>
-      </a>
-
-      <!-- WhatsApp -->
-      <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-sns btn-wa-casting">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
-        <span>
-          <span data-lang="en" class="active">Apply via WhatsApp</span>
-          <span data-lang="es">Aplicar por WhatsApp</span>
-          <span data-lang="ja">WhatsAppで応募する</span>
         </span>
       </a>
     </div>
@@ -1276,6 +1308,7 @@
 <!-- ════ FAQ ════ -->
 <section class="section" id="faq">
   <div class="container">
+    <span class="section-eyebrow reveal">Have Questions?</span>
     <h2 class="section-title reveal">
       <span data-lang="en" class="active">Frequently Asked <span>Questions</span></span>
       <span data-lang="es">Preguntas <span>Frecuentes</span></span>
@@ -1415,11 +1448,7 @@
 <section class="section" id="apply">
   <div class="container">
     <div class="apply-inner">
-      <div class="hero-tag" style="margin-bottom:24px;">
-        <span data-lang="en" class="active">Ready to Join?</span>
-        <span data-lang="es">¿Listo/a para Unirte?</span>
-        <span data-lang="ja">参加しませんか？</span>
-      </div>
+      <span class="section-eyebrow reveal">Join the Roster</span>
       <h2 class="reveal">
         <span data-lang="en" class="active">Apply for <span>Upcoming Projects</span></span>
         <span data-lang="es">Aplica para <span>Próximos Proyectos</span></span>
