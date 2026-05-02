@@ -578,6 +578,32 @@
       .send-box { padding: 28px 20px; }
       .lang-btn { padding: 8px 10px; min-width: 40px; font-size: 0.7rem; }
     }
+
+    /* ── CAST GALLERY ── */
+    .cast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .cast-img-wrap {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--dark4);
+      border: 1px solid rgba(201,168,76,0.08);
+    }
+    .cast-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+      display: block;
+    }
+    .cast-img-wrap:hover img { transform: scale(1.05); }
+    @media (max-width: 480px) {
+      .cast-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .cast-img-wrap { border-radius: 8px; }
+    }
   </style>
 </head>
 <body>
@@ -1063,6 +1089,57 @@
       <span data-lang="es">Estos son solo ejemplos de participación pasada. Rr.production's también ha participado en otros proyectos que no se pueden divulgar. Los resultados varían según el proyecto.</span>
       <span data-lang="ja">これらは過去参加実績の一部です。公開できない案件も複数あります。参加の内容・条件は案件ごとに異なります。</span>
     </p>
+  </div>
+</section>
+
+<!-- ════ CAST GALLERY ════ -->
+<section class="section" id="gallery">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span data-lang="en" class="active">Real Extras. <span>Real Shoots.</span></span>
+      <span data-lang="es">Extras Reales. <span>Rodajes Reales.</span></span>
+      <span data-lang="ja">実際の出演者たちが<span>現場に立った記録</span></span>
+    </h2>
+    <div class="gold-line reveal"></div>
+    <p class="section-sub reveal">
+      <span data-lang="en" class="active">International extras who have appeared in Japanese films, dramas, and commercials through Rr.production's</span>
+      <span data-lang="es">Extras internacionales que han participado en producciones japonesas a través de Rr.production's</span>
+      <span data-lang="ja">Rr.production'sを通じて映画・ドラマ・CMに参加した外国人エキストラたちの記録</span>
+    </p>
+
+    <div class="cast-grid reveal">
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member1.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member2.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member3.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member4.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member5.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member6.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member7.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member8.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member9.jpeg"  alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member10.jpeg" alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member11.jpeg" alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member12.jpeg" alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member13.jpeg" alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member14.jpeg" alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member15.jpeg" alt="International extra on Japanese production set" loading="lazy" /></div>
+      <div class="cast-img-wrap"><img src="assets/cast/cast_member16.jpeg" alt="International extra on Japanese production set" loading="lazy" /></div>
+    </div>
+
+    <p class="works-note" style="margin-top:24px;">
+      <span data-lang="en" class="active">Photos are from past productions only — not current casting calls. Personal names and details are not disclosed.</span>
+      <span data-lang="es">Las fotos son de producciones anteriores únicamente — no son convocatorias actuales. No se divulgan nombres ni datos personales.</span>
+      <span data-lang="ja">写真はすべて過去参加実績のものです。現在の募集案件ではありません。個人名・個人情報は掲載していません。</span>
+    </p>
+
+    <div style="text-align:center;margin-top:36px;">
+      <a href="https://wa.me/817085101040" target="_blank" rel="noopener" class="btn-wa-hero">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.078.541 4.04 1.471 5.758L.057 24l6.304-1.654a11.96 11.96 0 0 0 5.656 1.426h.004c6.617 0 11.984-5.367 11.984-11.987C24.004 5.371 18.636 0 12.017 0zm0 21.907a9.895 9.895 0 0 1-5.043-1.372l-.361-.214-3.747.982.999-3.648-.235-.374A9.872 9.872 0 0 1 2.13 11.99C2.13 6.471 6.497 2.104 12.02 2.104c2.636 0 5.112 1.027 6.978 2.892a9.825 9.825 0 0 1 2.88 6.973c-.003 5.524-4.37 9.938-9.862 9.938z"/></svg>
+        <span data-lang="en" class="active">Apply via WhatsApp</span>
+        <span data-lang="es">Aplicar por WhatsApp</span>
+        <span data-lang="ja">WhatsAppで応募する</span>
+      </a>
+    </div>
   </div>
 </section>
 
