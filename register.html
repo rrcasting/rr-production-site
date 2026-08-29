@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Rr.production's — Foreign Extras casting registration. Film & TV in Japan.">
+<title>Rr.production's — Register / Extras Casting</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --panel:#141414; --panel-2:#1c1c1c; --line:#2a2a2a;
+    --text:#f5f5f4; --muted:#a3a3a3; --accent:#ea580c; --accent-2:#fb923c;
+    --ok:#22c55e; --err:#ef4444; --radius:10px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
+  body{padding:32px 16px 80px;line-height:1.55}
+  .wrap{max-width:620px;margin:0 auto}
+  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .brand{font-weight:800;letter-spacing:.04em;font-size:14px}
+  .brand .dot{color:var(--accent)}
+  .lang{display:flex;gap:6px;background:var(--panel);padding:4px;border-radius:999px;border:1px solid var(--line)}
+  .lang button{background:none;border:0;color:var(--muted);padding:6px 12px;font-size:12px;font-weight:600;border-radius:999px;cursor:pointer;letter-spacing:.05em}
+  .lang button.on{background:var(--accent);color:#fff}
+  h1{font-size:30px;line-height:1.15;margin:0 0 10px;letter-spacing:-.01em}
+  h1 .em{color:var(--accent)}
+  .sub{color:var(--muted);margin:0 0 22px;font-size:14px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 24px}
+  .badge{font-size:11px;color:var(--muted);background:var(--panel);border:1px solid var(--line);padding:5px 10px;border-radius:999px;letter-spacing:.04em}
+  form{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .section:last-of-type{border-bottom:0;padding-bottom:0;margin-bottom:8px}
+  .section h2{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-2);margin:0 0 14px}
+  .section .opt{font-size:10px;color:var(--muted);text-transform:none;letter-spacing:.04em;font-weight:500;margin-left:6px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:520px){.row{grid-template-columns:1fr}}
+  .field{margin-bottom:12px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.02em}
+  label .req{color:var(--accent)}
+  label .opt-tag{font-size:10px;color:#737373;font-weight:500;margin-left:6px;letter-spacing:.04em}
+  input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],select,textarea{
+    width:100%;background:var(--panel-2);color:var(--text);border:1px solid var(--line);
+    border-radius:8px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;transition:border .15s
+  }
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  .hint{font-size:11px;color:var(--muted);margin-top:5px}
+  .file{position:relative;display:block;border:1px dashed var(--line);background:var(--panel-2);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .15s}
+  .file:hover{border-color:var(--accent)}
+  .file input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .file .lbl{font-size:13px;color:var(--text);font-weight:600}
+  .file .h{font-size:11px;color:var(--muted);margin-top:4px}
+  .file.has{border-style:solid;border-color:var(--ok)}
+  .file .preview{display:none;margin-top:10px}
+  .file.has .preview{display:block}
+  .file .preview img{max-width:100%;max-height:180px;border-radius:6px;display:block;margin:0 auto}
+  .file .preview .meta{font-size:11px;color:var(--muted);margin-top:6px}
+  .callout{background:var(--panel-2);border-left:3px solid var(--accent);border-radius:6px;padding:12px 14px;font-size:12px;color:var(--muted);margin:0 0 14px;line-height:1.6}
+  .callout strong{color:var(--text);display:block;margin-bottom:4px;font-size:12px}
+  .consent{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:12px;color:var(--muted);margin-bottom:14px}
+  .consent .body{margin-bottom:10px;line-height:1.6}
+  .consent label{color:var(--text);font-size:13px;display:flex;align-items:flex-start;gap:8px;cursor:pointer;margin:0}
+  .consent input{margin-top:3px;accent-color:var(--accent)}
+  button.submit{
+    width:100%;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:14px;
+    font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:background .15s
+  }
+  button.submit:hover{background:#c2410c}
+  button.submit:disabled{opacity:.6;cursor:not-allowed}
+  .global-err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:10px 12px;border-radius:8px;font-size:13px;margin-top:12px;display:none}
+  .global-err.show{display:block}
+  .done{display:none;text-align:center;padding:40px 20px}
+  .done.show{display:block}
+  .done .check{width:64px;height:64px;border-radius:50%;background:var(--ok);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff}
+  .done h2{margin:0 0 10px;font-size:22px}
+  .done p{color:var(--muted);font-size:14px;margin:6px 0}
+  footer{margin-top:32px;text-align:center;color:var(--muted);font-size:11px}
+  footer a{color:var(--muted)}
+  .notice{background:linear-gradient(180deg,#1f2937,#111);border:1px solid var(--accent-2);border-radius:10px;padding:14px 16px;margin:0 0 22px;font-size:13px}
+  .notice b{color:var(--accent-2);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px}
+  .notice p{margin:0;color:var(--text);line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Rr<span class="dot">.</span>production's</div>
+    <div class="lang" role="tablist">
+      <button data-lang="en" class="on">EN</button>
+      <button data-lang="es">ES</button>
+      <button data-lang="ja">日本語</button>
+    </div>
+  </header>
+
+  <h1 data-i18n="hero">Join film production <span class="em">in Japan</span>.</h1>
+  <p class="sub" data-i18n="sub">Foreign extras casting · Film &amp; TV · Real productions, real sets.</p>
+
+  <div class="badges">
+    <span class="badge" data-i18n="b1">No experience needed</span>
+    <span class="badge" data-i18n="b2">Foreigners welcome</span>
+    <span class="badge" data-i18n="b3">Spots are limited</span>
+    <span class="badge" data-i18n="b4">Selection based</span>
+    <span class="badge" data-i18n="b5">18 and over</span>
+  </div>
+
+  <div class="notice">
+    <b data-i18n="notice_t">First-time registration only</b>
+    <p data-i18n="notice_p">If you have already registered with us before, please do not fill out this form again. Just message us on WhatsApp and let us know you would like to be considered for the next project.</p>
+  </div>
+
+  <form id="f" novalidate>
+
+    <div class="section">
+      <h2 data-i18n="s_basic">Basic info</h2>
+      <div class="field">
+        <label><span data-i18n="l_name">Full name</span> <span class="req">*</span></label>
+        <input type="text" name="fullName" required>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_dob">Date of birth</span> <span class="req">*</span></label>
+          <input type="date" name="dob" id="dob" required>
+          <div class="hint" data-i18n="h_dob">You must be 18 or over. This is a production requirement with no exceptions.</div>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_gender">Gender</span> <span class="req">*</span></label>
+          <select name="gender" required>
+            <option value="">—</option>
+            <option value="Male" data-i18n="o_male">Male</option>
+            <option value="Female" data-i18n="o_female">Female</option>
+            <option value="Other / N/A" data-i18n="o_other">Other / N/A</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_nat">Nationality</span> <span class="req">*</span></label>
+        <input type="text" name="nationality" required>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="s_addr">Exact address in Japan</h2>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_zip">Postal code 〒</span> <span class="req">*</span></label>
+          <input type="text" name="postalCode" placeholder="150-0002" required>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_station">Nearest station</span> <span class="req">*</span></label>
+          <input type="text" name="nearestStation" required>
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_addr">Exact full address (street / building / room)</span> <span class="req">*</span></label>
+        <input type="text" name="address" required>
+        <div class="hint" data-i18n="h_addr">Building name and room number are required. Prefecture alone is not enough.</div>
+      </div>
+      <div class="field" style="max-width:240px">
+        <label><span data-i18n="l_walk">Walk from station (min)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <input type="number" name="walkMin" min="0" max="120">
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="s_visa">Visa &amp; residence card</h2>
+
+      <div class="callout">
+        <strong data-i18n="c_card_t">Why we ask for your residence card</strong>
+        <span data-i18n="c_card_p">Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image.</span>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_visa">VISA status</span> <span class="req">*</span></label>
+          <select name="visa" id="visa" required>
+            <option value="">—</option>
+            <option value="Student" data-i18n="v_student">Student</option>
+            <option value="Working" data-i18n="v_working">Working</option>
+            <option value="Working Holiday" data-i18n="v_wh">Working Holiday</option>
+            <option value="Spouse" data-i18n="v_spouse">Spouse of Japanese national</option>
+            <option value="Permanent Resident" data-i18n="v_pr">Permanent Resident</option>
+            <option value="Long-term Resident" data-i18n="v_ltr">Long-term Resident</option>
+            <option value="Dependent" data-i18n="v_dep">Dependent</option>
+            <option value="Specified Skilled" data-i18n="v_ssw">Specified Skilled Worker</option>
+            <option value="Other" data-i18n="v_other">Other</option>
+          </select>
+          <div class="hint" data-i18n="h_visa_tourist">A tourist / temporary visitor status cannot be registered — all our projects are paid work.</div>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_visa_exp">Residence card expiry date</span> <span class="req">*</span></label>
+          <input type="date" name="visaExpiry" required>
+          <div class="hint" data-i18n="h_visa_exp">Exactly as printed on your card.</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label><span data-i18n="l_permit">Permission to engage in activity other than that permitted (資格外活動許可)</span> <span class="req">*</span></label>
+        <select name="permit" required>
+          <option value="">—</option>
+          <option value="Yes" data-i18n="p_yes">Yes — it is printed on the back of my card</option>
+          <option value="No" data-i18n="p_no">No — my card does not show it</option>
+          <option value="N/A" data-i18n="p_na">Not applicable — my card says no work restrictions</option>
+        </select>
+        <div class="hint" data-i18n="h_permit">Student and Dependent visas must have this permission. Without it we cannot register you.</div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_card_f">Residence card — FRONT</span> <span class="req">*</span></label>
+          <label class="file">
+            <input type="file" name="cardFront" accept="image/*" required>
+            <div class="lbl" data-i18n="l_card_f_s">Front side</div>
+            <div class="h" data-i18n="h_tap">Tap to choose</div>
+            <div class="preview"><img alt=""><div class="meta"></div></div>
+          </label>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_card_b">Residence card — BACK</span> <span class="req">*</span></label>
+          <label class="file">
+            <input type="file" name="cardBack" accept="image/*" required>
+            <div class="lbl" data-i18n="l_card_b_s">Back side</div>
+            <div class="h" data-i18n="h_tap">Tap to choose</div>
+            <div class="preview"><img alt=""><div class="meta"></div></div>
+          </label>
+        </div>
+      </div>
+      <div class="hint" data-i18n="h_card_28">If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.</div>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="s_photo">Photos <span class="opt" data-i18n="s_photo_h">(face and full body — two separate photos)</span></h2>
+      <p class="hint" data-i18n="h_photos">A natural phone photo is fine — just make sure your face is clearly visible, with no sunglasses or hat.</p>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_photo_face">Face photo</span> <span class="req">*</span></label>
+          <label class="file">
+            <input type="file" name="photoFace" accept="image/*" required>
+            <div class="lbl" data-i18n="l_photo_face_s">Face</div>
+            <div class="h" data-i18n="h_tap">Tap to choose</div>
+            <div class="preview"><img alt=""><div class="meta"></div></div>
+          </label>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_photo_body">Full body photo</span> <span class="req">*</span></label>
+          <label class="file">
+            <input type="file" name="photoBody" accept="image/*" required>
+            <div class="lbl" data-i18n="l_photo_body_s">Full body</div>
+            <div class="h" data-i18n="h_tap">Tap to choose</div>
+            <div class="preview"><img alt=""><div class="meta"></div></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="s_contact">Contact</h2>
+      <div class="field">
+        <label><span data-i18n="l_wa">WhatsApp (with country code)</span> <span class="req">*</span></label>
+        <input type="tel" name="whatsapp" placeholder="+81-90-XXXX-XXXX" required>
+        <div class="hint" data-i18n="h_wa">All casting communication happens on WhatsApp.</div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_jpphone">Japanese phone number</span> <span class="req">*</span></label>
+        <input type="tel" name="jpPhone" required placeholder="090-1234-5678">
+        <div class="hint" data-i18n="h_jpphone">Used by the production team on shoot days. Must work inside Japan.</div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_email">Email</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <input type="email" name="email">
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="s_optional">Optional details <span class="opt" data-i18n="s_optional_h">(speeds up casting decisions)</span></h2>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_height">Height (cm)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="number" name="height" min="120" max="230">
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_clothing">Clothing size</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="text" name="clothingSize" placeholder="S / M / L / XL">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_shoe">Shoe size (cm)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="number" name="shoeSize" min="18" max="35" step="0.5">
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_hair">Hair color</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="text" name="hairColor">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_eye">Eye color</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="text" name="eyeColor">
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_features">Features (tattoo, piercing, beard...)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="text" name="features">
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_lang">Languages spoken (with level)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <input type="text" name="languages" placeholder="English (native), Spanish (fluent), 日本語 (N3)">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_acting">Acting / modelling experience</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <select name="actingExp">
+            <option value="">—</option>
+            <option value="None" data-i18n="o_none">None</option>
+            <option value="Some" data-i18n="o_some">Some</option>
+            <option value="Pro" data-i18n="o_pro">Professional</option>
+          </select>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_source">How did you find us?</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <select name="source">
+            <option value="">—</option>
+            <option>Instagram</option><option>TikTok</option>
+            <option>Facebook</option><option>X / Twitter</option>
+            <option value="Referral" data-i18n="o_ref">Referral / Friend</option>
+            <option>Website</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_referrer">Who referred you? (name)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <input type="text" name="referrer">
+      </div>
+    </div>
+
+    <div class="consent">
+      <div class="body" data-i18n="consent_body">How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked.</div>
+      <label>
+        <input type="checkbox" name="consent" required>
+        <span data-i18n="consent">I am 18 or over, the information above is accurate, and I agree to the use of my information as described.</span>
+      </label>
+    </div>
+
+    <button class="submit" type="submit" data-i18n="submit">Submit registration</button>
+    <div class="global-err" id="gerr"></div>
+  </form>
+
+  <div class="done" id="done" aria-live="polite">
+    <div class="check">✓</div>
+    <h2 data-i18n="done_t">Registration received</h2>
+    <p data-i18n="done_p1">We check every residence card by hand, then delete the images.</p>
+    <p data-i18n="done_p2">Once you are registered, apply to each casting on WhatsApp by sending everything that casting's post asks for.</p>
+    <p data-i18n="done_p3">Selection is based on the production's requirements. Spots are limited.</p>
+  </div>
+
+  <footer>
+    <span>Rr.production's</span> · <a href="https://rrcasting.github.io/rr-production-site/">rrcasting.github.io</a>
+  </footer>
+</div>
+
+<script>
+  /* 受信側 Apps Script の URL。バックエンド差し替え時はここも確認すること。 */
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJ5VaTub3wRNCICVcshh5nMC3m2upySHJeFz-ToyycBmY5T5PVmGEUS7CEn9CMzhh7WQ/exec";
+  var MAX_BYTES  = 12 * 1024 * 1024;   /* 元ファイルの上限。送信時は縮小するので実際の送信量はずっと小さい */
+  var MAX_DIM    = 1600;
+  var JPEG_Q     = 0.85;
+
+  var T = {
+    en:{
+      hero:'Join film production <span class="em">in Japan</span>.',
+      sub:'Foreign extras casting · Film &amp; TV · Real productions, real sets.',
+      b1:'No experience needed',b2:'Foreigners welcome',b3:'Spots are limited',b4:'Selection based',b5:'18 and over',
+      notice_t:'First-time registration only',
+      notice_p:'If you have already registered with us before, please do not fill out this form again. Just message us on WhatsApp and let us know you would like to be considered for the next project.',
+      s_basic:'Basic info',s_addr:'Exact address in Japan',s_visa:'Visa &amp; residence card',
+      s_photo:'Photos',s_photo_h:'(face and full body — two separate photos)',
+      s_contact:'Contact',s_optional:'Optional details',s_optional_h:'(speeds up casting decisions)',
+      l_name:'Full name',l_dob:'Date of birth',
+      h_dob:'You must be 18 or over. This is a production requirement with no exceptions.',
+      l_gender:'Gender',l_nat:'Nationality',
+      l_zip:'Postal code 〒',l_station:'Nearest station',
+      l_addr:'Exact full address (street / building / room)',
+      h_addr:'Building name and room number are required. Prefecture alone is not enough.',
+      l_walk:'Walk from station (min)',
+      c_card_t:'Why we ask for your residence card',
+      c_card_p:'Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image.',
+      l_visa:'VISA status',
+      h_visa_tourist:'A tourist / temporary visitor status cannot be registered — all our projects are paid work.',
+      v_student:'Student',v_working:'Working',v_wh:'Working Holiday',v_spouse:'Spouse of Japanese national',
+      v_pr:'Permanent Resident',v_ltr:'Long-term Resident',v_dep:'Dependent',v_ssw:'Specified Skilled Worker',v_other:'Other',
+      l_visa_exp:'Residence card expiry date',h_visa_exp:'Exactly as printed on your card.',
+      l_permit:'Permission to engage in activity other than that permitted (資格外活動許可)',
+      p_yes:'Yes — it is printed on the back of my card',
+      p_no:'No — my card does not show it',
+      p_na:'Not applicable — my card says no work restrictions',
+      h_permit:'Student and Dependent visas must have this permission. Without it we cannot register you.',
+      l_card_f:'Residence card — FRONT',l_card_f_s:'Front side',
+      l_card_b:'Residence card — BACK',l_card_b_s:'Back side',
+      h_tap:'Tap to choose',
+      h_card_28:'If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.',
+      h_photos:'A natural phone photo is fine — just make sure your face is clearly visible, with no sunglasses or hat.',
+      l_photo_face:'Face photo',l_photo_face_s:'Face',
+      l_photo_body:'Full body photo',l_photo_body_s:'Full body',
+      l_wa:'WhatsApp (with country code)',h_wa:'All casting communication happens on WhatsApp.',
+      l_jpphone:'Japanese phone number',
+      h_jpphone:'Used by the production team on shoot days. Must work inside Japan.',
+      l_email:'Email',
+      l_height:'Height (cm)',l_clothing:'Clothing size',l_shoe:'Shoe size (cm)',
+      l_hair:'Hair color',l_eye:'Eye color',l_features:'Features (tattoo, piercing, beard...)',
+      l_lang:'Languages spoken (with level)',l_acting:'Acting / modelling experience',
+      l_source:'How did you find us?',l_referrer:'Who referred you? (name)',
+      o_male:'Male',o_female:'Female',o_other:'Other / N/A',
+      o_none:'None',o_some:'Some',o_pro:'Professional',o_ref:'Referral / Friend',
+      opt:'(optional)',
+      consent_body:'How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked.',
+      consent:'I am 18 or over, the information above is accurate, and I agree to the use of my information as described.',
+      submit:'Submit registration',
+      e_age:'You must be 18 or over to register. This is a production requirement with no exceptions.',
+      e_files:'Please attach all four images: residence card front, residence card back, face photo, full body photo.',
+      e_permit:'Student and Dependent visas require the Permission to Engage in Activity Other Than That Permitted (資格外活動許可). We cannot register you without it.',
+      e_expired:'Your residence card expiry date is in the past. Please renew it first, then register.',
+      e_send:'Submission failed. Please try again.',
+      done_t:'Registration received',
+      done_p1:'We check every residence card by hand, then delete the images.',
+      done_p2:"Once you are registered, apply to each casting on WhatsApp by sending everything that casting's post asks for.",
+      done_p3:"Selection is based on the production's requirements. Spots are limited."
+    },
+    es:{
+      hero:'Únete a una producción <span class="em">en Japón</span>.',
+      sub:'Casting de extras extranjeros · Cine y TV · Producciones reales.',
+      b1:'Sin experiencia',b2:'Extranjeros bienvenidos',b3:'Cupos limitados',b4:'Casting por selección',b5:'Mayores de 18',
+      notice_t:'Solo registro por primera vez',
+      notice_p:'Si ya te registraste con nosotros antes, no vuelvas a completar este formulario. Escríbenos por WhatsApp e indícanos que quieres ser considerado para el próximo proyecto.',
+      s_basic:'Datos básicos',s_addr:'Dirección exacta en Japón',s_visa:'Visa y tarjeta de residencia',
+      s_photo:'Fotos',s_photo_h:'(rostro y cuerpo entero — dos fotos separadas)',
+      s_contact:'Contacto',s_optional:'Datos opcionales',s_optional_h:'(aceleran la decisión de casting)',
+      l_name:'Nombre completo',l_dob:'Fecha de nacimiento',
+      h_dob:'Debes tener 18 años o más. Es un requisito de producción, sin excepciones.',
+      l_gender:'Género',l_nat:'Nacionalidad',
+      l_zip:'Código postal 〒',l_station:'Estación más cercana',
+      l_addr:'Dirección completa exacta (calle / edificio / nº)',
+      h_addr:'El edificio y el número de habitación son obligatorios. La prefectura sola no basta.',
+      l_walk:'Minutos a pie desde la estación',
+      c_card_t:'Por qué pedimos tu tarjeta de residencia',
+      c_card_p:'El trabajo remunerado en Japón exige que verifiquemos tu estatus. Esto aplica a todos los actores, sin excepción. Revisamos la tarjeta, registramos únicamente tu tipo de visa y su fecha de vencimiento, y luego eliminamos la imagen.',
+      l_visa:'Estado de visa',
+      h_visa_tourist:'Un estatus de turista / visitante temporal no puede registrarse — todos nuestros proyectos son trabajo remunerado.',
+      v_student:'Estudiante',v_working:'Trabajo',v_wh:'Working Holiday',v_spouse:'Cónyuge de japonés/a',
+      v_pr:'Residente permanente',v_ltr:'Residente de larga duración',v_dep:'Dependiente',v_ssw:'Trabajador con habilidades específicas',v_other:'Otro',
+      l_visa_exp:'Fecha de vencimiento de la tarjeta',h_visa_exp:'Exactamente como aparece impresa en tu tarjeta.',
+      l_permit:'Permiso para realizar actividades no autorizadas (資格外活動許可)',
+      p_yes:'Sí — está impreso en el reverso de mi tarjeta',
+      p_no:'No — mi tarjeta no lo muestra',
+      p_na:'No aplica — mi tarjeta dice que no hay restricción laboral',
+      h_permit:'Las visas de estudiante y de dependiente deben tener este permiso. Sin él no podemos registrarte.',
+      l_card_f:'Tarjeta de residencia — FRENTE',l_card_f_s:'Frente',
+      l_card_b:'Tarjeta de residencia — REVERSO',l_card_b_s:'Reverso',
+      h_tap:'Toca para elegir',
+      h_card_28:'Si tienes visa de estudiante o de dependiente, el límite de 28 horas semanales cuenta todos tus trabajos en conjunto. Mantenerte dentro de ese límite es tu responsabilidad — verifica que un día de rodaje no te haga superarlo.',
+      h_photos:'Una foto natural tomada con el móvil está bien — solo asegúrate de que tu rostro se vea claramente, sin gafas de sol ni gorra.',
+      l_photo_face:'Foto de rostro',l_photo_face_s:'Rostro',
+      l_photo_body:'Foto de cuerpo entero',l_photo_body_s:'Cuerpo entero',
+      l_wa:'WhatsApp (con código de país)',h_wa:'Toda la comunicación de casting ocurre por WhatsApp.',
+      l_jpphone:'Número de teléfono japonés',
+      h_jpphone:'Lo usa el equipo de producción los días de rodaje. Debe funcionar dentro de Japón.',
+      l_email:'Correo electrónico',
+      l_height:'Estatura (cm)',l_clothing:'Talla de ropa',l_shoe:'Talla de calzado (cm)',
+      l_hair:'Color de cabello',l_eye:'Color de ojos',l_features:'Marcas (tatuajes, piercings, barba...)',
+      l_lang:'Idiomas que hablas (con nivel)',l_acting:'Experiencia de actuación / modelaje',
+      l_source:'¿Cómo nos encontraste?',l_referrer:'¿Quién te recomendó? (nombre)',
+      o_male:'Masculino',o_female:'Femenino',o_other:'Otro / N/A',
+      o_none:'Ninguna',o_some:'Algo',o_pro:'Profesional',o_ref:'Referido / Amigo',
+      opt:'(opcional)',
+      consent_body:'Cómo usamos tu información: tus datos se usan únicamente para (1) considerarte en las convocatorias y (2) entregar a la productora lo que requiere para los proyectos en los que seas seleccionado/a. Conservamos tu registro mientras sigas activo/a y lo eliminamos cuando lo pidas — solo escríbenos. Las imágenes de tu tarjeta de residencia se eliminan una vez verificadas.',
+      consent:'Tengo 18 años o más, la información es correcta y acepto el uso de mis datos como se describe.',
+      submit:'Enviar registro',
+      e_age:'Debes tener 18 años o más para registrarte. Es un requisito de producción, sin excepciones.',
+      e_files:'Adjunta las cuatro imágenes: frente y reverso de la tarjeta de residencia, foto de rostro y foto de cuerpo entero.',
+      e_permit:'Las visas de estudiante y de dependiente requieren el Permiso para Realizar Actividades No Autorizadas (資格外活動許可). Sin él no podemos registrarte.',
+      e_expired:'La fecha de vencimiento de tu tarjeta ya pasó. Renuévala primero y luego regístrate.',
+      e_send:'El envío falló. Inténtalo de nuevo.',
+      done_t:'Registro recibido',
+      done_p1:'Revisamos cada tarjeta de residencia a mano y luego eliminamos las imágenes.',
+      done_p2:'Una vez registrado/a, postúlate a cada convocatoria por WhatsApp enviando todo lo que pide esa publicación.',
+      done_p3:'La selección sigue los requisitos de la producción. Los cupos son limitados.'
+    },
+    ja:{
+      hero:'日本の映像制作に <span class="em">参加</span>。',
+      sub:'外国人エキストラキャスティング · 映画・ドラマ · 実案件のみ。',
+      b1:'未経験OK',b2:'外国人歓迎',b3:'募集枠限定',b4:'選考制',b5:'18歳以上',
+      notice_t:'初回登録専用',
+      notice_p:'すでに登録済みの方は、このフォームから再登録する必要はありません。WhatsApp で「次の案件に応募したい」とご連絡ください。',
+      s_basic:'基本情報',s_addr:'日本国内の正確な住所',s_visa:'ビザ・在留カード',
+      s_photo:'写真',s_photo_h:'（顔・全身の2枚）',
+      s_contact:'連絡先',s_optional:'任意項目',s_optional_h:'（記入があるとキャスティング判断が早まります）',
+      l_name:'氏名（フルネーム）',l_dob:'生年月日',
+      h_dob:'18歳以上に限ります。制作側の要件のため例外はありません。',
+      l_gender:'性別',l_nat:'国籍',
+      l_zip:'郵便番号 〒',l_station:'最寄り駅',
+      l_addr:'正確な住所（番地・建物名・部屋番号まで）',
+      h_addr:'建物名と部屋番号まで必須です。都道府県だけでは受け付けられません。',
+      l_walk:'駅から徒歩（分）',
+      c_card_t:'在留カードを確認する理由',
+      c_card_p:'日本で有償の仕事をするには、在留資格の確認が必要です。全員に適用され、例外はありません。カードを確認し、在留資格と有効期限のみを記録したうえで、画像は削除します。',
+      l_visa:'在留資格',
+      h_visa_tourist:'観光・短期滞在の方は登録できません（当社の案件はすべて有償のため）。',
+      v_student:'留学',v_working:'就労ビザ',v_wh:'ワーキングホリデー',v_spouse:'日本人の配偶者等',
+      v_pr:'永住者',v_ltr:'定住者',v_dep:'家族滞在',v_ssw:'特定技能',v_other:'その他',
+      l_visa_exp:'在留カードの有効期限',h_visa_exp:'カードに印字されているとおりに入力してください。',
+      l_permit:'資格外活動許可',
+      p_yes:'あり（カード裏面に記載がある）',
+      p_no:'なし（カードに記載がない）',
+      p_na:'該当なし（カードに「就労制限なし」と記載）',
+      h_permit:'留学・家族滞在の方はこの許可が必須です。ない場合は登録できません。',
+      l_card_f:'在留カード — 表面',l_card_f_s:'表面',
+      l_card_b:'在留カード — 裏面',l_card_b_s:'裏面',
+      h_tap:'タップして選択',
+      h_card_28:'留学・家族滞在の方は、週28時間の上限がすべての勤務先の合計に適用されます。上限内に収めるのはご本人の責任です。撮影日が上限を超えないかご確認ください。',
+      h_photos:'スマホで撮った自然な写真で構いません。顔がはっきり見えるように、サングラス・帽子なしでお願いします。',
+      l_photo_face:'顔写真',l_photo_face_s:'顔',
+      l_photo_body:'全身写真',l_photo_body_s:'全身',
+      l_wa:'WhatsApp 番号（国番号付き）',h_wa:'キャスティングの連絡はすべて WhatsApp で行います。',
+      l_jpphone:'日本の電話番号',
+      h_jpphone:'撮影当日に制作チームが使用します。日本国内で繋がる番号を入力してください。',
+      l_email:'メールアドレス',
+      l_height:'身長（cm）',l_clothing:'服サイズ',l_shoe:'靴サイズ（cm）',
+      l_hair:'髪色',l_eye:'目の色',l_features:'特徴（タトゥー・ピアス・ヒゲ等）',
+      l_lang:'話せる言語（レベル併記）',l_acting:'演技/モデル経験',
+      l_source:'当社を知ったきっかけ',l_referrer:'紹介者のお名前',
+      o_male:'男性',o_female:'女性',o_other:'その他 / 未記入',
+      o_none:'未経験',o_some:'少しあり',o_pro:'プロ',o_ref:'紹介 / 知人',
+      opt:'（任意）',
+      consent_body:'個人情報の利用について：いただいた情報は、①キャスティング要件への照合、②選考された案件について制作会社が必要とする情報の提供、この2つの目的にのみ使用します。登録は活動中のあいだ保持し、ご希望があればいつでも削除します（メッセージをお送りください）。在留カードの画像は確認後に削除します。',
+      consent:'18歳以上であること、記入内容に相違ないこと、上記の利用に同意することを確認します。',
+      submit:'登録を送信',
+      e_age:'登録は18歳以上に限ります。制作側の要件のため例外はありません。',
+      e_files:'4枚すべてを添付してください：在留カード表面・裏面、顔写真、全身写真。',
+      e_permit:'留学・家族滞在の方は資格外活動許可が必要です。ない場合は登録できません。',
+      e_expired:'在留カードの有効期限が過ぎています。更新後にご登録ください。',
+      e_send:'送信に失敗しました。もう一度お試しください。',
+      done_t:'登録を受け付けました',
+      done_p1:'在留カードは1件ずつ手で確認し、確認後に画像を削除します。',
+      done_p2:'登録後は、各案件の投稿に記載された必要項目をすべて添えて WhatsApp から応募してください。',
+      done_p3:'選考は制作側の要件に基づきます。募集枠には限りがあります。'
+    }
+  };
+
+  var curLang = 'en';
+
+  function t(k){ return (T[curLang] && T[curLang][k]) || T.en[k] || k; }
+
+  function setLang(lng){
+    if (!T[lng]) lng = 'en';
+    curLang = lng;
+    document.documentElement.lang = lng;
+    var els = document.querySelectorAll('[data-i18n]');
+    for (var i=0;i<els.length;i++){
+      var k = els[i].getAttribute('data-i18n');
+      if (T[lng][k] != null) els[i].innerHTML = T[lng][k];
+    }
+    var bs = document.querySelectorAll('.lang button');
+    for (var j=0;j<bs.length;j++){
+      bs[j].classList.toggle('on', bs[j].getAttribute('data-lang')===lng);
+    }
+  }
+  var langBtns = document.querySelectorAll('.lang button');
+  for (var b=0;b<langBtns.length;b++){
+    (function(btn){ btn.addEventListener('click', function(){ setLang(btn.getAttribute('data-lang')); }); })(langBtns[b]);
+  }
+  var nav = (navigator.language || 'en').slice(0,2);
+  setLang(nav === 'ja' ? 'ja' : nav === 'es' ? 'es' : 'en');
+
+  /* 生年月日の上限を「今日から18年前」に設定 */
+  (function(){
+    var d = new Date();
+    d.setFullYear(d.getFullYear() - 18);
+    var pad = function(n){ return (n<10?'0':'') + n; };
+    document.getElementById('dob').max =
+      d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+  })();
+
+  function ageFrom(s){
+    var d = new Date(s);
+    if (isNaN(d.getTime())) return null;
+    var n = new Date(), a = n.getFullYear() - d.getFullYear(), m = n.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && n.getDate() < d.getDate())) a--;
+    return a;
+  }
+
+  /* 画像を縮小してから送る（4枚送るので元サイズだと通らない） */
+  function shrink(file){
+    return new Promise(function(resolve, reject){
+      var r = new FileReader();
+      r.onerror = function(){ reject(new Error('read error')); };
+      r.onload = function(e){
+        var img = new Image();
+        img.onerror = function(){ reject(new Error('image error')); };
+        img.onload = function(){
+          var w = img.width, h = img.height;
+          var s = Math.min(1, MAX_DIM / Math.max(w, h));
+          var cw = Math.max(1, Math.round(w*s)), ch = Math.max(1, Math.round(h*s));
+          var c = document.createElement('canvas');
+          c.width = cw; c.height = ch;
+          c.getContext('2d').drawImage(img, 0, 0, cw, ch);
+          var url;
+          try { url = c.toDataURL('image/jpeg', JPEG_Q); }
+          catch (err) { url = e.target.result; }
+          resolve({ dataUrl:url, name:file.name, type:'image/jpeg' });
+        };
+        img.src = e.target.result;
+      };
+      r.readAsDataURL(file);
+    });
+  }
+
+  var blobs = {};
+  var boxes = document.querySelectorAll('.file');
+  for (var q=0;q<boxes.length;q++){
+    (function(box){
+      var input = box.querySelector('input[type=file]');
+      var img   = box.querySelector('.preview img');
+      var meta  = box.querySelector('.preview .meta');
+      input.addEventListener('change', function(){
+        var f = input.files[0];
+        if (!f) return;
+        if (f.size > MAX_BYTES){ alert('File too large (max 12MB).'); input.value=''; return; }
+        meta.textContent = '…';
+        box.classList.add('has');
+        shrink(f).then(function(o){
+          blobs[input.name] = o;
+          img.src = o.dataUrl;
+          meta.textContent = f.name + ' · ' + Math.round(o.dataUrl.length/1365) + ' KB';
+        }).catch(function(){
+          box.classList.remove('has');
+          input.value = '';
+          alert('Could not read that image. Please try another file.');
+        });
+      });
+    })(boxes[q]);
+  }
+
+  var form = document.getElementById('f');
+  var done = document.getElementById('done');
+  var gerr = document.getElementById('gerr');
+
+  function fail(msg){ gerr.textContent = msg; gerr.classList.add('show'); window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); }
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    gerr.classList.remove('show'); gerr.textContent = '';
+    if (!form.checkValidity()){ form.reportValidity(); return; }
+
+    var age = ageFrom(form.dob.value);
+    if (age === null || age < 18){ fail(t('e_age')); return; }
+
+    if (new Date(form.visaExpiry.value) < new Date(new Date().toDateString())){ fail(t('e_expired')); return; }
+
+    var v = form.visa.value, p = form.permit.value;
+    if ((v === 'Student' || v === 'Dependent') && p !== 'Yes'){ fail(t('e_permit')); return; }
+
+    if (!blobs.cardFront || !blobs.cardBack || !blobs.photoFace || !blobs.photoBody){ fail(t('e_files')); return; }
+
+    var btn = form.querySelector('button.submit');
+    var orig = btn.textContent;
+    btn.disabled = true; btn.textContent = '…';
+
+    var data = {};
+    var fd = new FormData(form);
+    fd.forEach(function(val, key){
+      if (key !== 'cardFront' && key !== 'cardBack' && key !== 'photoFace' && key !== 'photoBody') data[key] = val;
+    });
+    data.age     = age;
+    data.consent = form.consent.checked;
+    data.lang    = curLang;
+    data.cardFront = blobs.cardFront;
+    data.cardBack  = blobs.cardBack;
+    data.photoFace = blobs.photoFace;
+    data.photoBody = blobs.photoBody;
+
+    fetch(SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify(data)
+    })
+    .then(function(r){ return r.json().catch(function(){ return {success:false, error:'invalid response'}; }); })
+    .then(function(j){
+      if (j && j.success){
+        form.style.display = 'none';
+        done.classList.add('show');
+        window.scrollTo({top:0, behavior:'smooth'});
+      } else {
+        throw new Error((j && j.error) || 'submit failed');
+      }
+    })
+    .catch(function(e){
+      fail(t('e_send') + ' (' + (e.message || e) + ')');
+      btn.disabled = false; btn.textContent = orig;
+    });
+  });
+</script>
+</body>
+</html>
