@@ -3,481 +3,53 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Rr.production's — Foreign Extras casting application. Film & TV in Japan.">
-<title>Rr.production's — Apply / Extras Casting</title>
+<title>Rr.production's — Registration has moved</title>
+<link rel="canonical" href="https://rrcasting.github.io/rr-production-site/register.html">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=https://rrcasting.github.io/rr-production-site/register.html">
+<script>location.replace("https://rrcasting.github.io/rr-production-site/register.html");</script>
 <style>
-  :root{
-    --bg:#0a0a0a; --panel:#141414; --panel-2:#1c1c1c; --line:#2a2a2a;
-    --text:#f5f5f4; --muted:#a3a3a3; --accent:#ea580c; --accent-2:#fb923c;
-    --ok:#22c55e; --err:#ef4444; --radius:10px;
-    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
-  }
+  :root{--bg:#0a0a0a;--panel:#141414;--line:#2a2a2a;--text:#f5f5f4;--muted:#a3a3a3;--accent:#ea580c}
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
-  body{padding:32px 16px 80px;line-height:1.55}
-  .wrap{max-width:620px;margin:0 auto}
-  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-  .brand{font-weight:800;letter-spacing:.04em;font-size:14px}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.6}
+  .wrap{max-width:520px;margin:0 auto;padding:64px 20px;text-align:center}
+  .brand{font-weight:800;letter-spacing:.04em;font-size:13px;margin-bottom:32px;color:var(--muted)}
   .brand .dot{color:var(--accent)}
-  .lang{display:flex;gap:6px;background:var(--panel);padding:4px;border-radius:999px;border:1px solid var(--line)}
-  .lang button{background:none;border:0;color:var(--muted);padding:6px 12px;font-size:12px;font-weight:600;border-radius:999px;cursor:pointer;letter-spacing:.05em}
-  .lang button.on{background:var(--accent);color:#fff}
-  h1{font-size:30px;line-height:1.15;margin:0 0 10px;letter-spacing:-.01em}
-  h1 .em{color:var(--accent)}
-  .sub{color:var(--muted);margin:0 0 22px;font-size:14px}
-  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 28px}
-  .badge{font-size:11px;color:var(--muted);background:var(--panel);border:1px solid var(--line);padding:5px 10px;border-radius:999px;letter-spacing:.04em}
-  form{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-  .section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
-  .section:last-of-type{border-bottom:0;padding-bottom:0;margin-bottom:8px}
-  .section h2{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-2);margin:0 0 14px}
-  .section .opt{font-size:10px;color:var(--muted);text-transform:none;letter-spacing:.04em;font-weight:500;margin-left:6px}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media (max-width:520px){.row{grid-template-columns:1fr}}
-  .field{margin-bottom:12px}
-  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.02em}
-  label .req{color:var(--accent)}
-  label .opt-tag{font-size:10px;color:#737373;font-weight:500;margin-left:6px;letter-spacing:.04em}
-  input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],select,textarea{
-    width:100%;background:var(--panel-2);color:var(--text);border:1px solid var(--line);
-    border-radius:8px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;transition:border .15s
-  }
-  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
-  textarea{min-height:74px;resize:vertical}
-  .hint{font-size:11px;color:var(--muted);margin-top:5px}
-  .file{position:relative;display:block;border:1px dashed var(--line);background:var(--panel-2);border-radius:8px;padding:18px;text-align:center;cursor:pointer;transition:border-color .15s}
-  .file:hover{border-color:var(--accent)}
-  .file input{position:absolute;inset:0;opacity:0;cursor:pointer}
-  .file .lbl{font-size:13px;color:var(--text);font-weight:600}
-  .file .h{font-size:11px;color:var(--muted);margin-top:4px}
-  .file.has{border-style:solid;border-color:var(--ok)}
-  .file .preview{display:none;margin-top:10px}
-  .file.has .preview{display:block}
-  .file .preview img{max-width:100%;max-height:220px;border-radius:6px;display:block;margin:0 auto}
-  .file .preview .meta{font-size:11px;color:var(--muted);margin-top:6px}
-  .consent{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:12px;color:var(--muted);margin-bottom:14px}
-  .consent label{color:var(--text);font-size:13px;display:flex;align-items:flex-start;gap:8px;cursor:pointer;margin:0}
-  .consent input{margin-top:3px;accent-color:var(--accent)}
-  button.submit{
-    width:100%;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:14px;
-    font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:background .15s
-  }
-  button.submit:hover{background:#c2410c}
-  button.submit:disabled{opacity:.6;cursor:not-allowed}
-  .global-err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:10px 12px;border-radius:8px;font-size:13px;margin-top:12px;display:none}
-  .global-err.show{display:block}
-  .done{display:none;text-align:center;padding:40px 20px}
-  .done.show{display:block}
-  .done .check{width:64px;height:64px;border-radius:50%;background:var(--ok);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff}
-  .done h2{margin:0 0 10px;font-size:22px}
-  .done p{color:var(--muted);font-size:14px;margin:6px 0}
-  footer{margin-top:32px;text-align:center;color:var(--muted);font-size:11px}
-  footer a{color:var(--muted)}
-  .notice{background:linear-gradient(180deg,#1f2937,#111);border:1px solid var(--accent-2);border-radius:10px;padding:14px 16px;margin:0 0 22px;font-size:13px}
-  .notice b{color:var(--accent-2);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px}
-  .notice p{margin:0;color:var(--text);line-height:1.5}
-  .notice a{color:var(--accent);font-weight:700;text-decoration:none}
-  .notice a:hover{text-decoration:underline}
+  h1{font-size:22px;margin:0 0 12px}
+  p{color:var(--muted);font-size:14px;margin:0 0 8px}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px;margin:26px 0}
+  a.btn{display:block;background:var(--accent);color:#fff;text-decoration:none;
+    border-radius:8px;padding:14px;font-weight:700;font-size:15px;letter-spacing:.03em}
+  a.btn:hover{background:#c2410c}
+  .sep{border:0;border-top:1px solid var(--line);margin:20px 0}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div class="brand">Rr<span class="dot">.</span>production's</div>
-    <div class="lang" role="tablist">
-      <button data-lang="en" class="on">EN</button>
-      <button data-lang="es">ES</button>
-      <button data-lang="ja">日本語</button>
-    </div>
-  </header>
+  <div class="brand">Rr<span class="dot">.</span>production's</div>
 
-  <h1 data-i18n="hero">Join film production <span class="em">in Japan</span>.</h1>
-  <p class="sub" data-i18n="sub">Foreign extras casting · Film & TV · Real productions, real sets.</p>
+  <h1>Registration has moved</h1>
+  <p>This form is no longer in use. Please register on the new page.</p>
 
-  <div class="badges">
-    <span class="badge" data-i18n="b1">No experience needed</span>
-    <span class="badge" data-i18n="b2">Foreigners welcome</span>
-    <span class="badge" data-i18n="b3">Spots are limited</span>
-    <span class="badge" data-i18n="b4">Selection based</span>
+  <hr class="sep">
+
+  <h1>El registro se ha mudado</h1>
+  <p>Este formulario ya no se usa. Regístrate en la nueva página.</p>
+
+  <hr class="sep">
+
+  <h1>登録ページは移動しました</h1>
+  <p>このフォームは使用されていません。新しいページからご登録ください。</p>
+
+  <div class="box">
+    <a class="btn" href="https://rrcasting.github.io/rr-production-site/register.html">
+      Register / Registrarse / 登録する →
+    </a>
   </div>
 
-  <div class="notice">
-    <b data-i18n="notice_t">First-time registration only</b>
-    <p data-i18n="notice_p">If you have already registered with us before, please do not fill out this form again. Just message us on WhatsApp and let us know you'd like to be considered for the next project.</p>
-  </div>
-
-  <form id="f" novalidate>
-
-    <div class="section">
-      <h2 data-i18n="s_basic">Basic info</h2>
-      <div class="field">
-        <label><span data-i18n="l_name">Full name</span> <span class="req">*</span></label>
-        <input type="text" name="fullName" required>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_age">Age</span> <span class="req">*</span></label>
-          <input type="number" name="age" min="16" max="80" required>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_dob">Date of birth</span> <span class="req">*</span></label>
-          <input type="date" name="dob" required>
-        </div>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_gender">Gender</span> <span class="req">*</span></label>
-          <select name="gender" required>
-            <option value="">—</option>
-            <option value="Male" data-i18n="o_male">Male</option>
-            <option value="Female" data-i18n="o_female">Female</option>
-            <option value="Other / N/A" data-i18n="o_other">Other / N/A</option>
-          </select>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_nat">Nationality</span> <span class="req">*</span></label>
-          <input type="text" name="nationality" required>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 data-i18n="s_addr">Address in Japan</h2>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_zip">Postal code 〒</span> <span class="req">*</span></label>
-          <input type="text" name="postalCode" placeholder="150-0002" required>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_station">Nearest station</span> <span class="req">*</span></label>
-          <input type="text" name="nearestStation" required>
-        </div>
-      </div>
-      <div class="field">
-        <label><span data-i18n="l_addr">Full address (street / building / room)</span> <span class="req">*</span></label>
-        <input type="text" name="address" required>
-        <div class="hint" data-i18n="h_addr">Building name and room number are required for shoot logistics.</div>
-      </div>
-      <div class="field" style="max-width:240px">
-        <label><span data-i18n="l_walk">Walk from station (min)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-        <input type="number" name="walkMin" min="0" max="120">
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 data-i18n="s_visa">Visa</h2>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_visa">VISA status</span> <span class="req">*</span></label>
-          <select name="visa" required>
-            <option value="">—</option>
-            <option>Tourist</option><option>Student</option><option>Working</option>
-            <option>Working Holiday</option><option>Spouse</option>
-            <option>Permanent Resident</option><option>Specified Skilled</option>
-            <option>Diplomat / Official</option><option>Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_visa_exp">VISA expiry date</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <input type="date" name="visaExpiry">
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 data-i18n="s_photo">Photo <span class="opt" data-i18n="s_photo_h">(1 photo, face and full body both visible)</span></h2>
-      <p class="hint" data-i18n="h_photo">Required: 1 photo where your face and full body are both clearly visible. JPG/PNG, max 8 MB.</p>
-      <div class="field">
-        <label class="file" data-target="photo">
-          <input type="file" name="photo" accept="image/*" required>
-          <div class="lbl" data-i18n="l_photo">Photo</div>
-          <div class="h" data-i18n="h_photo_tap">Tap to choose · 顔と全身が映った写真</div>
-          <div class="preview"><img alt=""><div class="meta"></div></div>
-        </label>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 data-i18n="s_contact">Contact</h2>
-      <div class="field">
-        <label><span data-i18n="l_wa">WhatsApp (with country code)</span> <span class="req">*</span></label>
-        <input type="tel" name="whatsapp" placeholder="+81-90-XXXX-XXXX" required>
-        <div class="hint" data-i18n="h_wa">Result notifications are sent only via WhatsApp.</div>
-      </div>
-      <div class="field">
-        <label><span data-i18n="l_jpphone">Japanese phone (reachable in Japan)</span> <span class="req">*</span></label>
-        <input type="tel" name="jpPhone" required placeholder="090-1234-5678">
-        <div class="hint" data-i18n="h_jpphone">Used by the production team on shoot days. Must work inside Japan.</div>
-      </div>
-      <div class="field">
-        <label><span data-i18n="l_email">Email</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-        <input type="email" name="email">
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 data-i18n="s_optional">Optional details <span class="opt" data-i18n="s_optional_h">(speeds up casting decisions)</span></h2>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_height">Height (cm)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <input type="number" name="height" min="120" max="230">
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_clothing">Clothing size</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <input type="text" name="clothingSize" placeholder="S / M / L / XL">
-        </div>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_shoe">Shoe size (cm)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <input type="number" name="shoeSize" min="18" max="35" step="0.5">
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_hair">Hair color</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <input type="text" name="hairColor">
-        </div>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_eye">Eye color</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <input type="text" name="eyeColor">
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_features">Features (tattoo, piercing, beard...)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <input type="text" name="features">
-        </div>
-      </div>
-      <div class="field">
-        <label><span data-i18n="l_lang">Languages spoken (with level)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-        <input type="text" name="languages" placeholder="English (native), Spanish (fluent), 日本語 (N3)">
-      </div>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_acting">Acting / modelling experience</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <select name="actingExp">
-            <option value="">—</option>
-            <option value="None" data-i18n="o_none">None</option>
-            <option value="Some" data-i18n="o_some">Some</option>
-            <option value="Pro" data-i18n="o_pro">Professional</option>
-          </select>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_source">How did you find us?</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <select name="source">
-            <option value="">—</option>
-            <option>Instagram</option><option>TikTok</option>
-            <option>Facebook</option><option>X / Twitter</option>
-            <option value="Referral" data-i18n="o_ref">Referral / Friend</option>
-            <option>Website</option><option>Other</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="consent">
-      <label>
-        <input type="checkbox" name="consent" required>
-        <span data-i18n="consent">I confirm that all information is accurate. I understand this is a selection-based casting and I consent to my data being used solely for casting purposes by Rr.production's.</span>
-      </label>
-    </div>
-
-    <button class="submit" type="submit" data-i18n="submit">Submit application</button>
-    <div class="global-err" id="gerr"></div>
-  </form>
-
-  <div class="done" id="done" aria-live="polite">
-    <div class="check">✓</div>
-    <h2 data-i18n="done_t">Application received</h2>
-    <p data-i18n="done_p1">Selection timeline varies by project.</p>
-    <p data-i18n="done_p2">We will notify you via WhatsApp once a decision is made.</p>
-  </div>
-
-  <footer>
-    <span>Rr.production's</span> · <a href="https://rrcasting.github.io/rr-production-site/">rrcasting.github.io</a>
-  </footer>
+  <p>If you are not redirected automatically, use the button above.</p>
 </div>
-
-<script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSpNGN5plmS9nGojmGpDMaKRuPVfGX4i6gT5flYK9KhTCEqaH2j98573FRJVfgZSaJxA/exec";
-  const MAX_BYTES  = 8 * 1024 * 1024;
-
-  const T = {
-    en:{hero:'Join film production <span class="em">in Japan</span>.',
-        sub:'Foreign extras casting · Film & TV · Real productions, real sets.',
-        b1:'No experience needed',b2:'Foreigners welcome',b3:'Spots are limited',b4:'Selection based',
-        s_basic:'Basic info',s_addr:'Address in Japan',s_visa:'Visa',
-        s_photo:'Photo',s_photo_h:'(1 photo, face and full body both visible)',
-        s_contact:'Contact',
-        s_optional:'Optional details',s_optional_h:'(speeds up casting decisions)',
-        l_name:'Full name',l_age:'Age',l_dob:'Date of birth',l_gender:'Gender',l_nat:'Nationality',
-        l_zip:'Postal code 〒',l_station:'Nearest station',
-        l_addr:'Full address (street / building / room)',
-        h_addr:'Building name and room number are required for shoot logistics.',
-        l_walk:'Walk from station (min)',
-        l_visa:'VISA status',l_visa_exp:'VISA expiry date',
-        l_height:'Height (cm)',l_clothing:'Clothing size',l_shoe:'Shoe size (cm)',
-        l_hair:'Hair color',l_eye:'Eye color',l_features:'Features (tattoo, piercing, beard...)',
-        l_lang:'Languages spoken (with level)',l_acting:'Acting / modelling experience',
-        l_source:'How did you find us?',l_wa:'WhatsApp (with country code)',l_email:'Email',
-        h_wa:'Result notifications are sent only via WhatsApp.',
-        l_jpphone:'Japanese phone (reachable in Japan)',
-        h_jpphone:'Used by the production team on shoot days. Must work inside Japan.',
-        notice_t:'First-time registration only',
-        notice_p:"If you have already registered with us before, please do not fill out this form again. Just message us on WhatsApp and let us know you'd like to be considered for the next project.",
-        o_male:'Male',o_female:'Female',o_other:'Other / N/A',
-        o_none:'None',o_some:'Some',o_pro:'Professional',o_ref:'Referral / Friend',
-        l_photo:'Photo',h_photo_tap:'Tap to choose · face + full body in one photo',
-        h_photo:'Required: 1 photo where your face and full body are both clearly visible. JPG/PNG, max 8 MB.',
-        opt:'(optional)',
-        consent:"I confirm that all information is accurate. I understand this is a selection-based casting and I consent to my data being used solely for casting purposes by Rr.production's.",
-        submit:'Submit application',
-        done_t:'Application received',
-        done_p1:'Selection timeline varies by project.',
-        done_p2:'We will notify you via WhatsApp once a decision is made.'},
-    es:{hero:'Únete a una producción <span class="em">en Japón</span>.',
-        sub:'Casting de extras extranjeros · Cine y TV · Producciones reales.',
-        b1:'Sin experiencia',b2:'Extranjeros bienvenidos',b3:'Cupos limitados',b4:'Casting por selección',
-        s_basic:'Datos básicos',s_addr:'Dirección en Japón',s_visa:'Visa',
-        s_photo:'Foto',s_photo_h:'(1 foto donde se vean rostro y cuerpo entero)',
-        s_contact:'Contacto',
-        s_optional:'Datos opcionales',s_optional_h:'(aceleran la decisión de casting)',
-        l_name:'Nombre completo',l_age:'Edad',l_dob:'Fecha de nacimiento',l_gender:'Género',l_nat:'Nacionalidad',
-        l_zip:'Código postal 〒',l_station:'Estación más cercana',
-        l_addr:'Dirección completa (calle / edificio / nº)',
-        h_addr:'Edificio y nº de habitación son obligatorios para la logística del rodaje.',
-        l_walk:'Minutos a pie desde la estación',
-        l_visa:'Estado de visa',l_visa_exp:'Vencimiento de visa',
-        l_height:'Estatura (cm)',l_clothing:'Talla de ropa',l_shoe:'Talla de calzado (cm)',
-        l_hair:'Color de cabello',l_eye:'Color de ojos',l_features:'Marcas (tatuajes, piercings, barba...)',
-        l_lang:'Idiomas que hablas (con nivel)',l_acting:'Experiencia de actuación / modelaje',
-        l_source:'¿Cómo nos encontraste?',l_wa:'WhatsApp (con código de país)',l_email:'Correo electrónico',
-        h_wa:'Las notificaciones del resultado se envían solo por WhatsApp.',
-        l_jpphone:'Teléfono japonés (que funcione en Japón)',
-        h_jpphone:'Lo usa el equipo de producción los días de rodaje. Debe funcionar dentro de Japón.',
-        notice_t:'Solo registro por primera vez',
-        notice_p:'Si ya te registraste con nosotros antes, no vuelvas a completar este formulario. Escríbenos por WhatsApp e indícanos que quieres ser considerado para el próximo proyecto.',
-        o_male:'Masculino',o_female:'Femenino',o_other:'Otro / N/A',
-        o_none:'Ninguna',o_some:'Algo',o_pro:'Profesional',o_ref:'Referido / Amigo',
-        l_photo:'Foto',h_photo_tap:'Toca para elegir · rostro y cuerpo en una foto',
-        h_photo:'Obligatorio: 1 foto donde se vean claramente rostro y cuerpo entero. JPG/PNG, máx. 8 MB.',
-        opt:'(opcional)',
-        consent:"Confirmo que la información es correcta. Entiendo que es un casting por selección y consiento el uso de mis datos solo para casting por Rr.production's.",
-        submit:'Enviar postulación',
-        done_t:'Postulación recibida',
-        done_p1:'Los tiempos varían según el proyecto.',
-        done_p2:'Te avisaremos por WhatsApp cuando haya una decisión.'},
-    ja:{hero:'日本の映像制作に <span class="em">参加</span>。',
-        sub:'外国人エキストラキャスティング · 映画・ドラマ · 実案件のみ。',
-        b1:'未経験OK',b2:'外国人歓迎',b3:'募集枠限定',b4:'選考制',
-        s_basic:'基本情報',s_addr:'日本国内の住所',s_visa:'ビザ',
-        s_photo:'写真',s_photo_h:'（顔と全身が映った写真1枚）',
-        s_contact:'連絡先',
-        s_optional:'任意項目',s_optional_h:'（記入があるとキャスティング判断が早まります）',
-        l_name:'氏名（フルネーム）',l_age:'年齢',l_dob:'生年月日',l_gender:'性別',l_nat:'国籍',
-        l_zip:'郵便番号 〒',l_station:'最寄り駅',
-        l_addr:'住所（番地・建物名・部屋番号まで）',
-        h_addr:'建物名と部屋番号まで必須（撮影ロジ確定に使用）。',
-        l_walk:'駅から徒歩（分）',
-        l_visa:'ビザ種別',l_visa_exp:'ビザ有効期限',
-        l_height:'身長（cm）',l_clothing:'服サイズ',l_shoe:'靴サイズ（cm）',
-        l_hair:'髪色',l_eye:'目の色',l_features:'特徴（タトゥー・ピアス・ヒゲ等）',
-        l_lang:'話せる言語（レベル併記）',l_acting:'演技/モデル経験',
-        l_source:'当社を知ったきっかけ',l_wa:'WhatsApp 番号（国番号付き）',l_email:'メールアドレス',
-        h_wa:'結果通知は WhatsApp のみで行います。',
-        l_jpphone:'日本国内で使える電話番号',
-        h_jpphone:'撮影当日に制作チームが使用します。日本国内で繋がる番号を入力してください。',
-        notice_t:'初回登録専用',
-        notice_p:'すでに登録済みの方は、このフォームから再応募する必要はありません。WhatsApp で「次の案件に応募したい」とご連絡ください。',
-        o_male:'男性',o_female:'女性',o_other:'その他 / 未記入',
-        o_none:'未経験',o_some:'少しあり',o_pro:'プロ',o_ref:'紹介 / 知人',
-        l_photo:'写真',h_photo_tap:'タップして選択 · 顔と全身が映った1枚',
-        h_photo:'必須：顔と全身が両方はっきり映った写真1枚。JPG/PNG、8MBまで。',
-        opt:'（任意）',
-        consent:"記入内容に相違ないことを確認します。本案件は選考制であり、Rr.production's がキャスティング目的でのみデータを利用することに同意します。",
-        submit:'応募を送信',
-        done_t:'応募を受け付けました',
-        done_p1:'選考期間は案件により異なります。',
-        done_p2:'結果が出次第、WhatsApp でご連絡します。'}
-  };
-
-  function setLang(lng){
-    document.documentElement.lang = lng;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      const k = el.getAttribute('data-i18n');
-      if (T[lng] && T[lng][k] != null) el.innerHTML = T[lng][k];
-    });
-    document.querySelectorAll('.lang button').forEach(b=>{
-      b.classList.toggle('on', b.getAttribute('data-lang')===lng);
-    });
-  }
-  document.querySelectorAll('.lang button').forEach(b=>{
-    b.addEventListener('click', ()=>setLang(b.getAttribute('data-lang')));
-  });
-  setLang((navigator.language||'en').slice(0,2) === 'ja' ? 'ja'
-        : (navigator.language||'en').slice(0,2) === 'es' ? 'es' : 'en');
-
-  const fileBlobs = {};
-  document.querySelectorAll('.file').forEach(box=>{
-    const input = box.querySelector('input[type=file]');
-    const img   = box.querySelector('.preview img');
-    const meta  = box.querySelector('.preview .meta');
-    input.addEventListener('change', ()=>{
-      const f = input.files[0];
-      if (!f) return;
-      if (f.size > MAX_BYTES) { alert('Photo too large (max 8MB).'); input.value = ''; return; }
-      const r = new FileReader();
-      r.onload = e => {
-        fileBlobs[input.name] = {dataUrl:e.target.result, name:f.name, size:f.size, type:f.type};
-        img.src = e.target.result;
-        meta.textContent = f.name + ' · ' + (f.size/1024/1024).toFixed(2) + ' MB';
-        box.classList.add('has');
-      };
-      r.readAsDataURL(f);
-    });
-  });
-
-  const form = document.getElementById('f');
-  const done = document.getElementById('done');
-  const gerr = document.getElementById('gerr');
-  form.addEventListener('submit', async (ev)=>{
-    ev.preventDefault();
-    gerr.classList.remove('show'); gerr.textContent = '';
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    if (!fileBlobs.photo) {
-      gerr.textContent = 'Please attach a photo (face and full body both visible).'; gerr.classList.add('show'); return;
-    }
-    const btn = form.querySelector('button.submit');
-    btn.disabled = true;
-    const orig = btn.textContent;
-    btn.textContent = '…';
-
-    const fd = new FormData(form);
-    const data = {};
-    fd.forEach((v,k)=>{ if (k!=='photo') data[k] = v; });
-    data.consent = form.consent.checked;
-    data.lang    = document.documentElement.lang || 'en';
-    data.photo   = { name:fileBlobs.photo.name, type:fileBlobs.photo.type, dataUrl:fileBlobs.photo.dataUrl };
-
-    try{
-      const r = await fetch(SCRIPT_URL, {
-        method:'POST',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify(data)
-      });
-      const j = await r.json().catch(()=>({success:false,error:'invalid response'}));
-      if (j && j.success) {
-        form.style.display = 'none';
-        done.classList.add('show');
-        window.scrollTo({top:0, behavior:'smooth'});
-      } else {
-        throw new Error((j && j.error) || 'submit failed');
-      }
-    } catch (e) {
-      gerr.textContent = 'Submission failed. Please try again. ('+ (e.message||e) +')';
-      gerr.classList.add('show');
-      btn.disabled = false; btn.textContent = orig;
-    }
-  });
-</script>
 </body>
 </html>
