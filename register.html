@@ -332,6 +332,35 @@
       </div>
     </div>
 
+    <div class="section">
+      <h2 data-i18n="s_exp">Experience &amp; portfolio <span class="opt" data-i18n="s_exp_h">(only if you have them &mdash; not required)</span></h2>
+      <p class="hint" data-i18n="h_exp">Most of our roles need no experience at all. This section is for people who already work in the industry. Leaving it empty does not affect your registration.</p>
+      <div class="field">
+        <label><span data-i18n="l_expdetail">Credits &mdash; production, role, year</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <textarea name="expDetail" rows="3" placeholder="2025 &mdash; Feature film / background with action&#10;2024 &mdash; TV commercial / featured"></textarea>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_agency">Agency you are signed with</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="text" name="agency">
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_link">Showreel / portfolio link</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <input type="url" name="portfolioUrl" placeholder="https://">
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_portfolio">Portfolio file &mdash; comp card, resume or photo sheet</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <label class="file">
+          <input type="file" name="portfolio" accept="image/*,application/pdf">
+          <div class="lbl" data-i18n="l_portfolio_s">PDF or image</div>
+          <div class="h" data-i18n="h_tap">Tap to choose</div>
+          <div class="preview"><img alt=""><div class="meta"></div></div>
+        </label>
+        <div class="hint" data-i18n="h_portfolio">One file only. PDF or image, up to 8MB. Do not include your address, phone number or ID documents in this file.</div>
+      </div>
+    </div>
+
     <div class="consent">
       <div class="body" data-i18n="consent_body">How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked.</div>
       <label>
@@ -363,6 +392,13 @@
   var MAX_BYTES  = 12 * 1024 * 1024;   /* 元ファイルの上限。送信時は縮小するので実際の送信量はずっと小さい */
   var MAX_DIM    = 1600;
   var JPEG_Q     = 0.85;
+  var PF_MAX     = 8 * 1024 * 1024;    /* ポートフォリオ（PDF可）の上限 */
+  var PDF_ICON   = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60">' +
+      '<rect width="48" height="60" rx="4" fill="#f2f2f0"/>' +
+      '<path d="M30 0l18 18H30z" fill="#d9d9d4"/>' +
+      '<text x="24" y="42" font-family="Helvetica,Arial" font-size="12" font-weight="bold" ' +
+      'text-anchor="middle" fill="#8a8a84">PDF</text></svg>');
 
   var T = {
     en:{
@@ -408,6 +444,14 @@
       l_hair:'Hair color',l_eye:'Eye color',l_features:'Features (tattoo, piercing, beard...)',
       l_lang:'Languages spoken (with level)',l_acting:'Acting / modelling experience',
       l_source:'How did you find us?',l_referrer:'Who referred you? (name)',
+      s_exp:'Experience & portfolio',s_exp_h:'(only if you have them \u2014 not required)',
+      h_exp:'Most of our roles need no experience at all. This section is for people who already work in the industry. Leaving it empty does not affect your registration.',
+      l_expdetail:'Credits \u2014 production, role, year',l_agency:'Agency you are signed with',
+      l_link:'Showreel / portfolio link',l_portfolio:'Portfolio file \u2014 comp card, resume or photo sheet',
+      l_portfolio_s:'PDF or image',
+      h_portfolio:'One file only. PDF or image, up to 8MB. Do not include your address, phone number or ID documents in this file.',
+      e_pfsize:'That portfolio file is too large. Please keep it under 8MB.',
+      e_pftype:'Portfolio must be a PDF or an image file.',
       o_male:'Male',o_female:'Female',o_other:'Other / N/A',
       o_none:'None',o_some:'Some',o_pro:'Professional',o_ref:'Referral / Friend',
       opt:'(optional)',
@@ -467,6 +511,14 @@
       l_hair:'Color de cabello',l_eye:'Color de ojos',l_features:'Marcas (tatuajes, piercings, barba...)',
       l_lang:'Idiomas que hablas (con nivel)',l_acting:'Experiencia de actuación / modelaje',
       l_source:'¿Cómo nos encontraste?',l_referrer:'¿Quién te recomendó? (nombre)',
+      s_exp:'Experiencia y portafolio',s_exp_h:'(solo si los tienes \u2014 no es obligatorio)',
+      h_exp:'La mayor\u00eda de nuestros papeles no requieren experiencia alguna. Esta secci\u00f3n es para quienes ya trabajan en el sector. Dejarla vac\u00eda no afecta tu registro.',
+      l_expdetail:'Trabajos \u2014 producci\u00f3n, papel, a\u00f1o',l_agency:'Agencia que te representa',
+      l_link:'Enlace a tu reel o portafolio',l_portfolio:'Archivo de portafolio \u2014 comp card, curr\u00edculum u hoja de fotos',
+      l_portfolio_s:'PDF o imagen',
+      h_portfolio:'Un solo archivo. PDF o imagen, hasta 8MB. No incluyas tu direcci\u00f3n, tel\u00e9fono ni documentos de identidad en este archivo.',
+      e_pfsize:'Ese archivo de portafolio es demasiado grande. M\u00e1ntenlo por debajo de 8MB.',
+      e_pftype:'El portafolio debe ser un PDF o una imagen.',
       o_male:'Masculino',o_female:'Femenino',o_other:'Otro / N/A',
       o_none:'Ninguna',o_some:'Algo',o_pro:'Profesional',o_ref:'Referido / Amigo',
       opt:'(opcional)',
@@ -526,6 +578,14 @@
       l_hair:'髪色',l_eye:'目の色',l_features:'特徴（タトゥー・ピアス・ヒゲ等）',
       l_lang:'話せる言語（レベル併記）',l_acting:'演技/モデル経験',
       l_source:'当社を知ったきっかけ',l_referrer:'紹介者のお名前',
+      s_exp:'\u7d4c歴\u30fb\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa',s_exp_h:'\uff08\u304a\u6301\u3061\u306e\u65b9\u306e\u307f\u30fb\u5fc5\u9808\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09',
+      h_exp:'\u5f0a\u793e\u306e\u6848\u4ef6\u306e\u307b\u3068\u3093\u3069\u306f\u672a\u7d4c\u9a13\u3067\u53c2\u52a0\u3067\u304d\u307e\u3059\u3002\u3053\u306e\u6b04\u306f\u3059\u3067\u306b\u696d\u754c\u3067\u6d3b\u52d5\u3055\u308c\u3066\u3044\u308b\u65b9\u5411\u3051\u3067\u3059\u3002\u7a7a\u6b04\u3067\u3082\u767b\u9332\u306b\u5f71\u97ff\u306f\u3042\u308a\u307e\u305b\u3093\u3002',
+      l_expdetail:'\u51fa\u6f14\u5b9f\u7e3e\uff08\u4f5c\u54c1\u540d\u30fb\u5f79\u67c4\u30fb\u5e74\uff09',l_agency:'\u6240\u5c5e\u4e8b\u52d9\u6240',
+      l_link:'\u30ea\u30fc\u30eb\u30fb\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa\u306e\u30ea\u30f3\u30af',l_portfolio:'\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa\u30d5\u30a1\u30a4\u30eb\uff08\u30b3\u30f3\u30dd\u30ab\u30fc\u30c9\u30fb\u7d4c\u6b74\u66f8\u30fb\u5199\u771f\u30b7\u30fc\u30c8\uff09',
+      l_portfolio_s:'PDF \u307e\u305f\u306f \u753b\u50cf',
+      h_portfolio:'1\u30d5\u30a1\u30a4\u30eb\u306e\u307f\u3002PDF\u307e\u305f\u306f\u753b\u50cf\u30018MB\u307e\u3067\u3002\u3053\u306e\u30d5\u30a1\u30a4\u30eb\u306b\u4f4f\u6240\u30fb\u96fb\u8a71\u756a\u53f7\u30fb\u8eab\u5206\u8a3c\u660e\u66f8\u985e\u3092\u542b\u3081\u306a\u3044\u3067\u304f\u3060\u3055\u3044\u3002',
+      e_pfsize:'\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa\u306e\u30d5\u30a1\u30a4\u30eb\u30b5\u30a4\u30ba\u304c\u5927\u304d\u3059\u304e\u307e\u3059\u30028MB\u4ee5\u4e0b\u306b\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
+      e_pftype:'\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa\u306fPDF\u307e\u305f\u306f\u753b\u50cf\u30d5\u30a1\u30a4\u30eb\u306b\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
       o_male:'男性',o_female:'女性',o_other:'その他 / 未記入',
       o_none:'未経験',o_some:'少しあり',o_pro:'プロ',o_ref:'紹介 / 知人',
       opt:'（任意）',
@@ -612,6 +672,16 @@
     });
   }
 
+  /* PDFは縮小できないのでそのまま読む */
+  function readRaw(file){
+    return new Promise(function(resolve, reject){
+      var r = new FileReader();
+      r.onerror = function(){ reject(new Error('read error')); };
+      r.onload  = function(e){ resolve({ dataUrl:e.target.result, name:file.name, type:file.type || 'application/pdf' }); };
+      r.readAsDataURL(file);
+    });
+  }
+
   var blobs = {};
   var boxes = document.querySelectorAll('.file');
   for (var q=0;q<boxes.length;q++){
@@ -619,20 +689,32 @@
       var input = box.querySelector('input[type=file]');
       var img   = box.querySelector('.preview img');
       var meta  = box.querySelector('.preview .meta');
+      var isPf = (input.name === 'portfolio');
       input.addEventListener('change', function(){
         var f = input.files[0];
-        if (!f) return;
-        if (f.size > MAX_BYTES){ alert('File too large (max 12MB).'); input.value=''; return; }
+        if (!f) { delete blobs[input.name]; box.classList.remove('has'); return; }
+
+        var isPdf = /pdf/i.test(f.type) || /\.pdf$/i.test(f.name);
+
+        if (isPf){
+          if (!isPdf && !/^image\//i.test(f.type)){ alert(t('e_pftype')); input.value=''; return; }
+          if (f.size > PF_MAX){ alert(t('e_pfsize')); input.value=''; return; }
+        } else {
+          if (f.size > MAX_BYTES){ alert('File too large (max 12MB).'); input.value=''; return; }
+        }
+
         meta.textContent = '…';
         box.classList.add('has');
-        shrink(f).then(function(o){
+
+        (isPdf ? readRaw(f) : shrink(f)).then(function(o){
           blobs[input.name] = o;
-          img.src = o.dataUrl;
+          img.src = isPdf ? PDF_ICON : o.dataUrl;
           meta.textContent = f.name + ' · ' + Math.round(o.dataUrl.length/1365) + ' KB';
         }).catch(function(){
           box.classList.remove('has');
           input.value = '';
-          alert('Could not read that image. Please try another file.');
+          delete blobs[input.name];
+          alert('Could not read that file. Please try another one.');
         });
       });
     })(boxes[q]);
@@ -666,7 +748,7 @@
     var data = {};
     var fd = new FormData(form);
     fd.forEach(function(val, key){
-      if (key !== 'cardFront' && key !== 'cardBack' && key !== 'photoFace' && key !== 'photoBody') data[key] = val;
+      if (key !== 'cardFront' && key !== 'cardBack' && key !== 'photoFace' && key !== 'photoBody' && key !== 'portfolio') data[key] = val;
     });
     data.age     = age;
     data.consent = form.consent.checked;
@@ -675,6 +757,7 @@
     data.cardBack  = blobs.cardBack;
     data.photoFace = blobs.photoFace;
     data.photoBody = blobs.photoBody;
+    if (blobs.portfolio) data.portfolio = blobs.portfolio;
 
     fetch(SCRIPT_URL, {
       method:'POST',
