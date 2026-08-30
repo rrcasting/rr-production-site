@@ -1,4 +1,6 @@
-Rr.production’s SNS運用ルール
+Rr.production's SNS運用ルール
+
+最終更新：2026-08-30
 
 目的：
 外国人向けのエキストラ募集を増やす
@@ -6,22 +8,46 @@ Rr.production’s SNS運用ルール
 固定リンク：
 サイト：https://rrcasting.github.io/rr-production-site/
 
-フォーム：https://docs.google.com/forms/d/e/1FAIpQLScxojC3QE0yeGyIUQqY0CbXtgjy0LXIVDJxK1as9DtDT5wt7g/viewform
+登録フォーム：https://rrcasting.github.io/rr-production-site/register.html
 
 WhatsApp：https://wa.me/817085101040
+
+※ 以前ここに載せていたGoogleフォームは廃止。使わない。復活させない。
 
 前提：
 ・主な活動エリアは関東、案件によって日本各地
 ・基本的に外国人エキストラ中心
 ・映画、ドラマ、CM、MV案件
 ・未経験歓迎
+・18歳以上、就労が認められる在留資格を持つ人のみ
+
+応募導線（ここを間違えない）：
+・はじめての人 → 登録フォーム（register.html）。1回だけ登録する
+・登録済みの人 → WhatsAppで直接連絡
+・制作会社からの問い合わせ → WhatsApp
+・SNSのDMでの応募は受け付けない
+・投稿には必ず「はじめての方は登録フォーム、登録済みの方はWhatsApp」の2本立てで書く
 
 投稿ルール：
 ・英語＋スペイン語を必ず含める
 ・応募導線（URL）を必ず入れる
 ・短くても応募したくなる文章にする
-・誇張表現は禁止
+・誇張表現は禁止（「出演」ではなく「参加」）
 ・信頼感を優先
+
+禁止表現（プロンプト側に指示があっても使わない）：
+・「Fast response」など急かす表現
+　→ 使わず「Spots are limited」「Selection-based」で希少性を出す
+・「Prefecture（都道府県）」
+　→ 必ず「Exact full address（正確な現住所）」
+・「Photo（1枚）」
+　→ 必ず「Photos: face & full body」＋「自然な写真・サングラス/帽子なし・顔がはっきり」
+
+登録に必要なもの（投稿で案内する場合）：
+氏名／生年月日／国籍／日本での正確な現住所／日本の電話番号／在留資格と在留期限／在留カード表裏の画像／写真（顔・全身）
+
+在留カードについて投稿で触れるときの言い方：
+確認後は在留資格と在留期限のみを記録し、画像は削除する、と必ず添える
 
 投稿タイプ：
 ・募集告知
@@ -33,3 +59,8 @@ WhatsApp：https://wa.me/817085101040
 Instagram：短く強く
 Facebook：しっかり説明
 WhatsApp：超短文＋リンク
+
+やってはいけないこと：
+・公開済み作品の撮影素材・スクリーンショット・画面録画を投稿しない
+・撮影場所や作品名を、公表前に出さない
+・応募者の個人情報（名前・写真）を許可なく投稿しない
