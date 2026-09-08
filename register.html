@@ -73,6 +73,12 @@
   .done .check{width:64px;height:64px;border-radius:50%;background:var(--ok);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff}
   .done h2{margin:0 0 10px;font-size:22px}
   .done p{color:var(--muted);font-size:14px;margin:6px 0}
+  .comm{margin:26px auto 0;max-width:420px;background:var(--panel-2);border:1px solid var(--accent-2);border-radius:10px;padding:18px 16px;text-align:center}
+  .comm h3{margin:0 0 8px;font-size:15px;color:var(--accent-2);letter-spacing:.02em}
+  .comm p{color:var(--muted);font-size:13px;margin:0 0 14px;line-height:1.6}
+  .comm a.join{display:block;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;padding:13px 16px;font-size:15px;font-weight:700;letter-spacing:.03em}
+  .comm a.join:hover{background:#c2410c}
+  .comm .opt2{font-size:11px;color:#737373;margin:10px 0 0}
   footer{margin-top:32px;text-align:center;color:var(--muted);font-size:11px}
   footer a{color:var(--muted)}
   .notice{background:linear-gradient(180deg,#1f2937,#111);border:1px solid var(--accent-2);border-radius:10px;padding:14px 16px;margin:0 0 22px;font-size:13px}
@@ -379,6 +385,13 @@
     <p data-i18n="done_p1">We check every residence card by hand, then delete the images.</p>
     <p data-i18n="done_p2">Once you are registered, apply to each casting on WhatsApp by sending everything that casting's post asks for.</p>
     <p data-i18n="done_p3">Selection is based on the production's requirements. Spots are limited.</p>
+
+    <div class="comm">
+      <h3 data-i18n="comm_t">Join the casting community</h3>
+      <p data-i18n="comm_p">Some castings are posted only in our WhatsApp community, not on Instagram. Announcements only — you cannot be messaged by other members.</p>
+      <a class="join" href="https://chat.whatsapp.com/IFvux1svsdGLk5BT7xrK4M" target="_blank" rel="noopener" data-i18n="comm_btn">Open WhatsApp community</a>
+      <p class="opt2" data-i18n="comm_opt">Optional. You can leave at any time.</p>
+    </div>
   </div>
 
   <footer>
@@ -466,7 +479,11 @@
       done_t:'Registration received',
       done_p1:'We check every residence card by hand, then delete the images.',
       done_p2:"Once you are registered, apply to each casting on WhatsApp by sending everything that casting's post asks for.",
-      done_p3:"Selection is based on the production's requirements. Spots are limited."
+      done_p3:"Selection is based on the production's requirements. Spots are limited.",
+      comm_t:'Join the casting community',
+      comm_p:'Some castings are posted only in our WhatsApp community, not on Instagram. Announcements only — you cannot be messaged by other members.',
+      comm_btn:'Open WhatsApp community',
+      comm_opt:'Optional. You can leave at any time.'
     },
     es:{
       hero:'Únete a una producción <span class="em">en Japón</span>.',
@@ -533,7 +550,11 @@
       done_t:'Registro recibido',
       done_p1:'Revisamos cada tarjeta de residencia a mano y luego eliminamos las imágenes.',
       done_p2:'Una vez registrado/a, postúlate a cada convocatoria por WhatsApp enviando todo lo que pide esa publicación.',
-      done_p3:'La selección sigue los requisitos de la producción. Los cupos son limitados.'
+      done_p3:'La selección sigue los requisitos de la producción. Los cupos son limitados.',
+      comm_t:'Únete a la comunidad de casting',
+      comm_p:'Algunas convocatorias se publican solo en nuestra comunidad de WhatsApp, no en Instagram. Es solo para anuncios — otros miembros no pueden escribirte.',
+      comm_btn:'Abrir la comunidad de WhatsApp',
+      comm_opt:'Es opcional. Puedes salir cuando quieras.'
     },
     ja:{
       hero:'日本の映像制作に <span class="em">参加</span>。',
@@ -600,7 +621,11 @@
       done_t:'登録を受け付けました',
       done_p1:'在留カードは1件ずつ手で確認し、確認後に画像を削除します。',
       done_p2:'登録後は、各案件の投稿に記載された必要項目をすべて添えて WhatsApp から応募してください。',
-      done_p3:'選考は制作側の要件に基づきます。募集枠には限りがあります。'
+      done_p3:'選考は制作側の要件に基づきます。募集枠には限りがあります。',
+      comm_t:'キャスティングコミュニティに参加',
+      comm_p:'一部の案件はInstagramには出さず、WhatsAppコミュニティ内でのみ告知します。告知専用のため、他の参加者からメッセージが届くことはありません。',
+      comm_btn:'WhatsAppコミュニティを開く',
+      comm_opt:'参加は任意です。いつでも退出できます。'
     }
   };
 
