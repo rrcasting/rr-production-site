@@ -877,9 +877,9 @@
     </nav>
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="lang-btns">
-        <button class="lang-btn active" aria-label="Switch language to English">ENGLISH</button>
-        <button class="lang-btn" aria-label="Cambiar idioma a español">ESPAÑOL</button>
-        <button class="lang-btn" aria-label="言語を日本語に切り替え">日本語</button>
+        <button class="lang-btn active" aria-label="Switch language to English" data-code="en">ENGLISH</button>
+        <button class="lang-btn" aria-label="Cambiar idioma a español" data-code="es">ESPAÑOL</button>
+        <button class="lang-btn" aria-label="言語を日本語に切り替え" data-code="ja">日本語</button>
       </div>
       <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
     </div>
@@ -1785,7 +1785,7 @@
       el.classList.toggle('active', el.dataset.lang === lang);
     });
     document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+      btn.classList.toggle('active', btn.dataset.code === lang);
     });
     document.documentElement.lang = lang === 'ja' ? 'ja' : lang === 'es' ? 'es' : 'en';
     try { localStorage.setItem('rr_lang', lang); } catch (e) {}
@@ -1806,7 +1806,7 @@
   /* ── Bind lang buttons via addEventListener for reliable Android tap ── */
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      const lang = this.textContent.trim().toLowerCase();
+      const lang = (this.dataset.code || 'en');
       setLang(lang);
     });
   });
