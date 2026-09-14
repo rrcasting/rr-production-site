@@ -234,7 +234,12 @@
 
     <div class="section">
       <h2 data-i18n="s_photo">Photos <span class="opt" data-i18n="s_photo_h">(face and full body — two separate photos)</span></h2>
-      <p class="hint" data-i18n="h_photos">A natural phone photo is fine — just make sure your face is clearly visible, with no sunglasses or hat.</p>
+      <p class="hint" data-i18n="h_photos">A phone photo is fine. What matters is that the production can see your face and your build clearly.</p>
+      <ul class="hint" style="margin:6px 0 14px;padding-left:18px;line-height:1.7">
+        <li data-i18n="h_photo_face">FACE — from the shoulders up, looking straight at the camera. No sunglasses, no hat, no mask, no filter. Taken within the last 6 months.</li>
+        <li data-i18n="h_photo_body">FULL BODY — head to feet, standing straight, plain background, clothes that show your build (not baggy).</li>
+        <li data-i18n="h_photo_extra">EXTRA (optional, up to 3) — another angle, a smile, or a photo from a shoot. These help you get selected.</li>
+      </ul>
       <div class="row">
         <div class="field">
           <label><span data-i18n="l_photo_face">Face photo</span> <span class="req">*</span></label>
@@ -250,6 +255,35 @@
           <label class="file">
             <input type="file" name="photoBody" accept="image/*" required>
             <div class="lbl" data-i18n="l_photo_body_s">Full body</div>
+            <div class="h" data-i18n="h_tap">Tap to choose</div>
+            <div class="preview"><img alt=""><div class="meta"></div></div>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_photo_x1">Extra photo 1</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <label class="file">
+            <input type="file" name="photoExtra1" accept="image/*">
+            <div class="lbl" data-i18n="l_photo_x_s">Extra</div>
+            <div class="h" data-i18n="h_tap">Tap to choose</div>
+            <div class="preview"><img alt=""><div class="meta"></div></div>
+          </label>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_photo_x2">Extra photo 2</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <label class="file">
+            <input type="file" name="photoExtra2" accept="image/*">
+            <div class="lbl" data-i18n="l_photo_x_s">Extra</div>
+            <div class="h" data-i18n="h_tap">Tap to choose</div>
+            <div class="preview"><img alt=""><div class="meta"></div></div>
+          </label>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_photo_x3">Extra photo 3</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+          <label class="file">
+            <input type="file" name="photoExtra3" accept="image/*">
+            <div class="lbl" data-i18n="l_photo_x_s">Extra</div>
             <div class="h" data-i18n="h_tap">Tap to choose</div>
             <div class="preview"><img alt=""><div class="meta"></div></div>
           </label>
@@ -306,6 +340,21 @@
           <label><span data-i18n="l_features">Features (tattoo, piercing, beard...)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
           <input type="text" name="features">
         </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_look">Appearance type</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <select name="appearance">
+          <option value="" data-i18n="o_look_no">Prefer not to say</option>
+          <option value="African" data-i18n="o_look_af">African</option>
+          <option value="European" data-i18n="o_look_eu">European</option>
+          <option value="Latin American" data-i18n="o_look_la">Latin American</option>
+          <option value="Middle Eastern" data-i18n="o_look_me">Middle Eastern</option>
+          <option value="South Asian" data-i18n="o_look_sa">South Asian</option>
+          <option value="East Asian" data-i18n="o_look_ea">East Asian</option>
+          <option value="Southeast Asian" data-i18n="o_look_se">Southeast Asian</option>
+          <option value="Mixed" data-i18n="o_look_mx">Mixed</option>
+        </select>
+        <div class="hint" data-i18n="h_look">Productions often ask for a specific look. Telling us makes it far more likely you are put forward for the right project. This is entirely optional — leaving it blank does not affect your registration, and by choosing an option you agree to us recording it for casting purposes only.</div>
       </div>
       <div class="field">
         <label><span data-i18n="l_lang">Languages spoken (with level)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
@@ -368,7 +417,7 @@
     </div>
 
     <div class="consent">
-      <div class="body" data-i18n="consent_body">How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked.</div>
+      <div class="body" data-i18n="consent_body">How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked. If you choose an appearance type, we record it solely to match productions' casting requirements.</div>
       <label>
         <input type="checkbox" name="consent" required>
         <span data-i18n="consent">I am 18 or over, the information above is accurate, and I agree to the use of my information as described.</span>
@@ -446,7 +495,11 @@
       l_card_b:'Residence card — BACK',l_card_b_s:'Back side',
       h_tap:'Tap to choose',
       h_card_28:'If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.',
-      h_photos:'A natural phone photo is fine — just make sure your face is clearly visible, with no sunglasses or hat.',
+      h_photos:'A phone photo is fine. What matters is that the production can see your face and your build clearly.',
+      h_photo_face:'FACE — from the shoulders up, looking straight at the camera. No sunglasses, no hat, no mask, no filter. Taken within the last 6 months.',
+      h_photo_body:'FULL BODY — head to feet, standing straight, plain background, clothes that show your build (not baggy).',
+      h_photo_extra:'EXTRA (optional, up to 3) — another angle, a smile, or a photo from a shoot. These help you get selected.',
+      l_photo_x1:'Extra photo 1',l_photo_x2:'Extra photo 2',l_photo_x3:'Extra photo 3',l_photo_x_s:'Extra',
       l_photo_face:'Face photo',l_photo_face_s:'Face',
       l_photo_body:'Full body photo',l_photo_body_s:'Full body',
       l_wa:'WhatsApp (with country code)',h_wa:'All casting communication happens on WhatsApp.',
@@ -455,6 +508,7 @@
       l_email:'Email',
       l_height:'Height (cm)',l_clothing:'Clothing size',l_shoe:'Shoe size (cm)',
       l_hair:'Hair color',l_eye:'Eye color',l_features:'Features (tattoo, piercing, beard...)',
+l_look:'Appearance type',o_look_no:'Prefer not to say',o_look_af:'African',o_look_eu:'European',o_look_la:'Latin American',o_look_me:'Middle Eastern',o_look_sa:'South Asian',o_look_ea:'East Asian',o_look_se:'Southeast Asian',o_look_mx:'Mixed',h_look:'Productions often ask for a specific look. Telling us makes it far more likely you are put forward for the right project. This is entirely optional — leaving it blank does not affect your registration, and by choosing an option you agree to us recording it for casting purposes only.',
       l_lang:'Languages spoken (with level)',l_acting:'Acting / modelling experience',
       l_source:'How did you find us?',l_referrer:'Who referred you? (name)',
       s_exp:'Experience & portfolio',s_exp_h:'(only if you have them \u2014 not required)',
@@ -468,7 +522,7 @@
       o_male:'Male',o_female:'Female',o_other:'Other / N/A',
       o_none:'None',o_some:'Some',o_pro:'Professional',o_ref:'Referral / Friend',
       opt:'(optional)',
-      consent_body:'How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked.',
+      consent_body:'How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked. If you choose an appearance type, we record it solely to match productions' casting requirements.',
       consent:'I am 18 or over, the information above is accurate, and I agree to the use of my information as described.',
       submit:'Submit registration',
       e_age:'You must be 18 or over to register. This is a production requirement with no exceptions.',
@@ -517,7 +571,11 @@
       l_card_b:'Tarjeta de residencia — REVERSO',l_card_b_s:'Reverso',
       h_tap:'Toca para elegir',
       h_card_28:'Si tienes visa de estudiante o de dependiente, el límite de 28 horas semanales cuenta todos tus trabajos en conjunto. Mantenerte dentro de ese límite es tu responsabilidad — verifica que un día de rodaje no te haga superarlo.',
-      h_photos:'Una foto natural tomada con el móvil está bien — solo asegúrate de que tu rostro se vea claramente, sin gafas de sol ni gorra.',
+      h_photos:'Una foto tomada con el móvil está bien. Lo importante es que la producción vea con claridad tu rostro y tu complexión.',
+      h_photo_face:'ROSTRO — de los hombros hacia arriba, mirando de frente a la cámara. Sin gafas de sol, sin gorra, sin mascarilla, sin filtros. Tomada en los últimos 6 meses.',
+      h_photo_body:'CUERPO ENTERO — de la cabeza a los pies, de pie y recto, fondo sencillo, ropa que permita ver tu complexión (no holgada).',
+      h_photo_extra:'ADICIONALES (opcional, hasta 3) — otro ángulo, una sonrisa, o una foto de un rodaje. Ayudan a que te seleccionen.',
+      l_photo_x1:'Foto adicional 1',l_photo_x2:'Foto adicional 2',l_photo_x3:'Foto adicional 3',l_photo_x_s:'Adicional',
       l_photo_face:'Foto de rostro',l_photo_face_s:'Rostro',
       l_photo_body:'Foto de cuerpo entero',l_photo_body_s:'Cuerpo entero',
       l_wa:'WhatsApp (con código de país)',h_wa:'Toda la comunicación de casting ocurre por WhatsApp.',
@@ -526,6 +584,7 @@
       l_email:'Correo electrónico',
       l_height:'Estatura (cm)',l_clothing:'Talla de ropa',l_shoe:'Talla de calzado (cm)',
       l_hair:'Color de cabello',l_eye:'Color de ojos',l_features:'Marcas (tatuajes, piercings, barba...)',
+l_look:'Tipo de apariencia',o_look_no:'Prefiero no decirlo',o_look_af:'Africana',o_look_eu:'Europea',o_look_la:'Latinoamericana',o_look_me:'De Oriente Medio',o_look_sa:'Del sur de Asia',o_look_ea:'De Asia oriental',o_look_se:'Del sudeste asiático',o_look_mx:'Mixta',h_look:'Las producciones suelen pedir un tipo de apariencia concreto. Indicárnoslo aumenta mucho las probabilidades de que te presentemos al proyecto adecuado. Es totalmente opcional — dejarlo en blanco no afecta tu registro, y al elegir una opción aceptas que la registremos únicamente con fines de casting.',
       l_lang:'Idiomas que hablas (con nivel)',l_acting:'Experiencia de actuación / modelaje',
       l_source:'¿Cómo nos encontraste?',l_referrer:'¿Quién te recomendó? (nombre)',
       s_exp:'Experiencia y portafolio',s_exp_h:'(solo si los tienes \u2014 no es obligatorio)',
@@ -539,7 +598,7 @@
       o_male:'Masculino',o_female:'Femenino',o_other:'Otro / N/A',
       o_none:'Ninguna',o_some:'Algo',o_pro:'Profesional',o_ref:'Referido / Amigo',
       opt:'(opcional)',
-      consent_body:'Cómo usamos tu información: tus datos se usan únicamente para (1) considerarte en las convocatorias y (2) entregar a la productora lo que requiere para los proyectos en los que seas seleccionado/a. Conservamos tu registro mientras sigas activo/a y lo eliminamos cuando lo pidas — solo escríbenos. Las imágenes de tu tarjeta de residencia se eliminan una vez verificadas.',
+      consent_body:'Cómo usamos tu información: tus datos se usan únicamente para (1) considerarte en las convocatorias y (2) entregar a la productora lo que requiere para los proyectos en los que seas seleccionado/a. Conservamos tu registro mientras sigas activo/a y lo eliminamos cuando lo pidas — solo escríbenos. Las imágenes de tu tarjeta de residencia se eliminan una vez verificadas. Si eliges un tipo de apariencia, lo registramos únicamente para responder a los requisitos de casting de las producciones.',
       consent:'Tengo 18 años o más, la información es correcta y acepto el uso de mis datos como se describe.',
       submit:'Enviar registro',
       e_age:'Debes tener 18 años o más para registrarte. Es un requisito de producción, sin excepciones.',
@@ -588,7 +647,11 @@
       l_card_b:'在留カード — 裏面',l_card_b_s:'裏面',
       h_tap:'タップして選択',
       h_card_28:'留学・家族滞在の方は、週28時間の上限がすべての勤務先の合計に適用されます。上限内に収めるのはご本人の責任です。撮影日が上限を超えないかご確認ください。',
-      h_photos:'スマホで撮った自然な写真で構いません。顔がはっきり見えるように、サングラス・帽子なしでお願いします。',
+      h_photos:'スマホの写真で構いません。制作側が顔と体型をはっきり判断できることが重要です。',
+      h_photo_face:'顔写真 — 肩から上。正面を向いて撮影。サングラス・帽子・マスク・加工は不可。直近6か月以内の写真。',
+      h_photo_body:'全身写真 — 頭から足先まで。まっすぐ立ち、背景はシンプルに。体型がわかる服装で（ダボっとした服は不可）。',
+      h_photo_extra:'追加写真（任意・最大3枚）— 別角度・笑顔・現場での写真など。選ばれやすくなります。',
+      l_photo_x1:'追加写真1',l_photo_x2:'追加写真2',l_photo_x3:'追加写真3',l_photo_x_s:'追加',
       l_photo_face:'顔写真',l_photo_face_s:'顔',
       l_photo_body:'全身写真',l_photo_body_s:'全身',
       l_wa:'WhatsApp 番号（国番号付き）',h_wa:'キャスティングの連絡はすべて WhatsApp で行います。',
@@ -597,6 +660,7 @@
       l_email:'メールアドレス',
       l_height:'身長（cm）',l_clothing:'服サイズ',l_shoe:'靴サイズ（cm）',
       l_hair:'髪色',l_eye:'目の色',l_features:'特徴（タトゥー・ピアス・ヒゲ等）',
+l_look:'外見の系統',o_look_no:'回答しない',o_look_af:'アフリカ系',o_look_eu:'ヨーロッパ系',o_look_la:'ラテン系',o_look_me:'中東系',o_look_sa:'南アジア系',o_look_ea:'東アジア系',o_look_se:'東南アジア系',o_look_mx:'ミックス',h_look:'制作側から外見の系統を指定されることが多く、お知らせいただくと該当案件に推薦できる可能性が大きく上がります。回答は任意です。空欄でも登録に影響はありません。選択された場合、キャスティング目的でのみ記録することに同意したものとして扱います。',
       l_lang:'話せる言語（レベル併記）',l_acting:'演技/モデル経験',
       l_source:'当社を知ったきっかけ',l_referrer:'紹介者のお名前',
       s_exp:'\u7d4c歴\u30fb\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa',s_exp_h:'\uff08\u304a\u6301\u3061\u306e\u65b9\u306e\u307f\u30fb\u5fc5\u9808\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09',
@@ -610,7 +674,7 @@
       o_male:'男性',o_female:'女性',o_other:'その他 / 未記入',
       o_none:'未経験',o_some:'少しあり',o_pro:'プロ',o_ref:'紹介 / 知人',
       opt:'（任意）',
-      consent_body:'個人情報の利用について：いただいた情報は、①キャスティング要件への照合、②選考された案件について制作会社が必要とする情報の提供、この2つの目的にのみ使用します。登録は活動中のあいだ保持し、ご希望があればいつでも削除します（メッセージをお送りください）。在留カードの画像は確認後に削除します。',
+      consent_body:'個人情報の利用について：いただいた情報は、①キャスティング要件への照合、②選考された案件について制作会社が必要とする情報の提供、この2つの目的にのみ使用します。登録は活動中のあいだ保持し、ご希望があればいつでも削除します（メッセージをお送りください）。在留カードの画像は確認後に削除します。外見の系統を選択された場合は、制作側のキャスティング要件との照合のみに使用します。',
       consent:'18歳以上であること、記入内容に相違ないこと、上記の利用に同意することを確認します。',
       submit:'登録を送信',
       e_age:'登録は18歳以上に限ります。制作側の要件のため例外はありません。',
@@ -773,7 +837,8 @@
     var data = {};
     var fd = new FormData(form);
     fd.forEach(function(val, key){
-      if (key !== 'cardFront' && key !== 'cardBack' && key !== 'photoFace' && key !== 'photoBody' && key !== 'portfolio') data[key] = val;
+      if (['cardFront','cardBack','photoFace','photoBody','portfolio',
+           'photoExtra1','photoExtra2','photoExtra3'].indexOf(key) < 0) data[key] = val;
     });
     data.age     = age;
     data.consent = form.consent.checked;
@@ -783,6 +848,9 @@
     data.photoFace = blobs.photoFace;
     data.photoBody = blobs.photoBody;
     if (blobs.portfolio) data.portfolio = blobs.portfolio;
+    if (blobs.photoExtra1) data.photoExtra1 = blobs.photoExtra1;
+    if (blobs.photoExtra2) data.photoExtra2 = blobs.photoExtra2;
+    if (blobs.photoExtra3) data.photoExtra3 = blobs.photoExtra3;
 
     fetch(SCRIPT_URL, {
       method:'POST',
