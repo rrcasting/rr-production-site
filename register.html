@@ -887,11 +887,15 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     setStep(0);
 
     function post(body, attempt){
+      var ctl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      var killer = ctl ? setTimeout(function(){ ctl.abort(); }, 45000) : null;
       return fetch(SCRIPT_URL, {
         method:'POST',
         headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        signal: ctl ? ctl.signal : undefined
       })
+      .then(function(r){ if (killer) clearTimeout(killer); return r; })
       .then(function(r){ return r.json().catch(function(){ throw new Error('invalid response'); }); })
       .then(function(j){ if (j && j.success) return j; throw new Error((j && j.error) || 'failed'); })
       .catch(function(err){
@@ -914,9 +918,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
             .catch(function(){ step++; setStep(step); });   /* 1枚失敗しても登録は続ける */
         });
       });
-      return chain.then(function(){
-        return post({ op:'done', row:row, faceUrl:faceUrl, form:head }, 1).catch(function(){ return null; });
-      });
+      return chain;   /* 通知メールはサーバーが最初の段階で送る。ここでは待たない */
     })
     .then(function(){
       window.__subId = null;
