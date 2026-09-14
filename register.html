@@ -860,44 +860,66 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     if (!window.__subId) window.__subId = 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
     data.submissionId = window.__subId;
 
-    var t0 = Date.now(), tick = null;
-    function startProgress(){
-      btn.textContent = t('sending') + ' 0s';
-      tick = setInterval(function(){
-        btn.textContent = t('sending') + ' ' + Math.round((Date.now() - t0) / 1000) + 's';
-      }, 1000);
-    }
-    function stopProgress(){ if (tick) { clearInterval(tick); tick = null; } }
-    startProgress();
+    /* 写真は1枚ずつ別々に送る。1回の通信を短くして切断を防ぐ */
+    var shots = [];
+    shots.push({ kind:'face',  url: blobs.photoFace.dataUrl });
+    shots.push({ kind:'body',  url: blobs.photoBody.dataUrl });
+    shots.push({ kind:'front', url: blobs.cardFront.dataUrl });
+    shots.push({ kind:'back',  url: blobs.cardBack.dataUrl });
+    if (blobs.photoExtra1) shots.push({ kind:'extra1', url: blobs.photoExtra1.dataUrl });
+    if (blobs.photoExtra2) shots.push({ kind:'extra2', url: blobs.photoExtra2.dataUrl });
+    if (blobs.photoExtra3) shots.push({ kind:'extra3', url: blobs.photoExtra3.dataUrl });
+    if (blobs.portfolio)   shots.push({ kind:'portfolio', url: blobs.portfolio.dataUrl });
 
-    function send(attempt){
+    var head = {};
+    for (var kk in data) if (['cardFront','cardBack','photoFace','photoBody','portfolio',
+        'photoExtra1','photoExtra2','photoExtra3'].indexOf(kk) < 0) head[kk] = data[kk];
+    head.op = 'register';
+    head.photoCount = shots.length;
+
+    var total = shots.length + 1, step = 0;
+    function setStep(n){ btn.textContent = t('sending') + ' ' + n + '/' + total; }
+    setStep(0);
+
+    function post(body, attempt){
       return fetch(SCRIPT_URL, {
         method:'POST',
         headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(body)
       })
-      .then(function(r){ return r.json().catch(function(){ return {success:false, error:'invalid response'}; }); })
-      .then(function(j){
-        if (j && j.success) return j;
-        throw new Error((j && j.error) || 'submit failed');
-      })
-      .catch(function(e){
-        /* 通信が切れただけなら、同じ送信IDでもう一度だけ試す（二重登録にはならない） */
-        if (attempt < 2) return new Promise(function(res){ setTimeout(res, 2500); }).then(function(){ return send(attempt + 1); });
-        throw e;
+      .then(function(r){ return r.json().catch(function(){ throw new Error('invalid response'); }); })
+      .then(function(j){ if (j && j.success) return j; throw new Error((j && j.error) || 'failed'); })
+      .catch(function(err){
+        if (attempt < 3) return new Promise(function(res){ setTimeout(res, 2000); })
+                                .then(function(){ return post(body, attempt + 1); });
+        throw err;
       });
     }
 
-    send(1)
+    post(head, 1)
+    .then(function(j){
+      step = 1; setStep(step);
+      var row = j.row, base = j.base, faceUrl = '';
+      var chain = Promise.resolve();
+      shots.forEach(function(sh2){
+        chain = chain.then(function(){
+          return post({ op:'photo', submissionId:data.submissionId, row:row, base:base,
+                        kind:sh2.kind, dataUrl:sh2.url }, 1)
+            .then(function(r2){ if (sh2.kind === 'face') faceUrl = r2.url || ''; step++; setStep(step); })
+            .catch(function(){ step++; setStep(step); });   /* 1枚失敗しても登録は続ける */
+        });
+      });
+      return chain.then(function(){
+        return post({ op:'done', row:row, faceUrl:faceUrl, form:head }, 1).catch(function(){ return null; });
+      });
+    })
     .then(function(){
-      stopProgress();
       window.__subId = null;
       form.style.display = 'none';
       done.classList.add('show');
       window.scrollTo({top:0, behavior:'smooth'});
     })
     .catch(function(e){
-      stopProgress();
       fail(t('e_send') + ' (' + (e.message || e) + ')');
       btn.disabled = false; btn.textContent = orig;
     });
