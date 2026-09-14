@@ -842,7 +842,11 @@
       .cast-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
       .cast-img-wrap { border-radius: 6px; }
     }
-  </style>
+  
+@media(max-width:480px){
+  .lang-btn{padding:4px 6px!important;font-size:10px!important;letter-spacing:0!important}
+}
+</style>
 </head>
 <body>
 
@@ -873,9 +877,9 @@
     </nav>
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="lang-btns">
-        <button class="lang-btn active" aria-label="Switch language to English">EN</button>
-        <button class="lang-btn" aria-label="Cambiar idioma a español">ES</button>
-        <button class="lang-btn" aria-label="言語を日本語に切り替え">JA</button>
+        <button class="lang-btn active" aria-label="Switch language to English">ENGLISH</button>
+        <button class="lang-btn" aria-label="Cambiar idioma a español">ESPAÑOL</button>
+        <button class="lang-btn" aria-label="言語を日本語に切り替え">日本語</button>
       </div>
       <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
     </div>
