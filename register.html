@@ -20,7 +20,12 @@
   .brand{font-weight:800;letter-spacing:.04em;font-size:14px}
   .brand .dot{color:var(--accent)}
   .lang{display:flex;gap:6px;background:var(--panel);padding:4px;border-radius:999px;border:1px solid var(--line)}
-  .lang button{background:none;border:0;color:var(--muted);padding:6px 12px;font-size:12px;font-weight:600;border-radius:999px;cursor:pointer;letter-spacing:.05em}
+  .lang button{background:none;border:0;color:var(--muted);padding:6px 12px;font-size:12px;font-weight:600;border-radius:999px;cursor:pointer;letter-spacing:.04em;white-space:nowrap}
+  @media(max-width:420px){
+    .lang{gap:2px;padding:3px}
+    .lang button{padding:5px 7px;font-size:10.5px;letter-spacing:0}
+    .brand{font-size:12px}
+  }
   .lang button.on{background:var(--accent);color:#fff}
   h1{font-size:30px;line-height:1.15;margin:0 0 10px;letter-spacing:-.01em}
   h1 .em{color:var(--accent)}
@@ -91,8 +96,8 @@
   <header>
     <div class="brand">Rr<span class="dot">.</span>production's</div>
     <div class="lang" role="tablist">
-      <button data-lang="en" class="on">EN</button>
-      <button data-lang="es">ES</button>
+      <button data-lang="en" class="on">ENGLISH</button>
+      <button data-lang="es">ESPAÑOL</button>
       <button data-lang="ja">日本語</button>
     </div>
   </header>
