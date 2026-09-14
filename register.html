@@ -425,6 +425,7 @@
     </div>
 
     <button class="submit" type="submit" data-i18n="submit">Submit registration</button>
+    <div class="hint" style="text-align:center;margin-top:8px" data-i18n="h_send_wait">Uploading your photos. This takes 30–60 seconds — please keep this page open.</div>
     <div class="global-err" id="gerr"></div>
   </form>
 
@@ -452,8 +453,8 @@
   /* 受信側 Apps Script の URL。バックエンド差し替え時はここも確認すること。 */
   var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJ5VaTub3wRNCICVcshh5nMC3m2upySHJeFz-ToyycBmY5T5PVmGEUS7CEn9CMzhh7WQ/exec";
   var MAX_BYTES  = 12 * 1024 * 1024;   /* 元ファイルの上限。送信時は縮小するので実際の送信量はずっと小さい */
-  var MAX_DIM    = 1600;
-  var JPEG_Q     = 0.85;
+  var MAX_DIM    = 1280;
+  var JPEG_Q     = 0.78;
   var PF_MAX     = 8 * 1024 * 1024;    /* ポートフォリオ（PDF可）の上限 */
   var PDF_ICON   = 'data:image/svg+xml;utf8,' + encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60">' +
@@ -509,6 +510,7 @@
       l_height:'Height (cm)',l_clothing:'Clothing size',l_shoe:'Shoe size (cm)',
       l_hair:'Hair color',l_eye:'Eye color',l_features:'Features (tattoo, piercing, beard...)',
 l_look:'Appearance type',o_look_no:'Prefer not to say',o_look_af:'African',o_look_eu:'European',o_look_la:'Latin American',o_look_me:'Middle Eastern',o_look_sa:'South Asian',o_look_ea:'East Asian',o_look_se:'Southeast Asian',o_look_mx:'Mixed',h_look:'Productions often ask for a specific look. Telling us makes it far more likely you are put forward for the right project. This is entirely optional — leaving it blank does not affect your registration, and by choosing an option you agree to us recording it for casting purposes only.',
+sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seconds — please keep this page open.',
       l_lang:'Languages spoken (with level)',l_acting:'Acting / modelling experience',
       l_source:'How did you find us?',l_referrer:'Who referred you? (name)',
       s_exp:'Experience & portfolio',s_exp_h:'(only if you have them \u2014 not required)',
@@ -585,6 +587,7 @@ l_look:'Appearance type',o_look_no:'Prefer not to say',o_look_af:'African',o_loo
       l_height:'Estatura (cm)',l_clothing:'Talla de ropa',l_shoe:'Talla de calzado (cm)',
       l_hair:'Color de cabello',l_eye:'Color de ojos',l_features:'Marcas (tatuajes, piercings, barba...)',
 l_look:'Tipo de apariencia',o_look_no:'Prefiero no decirlo',o_look_af:'Africana',o_look_eu:'Europea',o_look_la:'Latinoamericana',o_look_me:'De Oriente Medio',o_look_sa:'Del sur de Asia',o_look_ea:'De Asia oriental',o_look_se:'Del sudeste asiático',o_look_mx:'Mixta',h_look:'Las producciones suelen pedir un tipo de apariencia concreto. Indicárnoslo aumenta mucho las probabilidades de que te presentemos al proyecto adecuado. Es totalmente opcional — dejarlo en blanco no afecta tu registro, y al elegir una opción aceptas que la registremos únicamente con fines de casting.',
+sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 segundos — no cierres esta página.',
       l_lang:'Idiomas que hablas (con nivel)',l_acting:'Experiencia de actuación / modelaje',
       l_source:'¿Cómo nos encontraste?',l_referrer:'¿Quién te recomendó? (nombre)',
       s_exp:'Experiencia y portafolio',s_exp_h:'(solo si los tienes \u2014 no es obligatorio)',
@@ -661,6 +664,7 @@ l_look:'Tipo de apariencia',o_look_no:'Prefiero no decirlo',o_look_af:'Africana'
       l_height:'身長（cm）',l_clothing:'服サイズ',l_shoe:'靴サイズ（cm）',
       l_hair:'髪色',l_eye:'目の色',l_features:'特徴（タトゥー・ピアス・ヒゲ等）',
 l_look:'外見の系統',o_look_no:'回答しない',o_look_af:'アフリカ系',o_look_eu:'ヨーロッパ系',o_look_la:'ラテン系',o_look_me:'中東系',o_look_sa:'南アジア系',o_look_ea:'東アジア系',o_look_se:'東南アジア系',o_look_mx:'ミックス',h_look:'制作側から外見の系統を指定されることが多く、お知らせいただくと該当案件に推薦できる可能性が大きく上がります。回答は任意です。空欄でも登録に影響はありません。選択された場合、キャスティング目的でのみ記録することに同意したものとして扱います。',
+sending:'送信中…',h_send_wait:'写真をアップロードしています。30〜60秒かかります。このページを閉じないでください。',
       l_lang:'話せる言語（レベル併記）',l_acting:'演技/モデル経験',
       l_source:'当社を知ったきっかけ',l_referrer:'紹介者のお名前',
       s_exp:'\u7d4c歴\u30fb\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa',s_exp_h:'\uff08\u304a\u6301\u3061\u306e\u65b9\u306e\u307f\u30fb\u5fc5\u9808\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09',
@@ -852,22 +856,48 @@ l_look:'外見の系統',o_look_no:'回答しない',o_look_af:'アフリカ系'
     if (blobs.photoExtra2) data.photoExtra2 = blobs.photoExtra2;
     if (blobs.photoExtra3) data.photoExtra3 = blobs.photoExtra3;
 
-    fetch(SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify(data)
-    })
-    .then(function(r){ return r.json().catch(function(){ return {success:false, error:'invalid response'}; }); })
-    .then(function(j){
-      if (j && j.success){
-        form.style.display = 'none';
-        done.classList.add('show');
-        window.scrollTo({top:0, behavior:'smooth'});
-      } else {
+    /* 送信ID：通信が切れて押し直しても、サーバー側で二重登録にならない */
+    if (!window.__subId) window.__subId = 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    data.submissionId = window.__subId;
+
+    var t0 = Date.now(), tick = null;
+    function startProgress(){
+      btn.textContent = t('sending') + ' 0s';
+      tick = setInterval(function(){
+        btn.textContent = t('sending') + ' ' + Math.round((Date.now() - t0) / 1000) + 's';
+      }, 1000);
+    }
+    function stopProgress(){ if (tick) { clearInterval(tick); tick = null; } }
+    startProgress();
+
+    function send(attempt){
+      return fetch(SCRIPT_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify(data)
+      })
+      .then(function(r){ return r.json().catch(function(){ return {success:false, error:'invalid response'}; }); })
+      .then(function(j){
+        if (j && j.success) return j;
         throw new Error((j && j.error) || 'submit failed');
-      }
+      })
+      .catch(function(e){
+        /* 通信が切れただけなら、同じ送信IDでもう一度だけ試す（二重登録にはならない） */
+        if (attempt < 2) return new Promise(function(res){ setTimeout(res, 2500); }).then(function(){ return send(attempt + 1); });
+        throw e;
+      });
+    }
+
+    send(1)
+    .then(function(){
+      stopProgress();
+      window.__subId = null;
+      form.style.display = 'none';
+      done.classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
     })
     .catch(function(e){
+      stopProgress();
       fail(t('e_send') + ' (' + (e.message || e) + ')');
       btn.disabled = false; btn.textContent = orig;
     });
