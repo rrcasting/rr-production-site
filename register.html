@@ -966,10 +966,11 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       step = 1; setStep(step);
       var row = j.row, base = j.base, faceUrl = '';
       var chain = Promise.resolve();
-      shots.forEach(function(sh2){
+      shots.forEach(function(sh2, i2){
         chain = chain.then(function(){
+          /* index / total を付ける。最後の1枚を受けたサーバーが「写真完了」メールを送る */
           return post({ op:'photo', submissionId:data.submissionId, row:row, base:base,
-                        kind:sh2.kind, dataUrl:sh2.url }, 1)
+                        kind:sh2.kind, dataUrl:sh2.url, index:i2, total:shots.length }, 1)
             .then(function(r2){ if (sh2.kind === 'face') faceUrl = r2.url || '';
                                 results.push({ kind:sh2.kind, ok:true });  step++; setStep(step); })
             .catch(function(){ results.push({ kind:sh2.kind, ok:false }); step++; setStep(step); });   /* 1枚失敗しても登録は続ける（結果は記録する） */
