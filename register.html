@@ -178,7 +178,7 @@
 
       <div class="callout">
         <strong data-i18n="c_card_t">Why we ask for your residence card</strong>
-        <span data-i18n="c_card_p">Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image.</span>
+        <span data-i18n="c_card_p">Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image. Fill the frame with the card and shoot it straight from above, so the number and the text on the back can be read.</span>
       </div>
 
       <div class="row">
@@ -474,6 +474,9 @@
   var MAX_BYTES  = 12 * 1024 * 1024;   /* 元ファイルの上限。送信時は縮小するので実際の送信量はずっと小さい */
   var MAX_DIM    = 1280;
   var JPEG_Q     = 0.78;
+  /* 在留カードだけ高解像度。番号の下4桁と裏面の資格外活動許可欄が読めないと確認できない */
+  var MAX_DIM_CARD = 2000;
+  var JPEG_Q_CARD  = 0.85;
   var PF_MAX     = 8 * 1024 * 1024;    /* ポートフォリオ（PDF可）の上限 */
   var PDF_ICON   = 'data:image/svg+xml;utf8,' + encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60">' +
@@ -500,7 +503,7 @@
       h_addr:'Building name and room number are required. Prefecture alone is not enough.',
       l_walk:'Walk from station (min)',
       c_card_t:'Why we ask for your residence card',
-      c_card_p:'Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image.',
+      c_card_p:'Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image. Fill the frame with the card and shoot it straight from above, so the number and the text on the back can be read.',
       l_visa:'VISA status',
       h_visa_tourist:'A tourist / temporary visitor status cannot be registered — all our projects are paid work.',
       v_student:'Student',v_working:'Working',v_wh:'Working Holiday',v_spouse:'Spouse of Japanese national',
@@ -581,7 +584,7 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       h_addr:'El edificio y el número de habitación son obligatorios. La prefectura sola no basta.',
       l_walk:'Minutos a pie desde la estación',
       c_card_t:'Por qué pedimos tu tarjeta de residencia',
-      c_card_p:'El trabajo remunerado en Japón exige que verifiquemos tu estatus. Esto aplica a todos los actores, sin excepción. Revisamos la tarjeta, registramos únicamente tu tipo de visa y su fecha de vencimiento, y luego eliminamos la imagen.',
+      c_card_p:'El trabajo remunerado en Japón exige que verifiquemos tu estatus. Esto aplica a todos los actores, sin excepción. Revisamos la tarjeta, registramos únicamente tu tipo de visa y su fecha de vencimiento, y luego eliminamos la imagen. Encuadra la tarjeta llenando la pantalla y fotografíala justo desde arriba, de modo que el número y el texto del reverso se puedan leer.',
       l_visa:'Estado de visa',
       h_visa_tourist:'Un estatus de turista / visitante temporal no puede registrarse — todos nuestros proyectos son trabajo remunerado.',
       v_student:'Estudiante',v_working:'Trabajo',v_wh:'Working Holiday',v_spouse:'Cónyuge de japonés/a',
@@ -662,7 +665,7 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       h_addr:'建物名と部屋番号まで必須です。都道府県だけでは受け付けられません。',
       l_walk:'駅から徒歩（分）',
       c_card_t:'在留カードを確認する理由',
-      c_card_p:'日本で有償の仕事をするには、在留資格の確認が必要です。全員に適用され、例外はありません。カードを確認し、在留資格と有効期限のみを記録したうえで、画像は削除します。',
+      c_card_p:'日本で有償の仕事をするには、在留資格の確認が必要です。全員に適用され、例外はありません。カードを確認し、在留資格と有効期限のみを記録したうえで、画像は削除します。カードを画面いっぱいに、真上から撮影してください。番号と裏面の文字が読める状態でお願いします。',
       l_visa:'在留資格',
       h_visa_tourist:'観光・短期滞在の方は登録できません（当社の案件はすべて有償のため）。',
       v_student:'留学',v_working:'就労ビザ',v_wh:'ワーキングホリデー',v_spouse:'日本人の配偶者等',
@@ -773,7 +776,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
   }
 
   /* 画像を縮小してから送る（4枚送るので元サイズだと通らない） */
-  function shrink(file){
+  function shrink(file, maxDim, q){
+    var lim = maxDim || MAX_DIM, quality = q || JPEG_Q;
     return new Promise(function(resolve, reject){
       var r = new FileReader();
       r.onerror = function(){ reject(new Error('read error')); };
@@ -782,13 +786,13 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
         img.onerror = function(){ reject(new Error('image error')); };
         img.onload = function(){
           var w = img.width, h = img.height;
-          var s = Math.min(1, MAX_DIM / Math.max(w, h));
+          var s = Math.min(1, lim / Math.max(w, h));
           var cw = Math.max(1, Math.round(w*s)), ch = Math.max(1, Math.round(h*s));
           var c = document.createElement('canvas');
           c.width = cw; c.height = ch;
           c.getContext('2d').drawImage(img, 0, 0, cw, ch);
           var url;
-          try { url = c.toDataURL('image/jpeg', JPEG_Q); }
+          try { url = c.toDataURL('image/jpeg', quality); }
           catch (err) { url = e.target.result; }
           resolve({ dataUrl:url, name:file.name, type:'image/jpeg' });
         };
@@ -816,6 +820,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       var img   = box.querySelector('.preview img');
       var meta  = box.querySelector('.preview .meta');
       var isPf = (input.name === 'portfolio');
+      var isCard = (input.name === 'cardFront' || input.name === 'cardBack');
       input.addEventListener('change', function(){
         var f = input.files[0];
         if (!f) { delete blobs[input.name]; box.classList.remove('has'); return; }
@@ -832,7 +837,9 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
         meta.textContent = '…';
         box.classList.add('has');
 
-        (isPdf ? readRaw(f) : shrink(f)).then(function(o){
+        (isPdf ? readRaw(f)
+               : shrink(f, isCard ? MAX_DIM_CARD : MAX_DIM,
+                            isCard ? JPEG_Q_CARD  : JPEG_Q)).then(function(o){
           blobs[input.name] = o;
           img.src = isPdf ? PDF_ICON : o.dataUrl;
           meta.textContent = f.name + ' · ' + Math.round(o.dataUrl.length/1365) + ' KB';
