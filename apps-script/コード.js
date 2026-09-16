@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.10', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.11', portfolio: true, extras: 3, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -57,6 +57,14 @@ function handlePhoto(d) {
   var m = PHOTO_MAP[String(d.kind || '')];
   if (!m) return json({ success:false, error:'unknown kind' });
   var row = Number(d.row || 0);
+  /* register の再送で row を受け取れなかったクライアントでも、submissionId から行を引ける */
+  if (!row && d.submissionId) {
+    try {
+      var sid2 = String(d.submissionId).replace(/[^\w-]/g, '').slice(0, 60);
+      var rec  = JSON.parse(CacheService.getScriptCache().get('sub_' + sid2) || 'null');
+      if (rec && rec.row) { row = Number(rec.row); if (!d.base && rec.base) d.base = rec.base; }
+    } catch (e3) {}
+  }
   if (!row) return json({ success:false, error:'no row' });
 
   var ctx = openTracker(), sh = ctx.sheet, H = ctx.headers;
@@ -142,6 +150,7 @@ function doPost(e) {
   var lock = LockService.getScriptLock();
   try { lock.waitLock(25000); } catch (err) { return json({ success:false, error:'busy, please retry' }); }
 
+  var regResp = null;   /* register の応答。通知メールはロックを外してから送る */
   try {
     if (!e || !e.postData || !e.postData.contents) return json({ success:false, error:'no data' });
     var d = JSON.parse(e.postData.contents);
@@ -154,8 +163,14 @@ function doPost(e) {
     var sid = String(d.submissionId || '').replace(/[^\w-]/g, '').slice(0, 60);
     if (sid) {
       var seen = cache.get('sub_' + sid);
-      if (seen) return json({ success:true, duplicate:true, note:'already received' });
-      cache.put('sub_' + sid, '1', 21600);   /* 6時間 */
+      if (seen) {
+        var prev = null;
+        try { prev = JSON.parse(seen); } catch (e1) {}
+        if (prev && prev.row) return json({ success:true, duplicate:true, row:prev.row, base:prev.base });
+        /* まだ1回目が処理中（pending） → クライアントに再送させる */
+        return json({ success:false, error:'busy, please retry' });
+      }
+      cache.put('sub_' + sid, 'pending', 21600);   /* 6時間。行ができたら row/base に書き換える */
     }
     var t0 = new Date().getTime();
 
@@ -248,19 +263,24 @@ function doPost(e) {
       rg.setValues([rowVals]);
     }
     SpreadsheetApp.flush();
+    if (sid) cache.put('sub_' + sid, JSON.stringify({ row:row, base:base }), 21600);
 
     if (d.op === 'register') {
-      notifyNewRegistration(d, row, '');          /* 写真を待たずにすぐ通知する */
-      return json({ success:true, row:row, base:base, ms:new Date().getTime() - t0 });
+      regResp = { success:true, row:row, base:base, ms:new Date().getTime() - t0 };
+    } else {
+      notifyNewRegistration(d, row, faceUrl);
+      return json({ success: true, ms: new Date().getTime() - t0 });
     }
-
-    notifyNewRegistration(d, row, faceUrl);
-    return json({ success: true, ms: new Date().getTime() - t0 });
   } catch (err) {
+    if (sid) cache.remove('sub_' + sid);   /* pending のまま残すと押し直しが永久に弾かれる */
     return json({ success:false, error: String(err && err.message ? err.message : err) });
   } finally {
     try { lock.releaseLock(); } catch (e2) {}
   }
+
+  /* ここはロックの外（register のときだけ到達する）。写真を待たずにすぐ通知する */
+  try { notifyNewRegistration(d, regResp.row, ''); } catch (e4) {}
+  return json(regResp);
 }
 
 /* ================= 検証（クライアントを信用しない） ================= */
@@ -475,14 +495,23 @@ function guardTracker() {
       log('  ID 列が無い');
     } else {
       var L1 = colLetter(H['ID'] + 1), first = hRow + 1;
-      var formula = '=COUNTIF($' + L1 + '$' + first + ':$' + L1 + ',$' + L1 + first + ')>1';
+      var oldFormula = '=COUNTIF($' + L1 + '$' + first + ':$' + L1 + ',$' + L1 + first + ')>1';   /* v1.10 で作った式（空セルも赤くなる） */
+      var formula = '=AND($' + L1 + first + '<>"",COUNTIF($' + L1 + '$' + first + ':$' + L1 + ',$' + L1 + first + ')>1)';
       var rules = sh.getConditionalFormatRules();
+      var fOf = function (r) { var b = r.getBooleanCondition(); return b ? String(b.getCriteriaValues()[0] || '') : ''; };
+      var oldIdx = -1;
+      for (var ri = 0; ri < rules.length; ri++) if (fOf(rules[ri]) === oldFormula) { oldIdx = ri; break; }
       var exists = rules.some(function (r) {
-        var b = r.getBooleanCondition();
-        return b && String(b.getCriteriaValues()[0]) === formula;
+        var f0 = fOf(r);
+        return f0.indexOf('COUNTIF(') >= 0 && f0.indexOf('$' + L1) >= 0;
       });
-      if (exists) {
-        log('  既にある（追加しない）: ' + formula);
+      if (oldIdx >= 0) {
+        /* 前回作った式だけは、同じ位置・範囲・色のまま空セル除外の式に差し替える */
+        rules[oldIdx] = rules[oldIdx].copy().whenFormulaSatisfied(formula).build();
+        sh.setConditionalFormatRules(rules);
+        log('  前回の式を空セル除外に差し替え: ' + formula);
+      } else if (exists) {
+        log('  既にある（追加しない）: COUNTIF と $' + L1 + ' を含むルールあり');
       } else {
         var rng = sh.getRange(first, H['ID'] + 1, sh.getMaxRows() - hRow, 1);
         rules.unshift(SpreadsheetApp.newConditionalFormatRule()
