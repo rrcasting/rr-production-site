@@ -441,23 +441,36 @@ function guardTracker() {
     var ORDER = ['VISA','VISA Expiry','就労制限','資格外活動許可','Card Front URL','Card Back URL',
                  '在留カード番号下4桁','確認方法','カード確認日','確認者','在留状態'];
     var sec5 = ['【5】列の並べ替え'];
-    sec5.push('移動前: ' + headerLine());
-    if (readHeaders().map['VISA'] == null) {
-      sec5.push('VISA 列が無いので並べ替えはしない');
-    } else {
-      var anchor = 'VISA';
-      for (var o = 1; o < ORDER.length; o++) {
-        var name = ORDER[o], hm = readHeaders().map;
-        if (hm[name] == null) { sec5.push('  なし（飛ばす）: ' + name); continue; }
-        var p = hm[anchor] + 1, c = hm[name] + 1;
-        if (c !== p + 1) {
-          try { sh.moveColumns(sh.getRange(hRow, c), p + 1); sec5.push('  移動: ' + name); }
-          catch (e) { sec5.push('  移動できない: ' + name + ' / ' + e.message); continue; }
+    /* 列の移動に失敗しても【1】〜【4】は必ず実行する */
+    try {
+      sec5.push('移動前: ' + headerLine());
+      /* 横に結合されたセルがあると moveColumns は拒否される。先に調べて、あれば動かさない（結合は勝手に解除しない） */
+      var merged = sh.getRange(1, 1, Math.max(sh.getLastRow(), hRow), sh.getLastColumn()).getMergedRanges()
+        .filter(function (m) { return m.getNumColumns() > 1; })
+        .map(function (m) { return m.getA1Notation(); });
+      if (readHeaders().map['VISA'] == null) {
+        sec5.push('VISA 列が無いので並べ替えはしない');
+      } else if (merged.length) {
+        sec5.push('横に結合されたセルがあるので並べ替えはしない（何も動かしていない）: ' + merged.join(', '));
+        sec5.push('→ この結合を解除してよければ、解除してからもう一度 guardTracker を実行する');
+      } else {
+        var anchor = 'VISA';
+        for (var o = 1; o < ORDER.length; o++) {
+          var name = ORDER[o], hm = readHeaders().map;
+          if (hm[name] == null) { sec5.push('  なし（飛ばす）: ' + name); continue; }
+          var p = hm[anchor] + 1, c = hm[name] + 1;
+          if (c !== p + 1) {
+            /* flush しないとエラーが次の読み取りまで遅れて、この catch をすり抜ける */
+            try { sh.moveColumns(sh.getRange(hRow, c), p + 1); SpreadsheetApp.flush(); sec5.push('  移動: ' + name); }
+            catch (e) { sec5.push('  移動できない: ' + name + ' / ' + e.message + '（ここで中止）'); break; }
+          }
+          anchor = name;
         }
-        anchor = name;
       }
+      sec5.push('移動後: ' + headerLine());
+    } catch (e5) {
+      sec5.push('並べ替えでエラー（中止）: ' + (e5 && e5.message ? e5.message : e5));
     }
-    sec5.push('移動後: ' + headerLine());
 
     var H = readHeaders().map;
     var last = sh.getLastRow();
