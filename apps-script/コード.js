@@ -409,9 +409,9 @@ function setupColumns() {
 /* ================= Tracker の整備（エディタで guardTracker を1回実行） ================= */
 
 /* 1) ID重複の条件付き書式  2) Source の入力規則に WhatsApp Community  3) ID重複・空IDの一覧
-   4) Source の集計  5) 在留カード確認の列を VISA の右に並べる＋Dashboard の列参照の一覧
+   4) Source の集計  5) O:AR を列グループにする＋Dashboard の列参照の一覧
    ログは最後にまとめて return する（実行ログにそのまま出る）。
-   列を動かすので、登録処理（doPost）と同じロックを取ってから実行する。 */
+   シートの書式や規則を変えるので、登録処理（doPost）と同じロックを取ってから実行する。 */
 function guardTracker() {
   var out = [];
   var log = function (m) { out.push(m); Logger.log(m); };
@@ -437,39 +437,27 @@ function guardTracker() {
     };
     log('Tracker シート: ' + sh.getName() + '（ヘッダー ' + hRow + '行目）');
 
-    /* ---- 5) 列の並べ替え（先にやる。後で足す書式・規則の列位置をずらさないため） ---- */
-    var ORDER = ['VISA','VISA Expiry','就労制限','資格外活動許可','Card Front URL','Card Back URL',
-                 '在留カード番号下4桁','確認方法','カード確認日','確認者','在留状態'];
-    var sec5 = ['【5】列の並べ替え'];
-    /* 列の移動に失敗しても【1】〜【4】は必ず実行する */
+    /* ---- 5) O:AR を列グループにする（列は動かさない・結合セルは触らない） ---- */
+    var sec5 = ['【5】列グループ O:AR'];
     try {
-      sec5.push('移動前: ' + headerLine());
-      /* 横に結合されたセルがあると moveColumns は拒否される。先に調べて、あれば動かさない（結合は勝手に解除しない） */
-      var merged = sh.getRange(1, 1, Math.max(sh.getLastRow(), hRow), sh.getLastColumn()).getMergedRanges()
-        .filter(function (m) { return m.getNumColumns() > 1; })
-        .map(function (m) { return m.getA1Notation(); });
-      if (readHeaders().map['VISA'] == null) {
-        sec5.push('VISA 列が無いので並べ替えはしない');
-      } else if (merged.length) {
-        sec5.push('横に結合されたセルがあるので並べ替えはしない（何も動かしていない）: ' + merged.join(', '));
-        sec5.push('→ この結合を解除してよければ、解除してからもう一度 guardTracker を実行する');
+      var hl = readHeaders().list;
+      var hN = String(hl[13] || '').trim(), hO = String(hl[14] || '').trim(), hAR = String(hl[43] || '').trim();
+      /* 列の並びが変わっていたら違う列をまとめてしまうので、N=VISA Expiry・AR=Notes のときだけ作る */
+      if (hN !== 'VISA Expiry' || hAR !== 'Notes') {
+        sec5.push('  列の並びが想定と違うので作らない（N: ' + hN + ' / AR: ' + hAR + '）');
       } else {
-        var anchor = 'VISA';
-        for (var o = 1; o < ORDER.length; o++) {
-          var name = ORDER[o], hm = readHeaders().map;
-          if (hm[name] == null) { sec5.push('  なし（飛ばす）: ' + name); continue; }
-          var p = hm[anchor] + 1, c = hm[name] + 1;
-          if (c !== p + 1) {
-            /* flush しないとエラーが次の読み取りまで遅れて、この catch をすり抜ける */
-            try { sh.moveColumns(sh.getRange(hRow, c), p + 1); SpreadsheetApp.flush(); sec5.push('  移動: ' + name); }
-            catch (e) { sec5.push('  移動できない: ' + name + ' / ' + e.message + '（ここで中止）'); break; }
-          }
-          anchor = name;
+        var grouped = [];
+        for (var gc = 15; gc <= 44; gc++) if (sh.getColumnGroupDepth(gc) > 0) grouped.push(colLetter(gc));
+        if (grouped.length) {
+          sec5.push('  すでにグループがあるので作らない: ' + grouped[0] + '〜' + grouped[grouped.length - 1] + '（' + grouped.length + '列）');
+        } else {
+          sh.getRange('O:AR').shiftColumnGroupDepth(1);
+          SpreadsheetApp.flush();
+          sec5.push('  作成: O（' + hO + '）〜 AR（' + hAR + '）。列の上の［−］で折りたたみ');
         }
       }
-      sec5.push('移動後: ' + headerLine());
     } catch (e5) {
-      sec5.push('並べ替えでエラー（中止）: ' + (e5 && e5.message ? e5.message : e5));
+      sec5.push('  列グループでエラー: ' + (e5 && e5.message ? e5.message : e5));
     }
 
     var H = readHeaders().map;
@@ -539,11 +527,23 @@ function guardTracker() {
             ref.getCell(lastFilled + 2, 1).setValue(ADD);
             log('  範囲の末尾に追記: ' + rs.getName() + '!' + ref.getCell(lastFilled + 2, 1).getA1Notation());
           } else {
-            var below = rs.getRange(ref.getLastRow() + 1, ref.getColumn());
-            below.setValue(ADD);
-            var grown = rs.getRange(ref.getRow(), ref.getColumn(), ref.getNumRows() + 1, 1);
+            /* 範囲のすぐ下が空とは限らない。同じ列の次の空セルに書き、範囲をそこまで広げる */
+            var eCol = ref.getColumn(), eStart = ref.getLastRow() + 1;
+            var eEnd = Math.max(rs.getLastRow(), eStart);
+            var eVals = rs.getRange(eStart, eCol, eEnd - eStart + 1, 1).getValues();
+            var eAt = -1, eBetween = [];
+            for (var ei = 0; ei < eVals.length; ei++) {
+              var ev = String(eVals[ei][0]).trim();
+              if (!ev) { eAt = eStart + ei; break; }
+              eBetween.push(ev);
+            }
+            if (eAt < 0) eAt = eEnd + 1;
+            rs.getRange(eAt, eCol).setValue(ADD);
+            var grown = rs.getRange(ref.getRow(), eCol, eAt - ref.getRow() + 1, 1);
             srcRange.setDataValidation(dv.copy().requireValueInRange(grown, args2[1]).build());
-            log('  範囲が満杯だったので下に追記し、規則を ' + rs.getName() + '!' + grown.getA1Notation() + ' に広げた');
+            log('  範囲が満杯だったので ' + rs.getName() + '!' + rs.getRange(eAt, eCol).getA1Notation() +
+                ' に追記し、規則を ' + rs.getName() + '!' + grown.getA1Notation() + ' に広げた');
+            if (eBetween.length) log('  ※間にある既存の値も候補に入る: ' + eBetween.join(' / '));
           }
         }
       } else {
@@ -578,7 +578,7 @@ function guardTracker() {
     Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; })
       .forEach(function (k) { log('  ' + k + ' ' + cnt[k]); });
 
-    /* ---- 5) 並べ替えの結果と Dashboard の列参照 ---- */
+    /* ---- 5) 列グループの結果と Dashboard の列参照 ---- */
     sec5.forEach(log);
     var dash = ss.getSheetByName('Dashboard');
     if (!dash) {
