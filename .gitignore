@@ -1,0 +1,8 @@
+# clasp のローカル設定（スクリプトIDが入る）
+apps-script/.clasp.json
+
+# 応募者・見込み客の個人情報（氏名・住所・電話番号）が直書きされている。
+# このリポジトリは公開なので追跡しない。clasp push には .gitignore は関係しないので、
+# Apps Script 側への反映は今までどおり動く。
+apps-script/contacts.js
+apps-script/import.js
