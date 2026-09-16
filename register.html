@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- register.html v1.9 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -76,6 +77,7 @@
   .done{display:none;text-align:center;padding:40px 20px}
   .done.show{display:block}
   .done .check{width:64px;height:64px;border-radius:50%;background:var(--ok);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff}
+  .done .check.warn{background:var(--accent-2);color:#111}
   .done h2{margin:0 0 10px;font-size:22px}
   .done p{color:var(--muted);font-size:14px;margin:6px 0}
   .comm{margin:26px auto 0;max-width:420px;background:var(--panel-2);border:1px solid var(--accent-2);border-radius:10px;padding:18px 16px;text-align:center}
@@ -114,8 +116,8 @@
   </div>
 
   <div class="notice">
-    <b data-i18n="notice_t">First-time registration only</b>
-    <p data-i18n="notice_p">If you have already registered with us before, please do not fill out this form again. Just message us on WhatsApp and let us know you would like to be considered for the next project.</p>
+    <b data-i18n="notice_t">Worked with us before?</b>
+    <p data-i18n="notice_p">If you have already filled in THIS form, there is no need to do it again — just message us on WhatsApp. But if you have worked with us and never filled in this form, your details are not in our current system. Please register here once.</p>
   </div>
 
   <form id="f" novalidate>
@@ -176,7 +178,7 @@
 
       <div class="callout">
         <strong data-i18n="c_card_t">Why we ask for your residence card</strong>
-        <span data-i18n="c_card_p">Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image.</span>
+        <span data-i18n="c_card_p">Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image. Fill the frame with the card and shoot it straight from above, so the number and the text on the back can be read.</span>
       </div>
 
       <div class="row">
@@ -449,6 +451,18 @@
     </div>
   </div>
 
+  <div class="done" id="donep" aria-live="polite">
+    <div class="check warn">!</div>
+    <h2 data-i18n="done_partial_t">Registration received — some photos are missing</h2>
+    <p data-i18n="done_partial_p">Your registration is in. The photos listed below did not reach us. Please send them to us on WhatsApp with the button below.</p>
+
+    <div class="comm">
+      <h3 data-i18n="done_partial_list">Photos we did not receive</h3>
+      <p id="misslist"></p>
+      <a class="join" id="misswa" href="https://wa.me/817085101040" target="_blank" rel="noopener" data-i18n="done_partial_btn">Send the photos on WhatsApp</a>
+    </div>
+  </div>
+
   <footer>
     <span>Rr.production's</span> · <a href="https://rrcasting.github.io/rr-production-site/">rrcasting.github.io</a>
   </footer>
@@ -460,6 +474,9 @@
   var MAX_BYTES  = 12 * 1024 * 1024;   /* 元ファイルの上限。送信時は縮小するので実際の送信量はずっと小さい */
   var MAX_DIM    = 1280;
   var JPEG_Q     = 0.78;
+  /* 在留カードだけ高解像度。番号の下4桁と裏面の資格外活動許可欄が読めないと確認できない */
+  var MAX_DIM_CARD = 2000;
+  var JPEG_Q_CARD  = 0.85;
   var PF_MAX     = 8 * 1024 * 1024;    /* ポートフォリオ（PDF可）の上限 */
   var PDF_ICON   = 'data:image/svg+xml;utf8,' + encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60">' +
@@ -473,8 +490,8 @@
       hero:'Join film production <span class="em">in Japan</span>.',
       sub:'Foreign extras casting · Film &amp; TV · Real productions, real sets.',
       b1:'No experience needed',b2:'Foreigners welcome',b3:'Spots are limited',b4:'Selection based',b5:'18 and over',
-      notice_t:'First-time registration only',
-      notice_p:'If you have already registered with us before, please do not fill out this form again. Just message us on WhatsApp and let us know you would like to be considered for the next project.',
+      notice_t:'Worked with us before?',
+      notice_p:'If you have already filled in THIS form, there is no need to do it again — just message us on WhatsApp. But if you have worked with us and never filled in this form, your details are not in our current system. Please register here once.',
       s_basic:'Basic info',s_addr:'Exact address in Japan',s_visa:'Visa &amp; residence card',
       s_photo:'Photos',s_photo_h:'(face and full body — two separate photos)',
       s_contact:'Contact',s_optional:'Optional details',s_optional_h:'(speeds up casting decisions)',
@@ -486,7 +503,7 @@
       h_addr:'Building name and room number are required. Prefecture alone is not enough.',
       l_walk:'Walk from station (min)',
       c_card_t:'Why we ask for your residence card',
-      c_card_p:'Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image.',
+      c_card_p:'Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image. Fill the frame with the card and shoot it straight from above, so the number and the text on the back can be read.',
       l_visa:'VISA status',
       h_visa_tourist:'A tourist / temporary visitor status cannot be registered — all our projects are paid work.',
       v_student:'Student',v_working:'Working',v_wh:'Working Holiday',v_spouse:'Spouse of Japanese national',
@@ -541,6 +558,10 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       done_p1:'We check every residence card by hand, then delete the images.',
       done_p2:"Once you are registered, apply to each casting on WhatsApp by sending everything that casting's post asks for.",
       done_p3:"Selection is based on the production's requirements. Spots are limited.",
+      done_partial_t:'Registration received — some photos are missing',
+      done_partial_p:'Your registration is in. The photos listed below did not reach us. Please send them to us on WhatsApp with the button below.',
+      done_partial_list:'Photos we did not receive',
+      done_partial_btn:'Send the photos on WhatsApp',
       comm_t:'Join the casting community',
       comm_p:'Some castings are posted only in our WhatsApp community, not on Instagram. Announcements only — you cannot be messaged by other members.',
       comm_btn:'Open WhatsApp community',
@@ -550,8 +571,8 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       hero:'Únete a una producción <span class="em">en Japón</span>.',
       sub:'Casting de extras extranjeros · Cine y TV · Producciones reales.',
       b1:'Sin experiencia',b2:'Extranjeros bienvenidos',b3:'Cupos limitados',b4:'Casting por selección',b5:'Mayores de 18',
-      notice_t:'Solo registro por primera vez',
-      notice_p:'Si ya te registraste con nosotros antes, no vuelvas a completar este formulario. Escríbenos por WhatsApp e indícanos que quieres ser considerado para el próximo proyecto.',
+      notice_t:'¿Ya trabajaste con nosotros?',
+      notice_p:'Si ya completaste ESTE formulario, no hace falta repetirlo — solo escríbenos por WhatsApp. Pero si has trabajado con nosotros y nunca llenaste este formulario, tus datos no están en nuestro sistema actual. Regístrate aquí una vez.',
       s_basic:'Datos básicos',s_addr:'Dirección exacta en Japón',s_visa:'Visa y tarjeta de residencia',
       s_photo:'Fotos',s_photo_h:'(rostro y cuerpo entero — dos fotos separadas)',
       s_contact:'Contacto',s_optional:'Datos opcionales',s_optional_h:'(aceleran la decisión de casting)',
@@ -563,7 +584,7 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       h_addr:'El edificio y el número de habitación son obligatorios. La prefectura sola no basta.',
       l_walk:'Minutos a pie desde la estación',
       c_card_t:'Por qué pedimos tu tarjeta de residencia',
-      c_card_p:'El trabajo remunerado en Japón exige que verifiquemos tu estatus. Esto aplica a todos los actores, sin excepción. Revisamos la tarjeta, registramos únicamente tu tipo de visa y su fecha de vencimiento, y luego eliminamos la imagen.',
+      c_card_p:'El trabajo remunerado en Japón exige que verifiquemos tu estatus. Esto aplica a todos los actores, sin excepción. Revisamos la tarjeta, registramos únicamente tu tipo de visa y su fecha de vencimiento, y luego eliminamos la imagen. Encuadra la tarjeta llenando la pantalla y fotografíala justo desde arriba, de modo que el número y el texto del reverso se puedan leer.',
       l_visa:'Estado de visa',
       h_visa_tourist:'Un estatus de turista / visitante temporal no puede registrarse — todos nuestros proyectos son trabajo remunerado.',
       v_student:'Estudiante',v_working:'Trabajo',v_wh:'Working Holiday',v_spouse:'Cónyuge de japonés/a',
@@ -618,6 +639,10 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       done_p1:'Revisamos cada tarjeta de residencia a mano y luego eliminamos las imágenes.',
       done_p2:'Una vez registrado/a, postúlate a cada convocatoria por WhatsApp enviando todo lo que pide esa publicación.',
       done_p3:'La selección sigue los requisitos de la producción. Los cupos son limitados.',
+      done_partial_t:'Registro recibido — faltan algunas fotos',
+      done_partial_p:'Tu registro quedó hecho, pero las fotos de abajo no llegaron. Envíanoslas por WhatsApp con el botón de abajo.',
+      done_partial_list:'Fotos que no recibimos',
+      done_partial_btn:'Enviar las fotos por WhatsApp',
       comm_t:'Únete a la comunidad de casting',
       comm_p:'Algunas convocatorias se publican solo en nuestra comunidad de WhatsApp, no en Instagram. Es solo para anuncios — otros miembros no pueden escribirte.',
       comm_btn:'Abrir la comunidad de WhatsApp',
@@ -627,8 +652,8 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       hero:'日本の映像制作に <span class="em">参加</span>。',
       sub:'外国人エキストラキャスティング · 映画・ドラマ · 実案件のみ。',
       b1:'未経験OK',b2:'外国人歓迎',b3:'募集枠限定',b4:'選考制',b5:'18歳以上',
-      notice_t:'初回登録専用',
-      notice_p:'すでに登録済みの方は、このフォームから再登録する必要はありません。WhatsApp で「次の案件に応募したい」とご連絡ください。',
+      notice_t:'以前ご参加いただいた方へ',
+      notice_p:'この登録フォームにご記入済みの方は、再度の登録は不要です。WhatsApp でご連絡ください。以前に弊社の案件へご参加いただいた方でも、このフォームからのご登録がお済みでない場合は、現在のシステムにデータがありません。お手数ですが一度ご登録をお願いします。',
       s_basic:'基本情報',s_addr:'日本国内の正確な住所',s_visa:'ビザ・在留カード',
       s_photo:'写真',s_photo_h:'（顔・全身の2枚）',
       s_contact:'連絡先',s_optional:'任意項目',s_optional_h:'（記入があるとキャスティング判断が早まります）',
@@ -640,7 +665,7 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       h_addr:'建物名と部屋番号まで必須です。都道府県だけでは受け付けられません。',
       l_walk:'駅から徒歩（分）',
       c_card_t:'在留カードを確認する理由',
-      c_card_p:'日本で有償の仕事をするには、在留資格の確認が必要です。全員に適用され、例外はありません。カードを確認し、在留資格と有効期限のみを記録したうえで、画像は削除します。',
+      c_card_p:'日本で有償の仕事をするには、在留資格の確認が必要です。全員に適用され、例外はありません。カードを確認し、在留資格と有効期限のみを記録したうえで、画像は削除します。カードを画面いっぱいに、真上から撮影してください。番号と裏面の文字が読める状態でお願いします。',
       l_visa:'在留資格',
       h_visa_tourist:'観光・短期滞在の方は登録できません（当社の案件はすべて有償のため）。',
       v_student:'留学',v_working:'就労ビザ',v_wh:'ワーキングホリデー',v_spouse:'日本人の配偶者等',
@@ -695,6 +720,10 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       done_p1:'在留カードは1件ずつ手で確認し、確認後に画像を削除します。',
       done_p2:'登録後は、各案件の投稿に記載された必要項目をすべて添えて WhatsApp から応募してください。',
       done_p3:'選考は制作側の要件に基づきます。募集枠には限りがあります。',
+      done_partial_t:'登録は受け付けました（写真が一部届いていません）',
+      done_partial_p:'登録は受け付けました。ただし下記の写真が届いていません。下のボタンから WhatsApp でお送りください。',
+      done_partial_list:'届いていない写真',
+      done_partial_btn:'WhatsApp で写真を送る',
       comm_t:'キャスティングコミュニティに参加',
       comm_p:'一部の案件はInstagramには出さず、WhatsAppコミュニティ内でのみ告知します。告知専用のため、他の参加者からメッセージが届くことはありません。',
       comm_btn:'WhatsAppコミュニティを開く',
@@ -703,6 +732,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
   };
 
   var curLang = 'en';
+  var missingKinds = null;   /* 届かなかった写真の種類。言語を切り替えたら書き直す */
 
   function t(k){ return (T[curLang] && T[curLang][k]) || T.en[k] || k; }
 
@@ -719,6 +749,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     for (var j=0;j<bs.length;j++){
       bs[j].classList.toggle('on', bs[j].getAttribute('data-lang')===lng);
     }
+    if (missingKinds) renderMissing();
   }
   var langBtns = document.querySelectorAll('.lang button');
   for (var b=0;b<langBtns.length;b++){
@@ -745,7 +776,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
   }
 
   /* 画像を縮小してから送る（4枚送るので元サイズだと通らない） */
-  function shrink(file){
+  function shrink(file, maxDim, q){
+    var lim = maxDim || MAX_DIM, quality = q || JPEG_Q;
     return new Promise(function(resolve, reject){
       var r = new FileReader();
       r.onerror = function(){ reject(new Error('read error')); };
@@ -754,13 +786,13 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
         img.onerror = function(){ reject(new Error('image error')); };
         img.onload = function(){
           var w = img.width, h = img.height;
-          var s = Math.min(1, MAX_DIM / Math.max(w, h));
+          var s = Math.min(1, lim / Math.max(w, h));
           var cw = Math.max(1, Math.round(w*s)), ch = Math.max(1, Math.round(h*s));
           var c = document.createElement('canvas');
           c.width = cw; c.height = ch;
           c.getContext('2d').drawImage(img, 0, 0, cw, ch);
           var url;
-          try { url = c.toDataURL('image/jpeg', JPEG_Q); }
+          try { url = c.toDataURL('image/jpeg', quality); }
           catch (err) { url = e.target.result; }
           resolve({ dataUrl:url, name:file.name, type:'image/jpeg' });
         };
@@ -788,6 +820,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       var img   = box.querySelector('.preview img');
       var meta  = box.querySelector('.preview .meta');
       var isPf = (input.name === 'portfolio');
+      var isCard = (input.name === 'cardFront' || input.name === 'cardBack');
       input.addEventListener('change', function(){
         var f = input.files[0];
         if (!f) { delete blobs[input.name]; box.classList.remove('has'); return; }
@@ -804,7 +837,9 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
         meta.textContent = '…';
         box.classList.add('has');
 
-        (isPdf ? readRaw(f) : shrink(f)).then(function(o){
+        (isPdf ? readRaw(f)
+               : shrink(f, isCard ? MAX_DIM_CARD : MAX_DIM,
+                            isCard ? JPEG_Q_CARD  : JPEG_Q)).then(function(o){
           blobs[input.name] = o;
           img.src = isPdf ? PDF_ICON : o.dataUrl;
           meta.textContent = f.name + ' · ' + Math.round(o.dataUrl.length/1365) + ' KB';
@@ -820,9 +855,34 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
 
   var form = document.getElementById('f');
   var done = document.getElementById('done');
+  var donep = document.getElementById('donep');
   var gerr = document.getElementById('gerr');
 
   function fail(msg){ gerr.textContent = msg; gerr.classList.add('show'); window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); }
+
+  /* 写真の種類 → 画面に出す名前（既存の辞書キーを使い回す） */
+  var KIND_KEY = { face:'l_photo_face', body:'l_photo_body', front:'l_card_f', back:'l_card_b',
+                   extra1:'l_photo_x1', extra2:'l_photo_x2', extra3:'l_photo_x3', portfolio:'l_portfolio' };
+  function kindLabel(kind, lng){
+    var k = KIND_KEY[kind], dict = T[lng] || T.en;
+    return (k && (dict[k] || T.en[k])) || kind;
+  }
+
+  function renderMissing(){
+    document.getElementById('misslist').textContent =
+      missingKinds.map(function(k){ return kindLabel(k, curLang); }).join(' / ');
+  }
+
+  /* 1枚でも届かなかったときの画面。登録そのものは受け付け済み。 */
+  function showPartial(kinds, fullName){
+    missingKinds = kinds;
+    renderMissing();
+    /* WhatsApp 側は Richard が読むので英語で入れる */
+    document.getElementById('misswa').href = 'https://wa.me/817085101040?text=' +
+      encodeURIComponent('Registration photos — ' + (fullName || '') + ': ' +
+        kinds.map(function(k){ return kindLabel(k, 'en'); }).join(', '));
+    donep.classList.add('show');
+  }
 
   form.addEventListener('submit', function(ev){
     ev.preventDefault();
@@ -905,17 +965,22 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       });
     }
 
+    /* 1枚ごとの成否を記録する。握りつぶすと全部失敗でも完了画面が出てしまう。 */
+    var results = [];
+
     post(head, 1)
     .then(function(j){
       step = 1; setStep(step);
       var row = j.row, base = j.base, faceUrl = '';
       var chain = Promise.resolve();
-      shots.forEach(function(sh2){
+      shots.forEach(function(sh2, i2){
         chain = chain.then(function(){
+          /* index / total を付ける。最後の1枚を受けたサーバーが「写真完了」メールを送る */
           return post({ op:'photo', submissionId:data.submissionId, row:row, base:base,
-                        kind:sh2.kind, dataUrl:sh2.url }, 1)
-            .then(function(r2){ if (sh2.kind === 'face') faceUrl = r2.url || ''; step++; setStep(step); })
-            .catch(function(){ step++; setStep(step); });   /* 1枚失敗しても登録は続ける */
+                        kind:sh2.kind, dataUrl:sh2.url, index:i2, total:shots.length }, 1)
+            .then(function(r2){ if (sh2.kind === 'face') faceUrl = r2.url || '';
+                                results.push({ kind:sh2.kind, ok:true });  step++; setStep(step); })
+            .catch(function(){ results.push({ kind:sh2.kind, ok:false }); step++; setStep(step); });   /* 1枚失敗しても登録は続ける（結果は記録する） */
         });
       });
       return chain;   /* 通知メールはサーバーが最初の段階で送る。ここでは待たない */
@@ -923,7 +988,9 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     .then(function(){
       window.__subId = null;
       form.style.display = 'none';
-      done.classList.add('show');
+      var missing = results.filter(function(r){ return !r.ok; }).map(function(r){ return r.kind; });
+      if (missing.length) showPartial(missing, data.fullName);
+      else done.classList.add('show');
       window.scrollTo({top:0, behavior:'smooth'});
     })
     .catch(function(e){
