@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.9', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.10', portfolio: true, extras: 3, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -344,8 +344,18 @@ function firstEmptyRow(sh, H, hRow) {
 
 function nextId(sh, H, hRow, row) {
   if (H['ID'] == null) return '';
-  var n = row - hRow;
-  return ('00' + n).slice(-3);
+  var last = sh.getLastRow();
+  var max = 0;
+  if (last > hRow) {
+    var vals = sh.getRange(hRow + 1, H['ID'] + 1, last - hRow, 1).getValues();
+    for (var i = 0; i < vals.length; i++) {
+      var n = parseInt(String(vals[i][0]).replace(/\D/g, ''), 10);
+      if (!isNaN(n) && n > max) max = n;
+    }
+  }
+  var next = String(max + 1);
+  while (next.length < 3) next = '0' + next;
+  return next;
 }
 
 /* ================= 画像保存 ================= */
@@ -394,6 +404,194 @@ function setupColumns() {
   Logger.log(msg);
   try { SpreadsheetApp.getUi().alert(msg); } catch (e) {}
   return msg;
+}
+
+/* ================= Tracker の整備（エディタで guardTracker を1回実行） ================= */
+
+/* 1) ID重複の条件付き書式  2) Source の入力規則に WhatsApp Community  3) ID重複・空IDの一覧
+   4) Source の集計  5) 在留カード確認の列を VISA の右に並べる＋Dashboard の列参照の一覧
+   ログは最後にまとめて return する（実行ログにそのまま出る）。
+   列を動かすので、登録処理（doPost）と同じロックを取ってから実行する。 */
+function guardTracker() {
+  var out = [];
+  var log = function (m) { out.push(m); Logger.log(m); };
+  var colLetter = function (c) {
+    var t = '';
+    while (c > 0) { var m = (c - 1) % 26; t = String.fromCharCode(65 + m) + t; c = (c - m - 1) / 26; }
+    return t;
+  };
+
+  var lock = LockService.getScriptLock();
+  try { lock.waitLock(25000); } catch (e) { return 'NG: 登録処理中のためロックが取れない。少し待って再実行'; }
+
+  try {
+    var ss = SpreadsheetApp.openById(SHEET_ID);
+    var ctx = openTracker(), sh = ctx.sheet, hRow = ctx.headerRow;
+    var readHeaders = function () {
+      var v = sh.getRange(hRow, 1, 1, sh.getLastColumn()).getValues()[0], h = {};
+      for (var i = 0; i < v.length; i++) { var k = String(v[i]).trim(); if (k && h[k] == null) h[k] = i; }
+      return { list: v, map: h };
+    };
+    var headerLine = function () {
+      return readHeaders().list.map(function (v, i) { return colLetter(i + 1) + ':' + v; }).join(' | ');
+    };
+    log('Tracker シート: ' + sh.getName() + '（ヘッダー ' + hRow + '行目）');
+
+    /* ---- 5) 列の並べ替え（先にやる。後で足す書式・規則の列位置をずらさないため） ---- */
+    var ORDER = ['VISA','VISA Expiry','就労制限','資格外活動許可','Card Front URL','Card Back URL',
+                 '在留カード番号下4桁','確認方法','カード確認日','確認者','在留状態'];
+    var sec5 = ['【5】列の並べ替え'];
+    sec5.push('移動前: ' + headerLine());
+    if (readHeaders().map['VISA'] == null) {
+      sec5.push('VISA 列が無いので並べ替えはしない');
+    } else {
+      var anchor = 'VISA';
+      for (var o = 1; o < ORDER.length; o++) {
+        var name = ORDER[o], hm = readHeaders().map;
+        if (hm[name] == null) { sec5.push('  なし（飛ばす）: ' + name); continue; }
+        var p = hm[anchor] + 1, c = hm[name] + 1;
+        if (c !== p + 1) {
+          try { sh.moveColumns(sh.getRange(hRow, c), p + 1); sec5.push('  移動: ' + name); }
+          catch (e) { sec5.push('  移動できない: ' + name + ' / ' + e.message); continue; }
+        }
+        anchor = name;
+      }
+    }
+    sec5.push('移動後: ' + headerLine());
+
+    var H = readHeaders().map;
+    var last = sh.getLastRow();
+    var nData = Math.max(last - hRow, 0);
+    var colVals = function (name) {
+      if (H[name] == null || nData === 0) return [];
+      return sh.getRange(hRow + 1, H[name] + 1, nData, 1).getValues().map(function (r) { return r[0]; });
+    };
+    var names = colVals('Full Name');
+
+    /* ---- 1) ID重複の条件付き書式 ---- */
+    log('【1】ID重複の条件付き書式');
+    if (H['ID'] == null) {
+      log('  ID 列が無い');
+    } else {
+      var L1 = colLetter(H['ID'] + 1), first = hRow + 1;
+      var formula = '=COUNTIF($' + L1 + '$' + first + ':$' + L1 + ',$' + L1 + first + ')>1';
+      var rules = sh.getConditionalFormatRules();
+      var exists = rules.some(function (r) {
+        var b = r.getBooleanCondition();
+        return b && String(b.getCriteriaValues()[0]) === formula;
+      });
+      if (exists) {
+        log('  既にある（追加しない）: ' + formula);
+      } else {
+        var rng = sh.getRange(first, H['ID'] + 1, sh.getMaxRows() - hRow, 1);
+        rules.unshift(SpreadsheetApp.newConditionalFormatRule()
+          .whenFormulaSatisfied(formula).setBackground('#F4B6B6').setRanges([rng]).build());
+        sh.setConditionalFormatRules(rules);
+        log('  先頭に追加: ' + rng.getA1Notation() + '  ' + formula + '  背景 #F4B6B6');
+      }
+    }
+
+    /* ---- 2) Source の入力規則 ---- */
+    log('【2】Source の入力規則');
+    var ADD = 'WhatsApp Community';
+    if (H['Source'] == null) {
+      log('  Source 列が無い');
+    } else {
+      var srcRange = sh.getRange(hRow + 1, H['Source'] + 1, sh.getMaxRows() - hRow, 1);
+      var dv = sh.getRange(hRow + 1, H['Source'] + 1).getDataValidation();
+      var T = SpreadsheetApp.DataValidationCriteria;
+      if (!dv) {
+        log('  入力規則が無い（何もしない）');
+      } else if (dv.getCriteriaType() === T.VALUE_IN_LIST) {
+        var args = dv.getCriteriaValues(), list = args[0].slice();
+        log('  種類: リスト（値）  現在: ' + list.join(' / '));
+        if (list.indexOf(ADD) >= 0) {
+          log('  ' + ADD + ' は既にある');
+        } else {
+          list.push(ADD);
+          srcRange.setDataValidation(dv.copy().requireValueInList(list, args[1]).build());
+          log('  追加した → ' + list.join(' / '));
+        }
+      } else if (dv.getCriteriaType() === T.VALUE_IN_RANGE) {
+        var args2 = dv.getCriteriaValues(), ref = args2[0], rs = ref.getSheet();
+        var refVals = ref.getValues().map(function (r) { return String(r[0]).trim(); });
+        log('  種類: リスト（範囲） ' + rs.getName() + '!' + ref.getA1Notation() + '  現在: ' +
+            refVals.filter(function (v) { return v; }).join(' / '));
+        if (refVals.indexOf(ADD) >= 0) {
+          log('  ' + ADD + ' は既にある');
+        } else {
+          var lastFilled = -1;
+          for (var q = 0; q < refVals.length; q++) if (refVals[q]) lastFilled = q;
+          if (lastFilled + 1 < refVals.length) {
+            ref.getCell(lastFilled + 2, 1).setValue(ADD);
+            log('  範囲の末尾に追記: ' + rs.getName() + '!' + ref.getCell(lastFilled + 2, 1).getA1Notation());
+          } else {
+            var below = rs.getRange(ref.getLastRow() + 1, ref.getColumn());
+            below.setValue(ADD);
+            var grown = rs.getRange(ref.getRow(), ref.getColumn(), ref.getNumRows() + 1, 1);
+            srcRange.setDataValidation(dv.copy().requireValueInRange(grown, args2[1]).build());
+            log('  範囲が満杯だったので下に追記し、規則を ' + rs.getName() + '!' + grown.getA1Notation() + ' に広げた');
+          }
+        }
+      } else {
+        log('  リスト以外の規則なので触らない（種類: ' + dv.getCriteriaType() + '）');
+      }
+    }
+
+    /* ---- 3) ID重複・空ID ---- */
+    log('【3】ID重複・空ID');
+    var ids = colVals('ID'), seen = {}, emptyRows = [];
+    for (var r = 0; r < ids.length; r++) {
+      if (!String(names[r] || '').trim()) continue;           /* 氏名の無い空行は数えない */
+      var raw = String(ids[r]).trim();
+      if (!raw) { emptyRows.push(hRow + 1 + r); continue; }
+      var num = parseInt(raw.replace(/\D/g, ''), 10);
+      var key = isNaN(num) ? raw : String(num);
+      (seen[key] = seen[key] || []).push(hRow + 1 + r);
+    }
+    var dups = Object.keys(seen).filter(function (k) { return seen[k].length > 1; });
+    if (dups.length) dups.forEach(function (k) { log('  重複 ID ' + k + ' → 行 ' + seen[k].join(', ')); });
+    else log('  重複なし');
+    log('  空ID（氏名あり）: ' + emptyRows.length + '件' + (emptyRows.length ? ' → 行 ' + emptyRows.join(', ') : ''));
+
+    /* ---- 4) Source 集計 ---- */
+    log('【4】Source 集計');
+    var src = colVals('Source'), cnt = {};
+    for (var s2 = 0; s2 < src.length; s2++) {
+      if (!String(names[s2] || '').trim()) continue;
+      var sv = String(src[s2]).trim() || '（空）';
+      cnt[sv] = (cnt[sv] || 0) + 1;
+    }
+    Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; })
+      .forEach(function (k) { log('  ' + k + ' ' + cnt[k]); });
+
+    /* ---- 5) 並べ替えの結果と Dashboard の列参照 ---- */
+    sec5.forEach(log);
+    var dash = ss.getSheetByName('Dashboard');
+    if (!dash) {
+      log('  Dashboard シートが無い');
+    } else {
+      var tn = sh.getName().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      var re = new RegExp("(?:'" + tn + "'|" + tn + ")!\\$?[A-Z]{1,3}\\$?\\d*(?::\\$?[A-Z]{1,3}\\$?\\d*)?", 'g');
+      var fr = dash.getDataRange(), fs = fr.getFormulas(), hits = 0;
+      for (var y = 0; y < fs.length; y++) for (var x = 0; x < fs[y].length; x++) {
+        var f = fs[y][x];
+        if (!f) continue;
+        var m = f.match(re);
+        if (!m) continue;
+        hits++;
+        log('  Dashboard!' + colLetter(fr.getColumn() + x) + (fr.getRow() + y) + '  参照: ' + m.join(', ') +
+            (/QUERY\s*\(/i.test(f) ? '  ※QUERY 内の列文字は自動で追従しない' : '') +
+            '  式: ' + (f.length > 160 ? f.slice(0, 160) + '…' : f));
+      }
+      log('  Dashboard の Tracker 列参照: ' + hits + '件（直していない）');
+    }
+  } catch (err) {
+    log('NG: ' + (err && err.message ? err.message : err));
+  } finally {
+    try { lock.releaseLock(); } catch (e2) {}
+  }
+  return out.join('\n');
 }
 
 /* ================= 確認済みカード画像の削除 ================= */
