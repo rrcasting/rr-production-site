@@ -6,3 +6,8 @@ apps-script/.clasp.json
 # Apps Script 側への反映は今までどおり動く。
 apps-script/contacts.js
 apps-script/import.js
+
+# npx skills add で入れたローカルのスキル（第三者のコード。公開リポジトリには置かない）
+.agents/
+.claude/
+skills-lock.json
