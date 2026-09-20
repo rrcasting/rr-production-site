@@ -1,15 +1,13 @@
-# DESIGN.md — Rr.production's 版 v2（エディトリアル／Mesh ベース）
+# DESIGN.md — Rr.production's 版 v3「Dusk」（明るい・暖色の光＋紺紫の深み）
 
-作成: 2026-09-20。元は Refero Styles「Mesh」の DESIGN.md（Richard が選定・2案目）。
-**1案目（Index／ブループリント・9/19）は「殺風景」で不採用。** その `index3.html` は消す。
-**御社用に改造した点**：①写真を主役として残す ②唯一の有彩色を Mesh の銅色 `#f2b98b` → 御社の金 `#C9A84C` に ③有料フォント Verlag / Chronicle → Google Fonts。
-**このファイルが唯一の色・フォント・余白・部品の基準。** Claude Code はここに無い値を使わない。
+作成: 2026-09-20。**Richard がモックアップ（B2）を見て承認。** これ以前の2版（Index／ブループリント・Mesh／エディトリアル）は**暗すぎて不採用**。二度と使わない。
+**このファイルが唯一の色・フォント・余白・部品の基準。** 文章は `COPY.md`。Claude Code はこの2つから組む。
 
 ---
 
 ## 世界観（1段落）
 
-夜の編集室。ほぼ黒の紙に、下から金色の光がにじむ。文字は雑誌の見開きのように組む：細く広い字間の大文字ラベル、縦に高い極太の見出し、ゆったりした本文。色は金1色を「線と光」として使い、塗りには使わない。面は平ら、罫線は髪の毛の細さ、影は1種類だけ。**その誌面に、キャストの実写真を大きく貼る**——写真は無加工、角丸16px、顔を切らない。「殺風景」にしないのは、①下からの金の光 ②縦長の大見出し ③写真の大きさ、の3つ。
+夕暮れの空。明るい薄紫がかった白の地に、オレンジ→ピンク→紫→青の光がにじむ。ページは**明るい**。文字は紺で締め、見出しは幾何的なサンセリフ（Sora）で「プロの会社」に見せる。キャストの実写真は白い縁のポラロイド風カードで、少し傾けて重ねる——人が集まっている感じを写真で出す。ページの途中に**紺→紫の深い帯**が1本入り（制作会社向け）、明るいページに奥行きと信用を足す。影は柔らかく大きく（紺の色付き影）、角丸は大きめ。**暗いページにしない。黒地の面は作らない。**
 
 ---
 
@@ -17,136 +15,176 @@
 
 | 名前 | 値 | 用途 |
 |---|---|---|
-| Canvas | `#0f0f10` | ページ背景・ヒーロー・フッター |
-| Layer | `#1d1d1f` | 一段上の面：カード・パネル・ナビのピル |
-| Bone | `#fefef7` | 主テキスト・**塗りボタンの背景**・バッジの枠。純白は使わない |
-| Cream | `#f7f3ee` | 明るい面（使うなら1セクションだけ）・グラデーションの終点 |
-| Ash | `#b3b3b3` | 二次テキスト・髪の毛の罫線・区切り |
-| Mute | `#666666` | 三次テキスト・非活性 |
-| Steel | `#868f97` | 補助テキスト・アイコンの線 |
-| **Gold** | **`#C9A84C`** | **唯一の有彩色。** 枠線ボタン・リンクの下線・ラベルの1語・罫線の一部・写真の角のラベル。**塗りボタンにしない** |
-| Gold Light | `#E2C77A` | 金の明るい版：装飾罫・グラデーションの明るい側 |
-| **Gold Wash** | `linear-gradient(95deg, #8A6B2A 0%, #E2C77A 100%)` | **画面下部から上ににじむ「地平線の光」**。ヒーローの下端とフッター上に置く。部品の中には入れない |
+| Ground | `#f6f4fb` | ページ背景（薄紫がかった白）。**純白 `#fff` はカードとナビの中だけ** |
+| Ink | `#1a1a3a` | 本文の基本色 |
+| Navy | `#141a4a` | 見出し・ロゴ・主要ボタンの地（塗り）・深い帯の始点 |
+| Body Mute | `#4a4a6a` | 本文（サブ）・説明文 |
+| Label Mute | `#6a6a8a` | 小さなラベル・数字の説明 |
+| **Orange** | `#ff8a3d` | 光（左上）・見出しのグラデーションの始点 |
+| **Magenta** | `#ff3d8a` | 光（右上）・見出しグラデーションの中間・主ボタンの始点 |
+| **Violet** | `#6a3df5` | 光（下）・見出しグラデーションの終点・主ボタンの終点・数字・eyebrow の文字・深い帯の終点 |
+| **Blue** | `#2b6cf6` | 光（右下）だけ。文字やボタンには使わない |
+| Deep Mid | `#2a1f7a` | 深い帯の中間色 |
+| Peach（帯の中のラベル） | `#ffd2a8` | 深い帯の上の eyebrow 文字だけ |
 
-禁止：緑（現行の WhatsApp 緑 `#22c55e` は廃止。WhatsApp ボタンは Gold の枠線ボタン）・赤・青・紫。有彩色は Gold 系の3つだけ。
+**グラデーション（この3つだけ）**
+- **Sky Wash（ヒーロー背景の光）**: 4つの放射光を重ねる（下の CSS）。`opacity:.5`・`filter:blur(34px)`。**ヒーローとフッター上にだけ**
+- **Text Wash（見出しの1語）**: `linear-gradient(90deg,#ff8a3d 0%,#ff3d8a 45%,#6a3df5 100%)` を `background-clip:text` で
+- **Deep Band（深い帯）**: `linear-gradient(160deg,#141a4a 0%,#2a1f7a 55%,#6a3df5 100%)`。**「制作会社の方へ」セクションにだけ**
+- **主ボタン**: `linear-gradient(90deg,#ff3d8a,#6a3df5)`
+
+禁止：黒・濃いグレーの面／緑（WhatsApp の緑 `#22c55e` は使わない。WhatsApp ボタンは白地・紺文字）／金 `#C9A84C`（旧ブランド色。v5 では使わない）／上記以外の有彩色。
 
 ---
 
-## フォント（Google Fonts・この4つだけ）
+## フォント（Google Fonts・この3つだけ）
 
 | 役割 | フォント | 太さ | 備考 |
 |---|---|---|---|
-| 大見出し（EN/ES） | **Oswald** | **700** | Verlag Condensed の代替。縦に高い。字間 +0.014em・行間 1.0 |
-| 大見出し（JA） | **Noto Sans JP** | **900** | 日本語に縦長書体は無い。字間 0・行間 1.15 |
-| UI・本文（3言語） | **Inter** / Noto Sans JP | 400・600・700 | 600＝ナビ・ラベル、700＝ボタン・カード見出し |
-| 編集的な一文（1ページに1回だけ） | **Noto Serif JP**（JA）／ **Source Serif 4**（EN/ES） | 400 | 22px・行間 1.55。「About」の冒頭1文にだけ使う |
+| 見出し（EN/ES）・ロゴ・数字 | **Sora** | 700・800 | 字間 -0.03em（見出し）／-0.02em（数字）。行間 1.02 |
+| 見出し（JA） | **Noto Sans JP** | 900 | 字間 +0.02em・行間 1.3 |
+| 本文・ボタン・ラベル（3言語） | **Manrope**（JA は Noto Sans JP） | 500・600・700・800 | 本文 500、ラベル 700、ボタン 800 |
 
-現行の Playfair Display は**使わない**。
+Inter・Playfair Display・Oswald・Geist は**使わない**。
 
-### 文字サイズ（この8段だけ）
+### 文字サイズ
 
 | 役割 | サイズ | 行間 | 字間 |
 |---|---|---|---|
-| eyebrow（大文字ラベル） | 10px | 1.1 | **+0.167em** |
-| badge | 12px | 1.2 | +0.063em |
-| body | 14px | 1.4 | 0 |
-| body-lg | 16px | 1.38 | +0.013em |
-| subheading | 18px | 1.35 | 0 |
-| heading-sm | 20px | 1.33 | 0 |
-| editorial（セリフ） | 22px | 1.55 | 0 |
-| display | **64px（PC）／ 44px（390px）** | 1.0 | +0.014em |
-
-JA の display は 44px（PC）／ 32px（スマホ）。**大文字ラベルの広い字間（+0.167em）がこのデザインの署名。** 小さく・広く・大文字。
+| eyebrow（大文字ラベル） | 11px | 1.4 | +0.16em |
+| caption | 12px | 1.4 | 0 |
+| body | 14px | 1.7 | 0 |
+| body-lg | 16px | 1.7 | 0 |
+| heading-sm | 20px | 1.35 | -0.01em |
+| h2（セクション見出し） | 28px（PC 34px） | 1.3 | -0.02em（JA は +0.02em） |
+| display（H1・EN/ES） | **clamp(38px, 8vw, 80px)** | 1.02 | -0.03em |
+| display JA | clamp(20px, 4vw, 34px) | 1.3 | +0.02em |
+| 数字（統計） | 30px | 1 | -0.02em・`tabular-nums` |
 
 ---
 
 ## 余白・形・影
 
-- ページ最大幅 1200px。セクション間 80px（スマホ 56px）。カード内 24px。要素間 10px
-- 角丸：**ボタン 6px／バッジ 12px／カード 16px／写真 16px／丸アバター 36px（円）／ナビのピル 9999px**。この階層を崩さない
-- 影は1種類だけ：`rgba(0,0,0,.06) 0 0 0 1px, rgba(0,0,0,.08) -8px 12px 22px 0`（カードのみ）。ぼかしの大きい影・光彩は禁止
+- ページ最大幅 1100px。セクション間 64px（スマホ 48px）。カード内 24px
+- 角丸：**ボタン・ナビ・チップ 999px（ピル）／写真カード 20px（中の写真 14px）／統計タイル 16px／深い帯の写真 18px／特徴パネルの写真 20px**
+- 影は2種類だけ：**カード** `0 24px 50px rgba(27,42,143,.18)`／**主ボタン** `0 12px 30px rgba(90,43,214,.32)`。黒い影は使わない（必ず紺系の色付き影）
+- 罫線は `rgba(90,43,214,.12)`（薄い紫）。グレーの罫線は使わない
 
 ---
 
 ## 部品
 
 ### 1. ナビ
-ロゴ左（Bone・Inter 600）。中央に**ピル**（9999px・半透明の Layer）の中に言語切替 `ENGLISH / ESPAÑOL / 日本語`（Inter 600・12px・大文字・字間 +0.071em・**`data-code` 方式のまま**）。右に塗りボタン「登録する」。スクロールで Canvas の地＋髪の毛の下線。既存の `#lang-bar`・`#sticky-cta` は**残す**（見た目だけ合わせる）。
+白 72% の**ピル**（`backdrop-filter:blur(10px)`・1px 白枠・カード影の弱い版）。左ロゴ（Sora 800・紺・18px）、中央にリンク（PC のみ）、右に**紺の塗りピル**「登録する」。言語切替 `ENGLISH / ESPAÑOL / 日本語` はピルの中に小さく（**`data-code` 方式のまま**）。スクロールしても浮いたまま（sticky）。既存 `#lang-bar`・`#sticky-cta` は残す。
 
 ### 2. ヒーロー
-中央1列・最大幅 720px：
-- eyebrow（10px・+0.167em・Ash）例 `FOREIGN TALENT CASTING · JAPAN`（既存の文字）
-- **大見出し**（Oswald 700 / 64px・Bone）。**金は1語だけ**（既存の `.accent` の範囲）
-- サブテキスト 16px Ash・最大幅 600px・中央
-- **ボタン2本**：塗り（Bone 地・Canvas 文字・大文字・字間 +0.063em）＝「登録する」／ 枠線 Gold ＝「制作会社の方 → WhatsApp」
-- **その下に「写真カード」**：Layer の地・角丸16px・髪の毛の枠・影1種類。中に **キャスト写真 6〜8 枚のコラージュ**（各16px角丸・無加工）。Mesh ではアプリ画面の模型が入る場所に、御社は写真を入れる。**カードの下半分に Gold Wash が下からにじむ**
-- 写真カードの直下に「Past project platforms」の**文字列ストリップ**（Netflix / ABEMA / TV / Theaters＝既存文字・Ash・ロゴ画像は使わない）
+背景に **Sky Wash**。中央揃え・最大幅 720px：
+- eyebrow：白 80% のピル・薄紫の枠・Violet の文字・大文字・字間 +0.16em
+- **H1**（Sora 800・紺）。`COPY.md` の【 】の1語だけ **Text Wash**
+- H1 の直下に JA の見出し（Noto Sans JP 900）— **EN/ES 表示のときは出さない。JA 表示のときは H1 が JA になる**（3言語切替は既存どおり）
+- サブ 16px・Body Mute・最大幅 560px
+- **ボタン2本**：主＝ピンク→紫のグラデーション塗りピル・白文字・主ボタン影／副＝白地・紺文字・薄紫の枠のピル
+- **その下に「写真カード」5〜6枚**：白い縁（padding 8px）・角丸 20px・カード影・**奇数枚を -4°、偶数枚を +3° 傾けて重ねる**。写真は無加工・顔を切らない・`object-fit:cover`
+- その下に統計タイル4つ（白 85%・薄紫の枠・角丸 16px・数字は Sora 800 Violet 30px・説明 12px Label Mute）
 
 ### 3. ボタン（2種類）
-- **塗り（主）**: 背景 Bone・文字 Canvas・Inter 600 14px 大文字・字間 +0.063em・padding 14px 28px・角丸 6px・枠なし・影なし
-- **枠線（副）**: 背景透明・枠 1px Gold・文字 Gold・同じ字組・padding 8px 16px・角丸 6px
-- **Gold の塗りボタンは作らない**
+- **主**：`linear-gradient(90deg,#ff3d8a,#6a3df5)`・白文字・Manrope 800 14px・padding 14px 22px・ピル・主ボタン影
+- **副**：白地・紺文字・1.5px `rgba(27,42,143,.2)` の枠・同じ字組・ピル
+- **紺の塗りピル**はナビの「登録する」だけ
 
-### 4. eyebrow ラベル
-Inter 600・10px・大文字・字間 +0.167em・Ash（強調は Gold）。各セクションの上に中央または左揃えで置き、下に 24px 空ける。
+### 4. eyebrow
+Manrope 700・11px・大文字・字間 +0.16em・Violet。白 80% のピルに入れる（深い帯の上では白 12% のピル・Peach の文字）。各セクションの上に置く。
 
-### 5. ステップ（登録のしかた・進め方）
-横1列（スマホは縦）。各：36px の円（Layer 地・Gold の線アイコン）→ heading-sm 20px Bone → body 14px Ash。区切りは髪の毛の罫（Ash・不透明度 20%）。番号は既存文字があればそれを Gold で。
+### 5. About（セクション）
+Ground の地。h2（紺）→ 本文 16px Body Mute → チェック4つ（Violet のチェック印・14px 紺）。右または下に写真1枚（角丸 20px・カード影）。
 
-### 6. 特徴パネル（2列：文＋写真）
-左：eyebrow → display の小さい版（Oswald 700 / 40px）→ body-lg Ash → チェックリスト（Gold のチェック・14px Bone）。
-右：**写真 1 枚**（4:5・角丸16px・無加工・顔を切らない）。スマホは写真が上。本文は左揃え。
+### 6. 深い帯 ＝「制作会社の方へ」（日本語のみ・`data-lang` なし）
+**Deep Band** の地・白文字。左：eyebrow（Peach）→ h2（Noto Sans JP 900・白）→ 本文（白 82%）→ **白地・紺文字のピルボタン**「制作会社様のお問い合わせ（WhatsApp）」。右：写真1枚（角丸 18px・黒 35% の影）。**このページで唯一の暗い面。2本目を作らない。**
 
-### 7. ギャラリー（16枚）
-2〜4列グリッド・隙間 10px・角丸16px。hover で髪の毛の Gold 枠。**モノクロ化・色被せ禁止。** 6枚分を「アバター群」（36px の円・重ね）として About の脇に置いてよい（同じ写真の再利用は可）。
+### 7. 5ステップ（登録から撮影まで）
+横1列（スマホは縦）。各：白カード（角丸 16px・カード影の弱い版）・上に **Violet の丸番号**（Sora 800・白文字・36px の円）→ heading-sm 紺 → body Body Mute。
 
-### 8. FAQ
-髪の毛の罫（Ash 20%）で区切る。質問 16px Inter 600 Bone、答え 14px Ash。開閉は「+ / −」。
+### 8. 向いている人／向いていない人
+2列（スマホは縦）。Good fit は白カード＋Violet のチェック、Not a fit は白カード＋Magenta の × 。
 
-### 9. フッター
-上に Gold Wash が薄くにじむ → Canvas。リンクは 14px Ash、hover で Gold の下線。
+### 9. ルールと条件（4カード）
+白カード・角丸 16px・上に小さな Violet の線アイコン。文は現行そのまま。
+
+### 10. 実績（9作品）
+白カード・角丸 16px・作品名は Sora 700（JA タイトルは Noto Sans JP 700）・媒体は eyebrow スタイル。カードの上端に **Text Wash の細い線（3px）**。
+
+### 11. ギャラリー（16枚）
+写真カード方式（白縁・角丸 20px・**傾けない**）を 2〜4 列グリッド・隙間 14px。hover で少し浮く（影が強くなる）。**モノクロ化・色被せ禁止。**
+
+### 12. 最新の募集・FAQ・最後の CTA
+- 募集：白カード＋主ボタン／副ボタン
+- FAQ：白カード内、薄紫の罫で区切る。質問 16px Manrope 700 紺、答え 14px Body Mute。開閉は「+ / −」を Violet で
+- 最後の CTA：Sky Wash を薄く敷き直し（opacity .3）、h2 → 本文 → **主ボタン**
+
+### 13. フッター
+Ground の地・上に薄紫の罫。ロゴ（Sora 800 紺）・リンク 14px Label Mute・hover で Violet。© 2026。
 
 ---
 
 ## やる／やらない
 
 **やる**
-- 大見出しは Oswald 700（JA は Noto Sans JP 900）・行間 1.0
-- 小ラベルは 10px・大文字・字間 +0.167em
-- 主ボタンは Bone の塗り、副ボタンは Gold の枠線
-- Gold Wash は画面下部から「にじませる」（帯にしない・部品に入れない）
-- 角丸は 6 / 12 / 16 / 36 の階層を守る
-- 写真は無加工・角丸16px・大きく
+- ページ全体を**明るく**。地は `#f6f4fb`、面は白
+- Sky Wash はヒーローと最後の CTA だけ。**帯にしない、にじませる**
+- 深い帯（紺→紫）は「制作会社の方へ」**1本だけ**
+- 見出しは Sora 800 紺、JA は Noto Sans JP 900
+- 写真は白縁のカード・無加工・顔を切らない
+- 影は紺系の色付き、罫線は薄紫
 
 **やらない**
-- Gold の塗りボタン・Gold の本文
-- Gold 系以外の有彩色
-- 大きくぼけた影・光彩
-- 純白 `#ffffff`（Bone `#fefef7` を使う）
-- セリフ体を1ページに2回以上
+- 黒・濃いグレーの面／金色／緑／グレーの罫線／黒い影
+- 深い帯を2本以上
+- Blue `#2b6cf6` を文字・ボタンに使う（光だけ）
 - 写真のモノクロ化・色被せ・顔が切れるトリミング
-- ロゴ画像の捏造（Netflix 等は既存の文字のまま）
+- ロゴ画像の捏造（Netflix 等は文字）
+- 4px 未満の細い装飾、極端な字間
 
 ---
 
-## CSS 変数（そのまま貼る）
+## CSS（そのまま貼る・モックアップ B2 と同一）
 
 ```css
 :root{
-  --canvas:#0f0f10; --layer:#1d1d1f; --bone:#fefef7; --cream:#f7f3ee;
-  --ash:#b3b3b3; --mute:#666666; --steel:#868f97;
-  --gold:#C9A84C; --gold-light:#E2C77A;
-  --gold-wash:linear-gradient(95deg,#8A6B2A 0%,#E2C77A 100%);
-  --font-ui:'Inter','Noto Sans JP',ui-sans-serif,system-ui,sans-serif;
-  --font-display:'Oswald','Noto Sans JP',sans-serif;
-  --font-display-jp:'Noto Sans JP',sans-serif;
-  --font-serif:'Source Serif 4','Noto Serif JP',serif;
-  --t-eyebrow:10px; --t-badge:12px; --t-body:14px; --t-body-lg:16px; --t-sub:18px; --t-h-sm:20px; --t-editorial:22px; --t-display:64px;
-  --track-eyebrow:.167em; --track-badge:.063em; --track-body-lg:.013em; --track-display:.014em;
-  --s-4:4px; --s-8:8px; --s-10:10px; --s-12:12px; --s-16:16px; --s-24:24px; --s-36:36px; --s-56:56px; --s-64:64px; --s-104:104px;
-  --max:1200px; --gap-section:80px; --pad-card:24px; --gap:10px;
-  --r-btn:6px; --r-badge:12px; --r-card:16px; --r-img:16px; --r-avatar:36px; --r-pill:9999px;
-  --shadow:rgba(0,0,0,.06) 0 0 0 1px, rgba(0,0,0,.08) -8px 12px 22px 0;
+  --ground:#f6f4fb; --ink:#1a1a3a; --navy:#141a4a; --mute:#4a4a6a; --label:#6a6a8a;
+  --orange:#ff8a3d; --magenta:#ff3d8a; --violet:#6a3df5; --blue:#2b6cf6; --deep-mid:#2a1f7a; --peach:#ffd2a8;
+  --text-wash:linear-gradient(90deg,#ff8a3d 0%,#ff3d8a 45%,#6a3df5 100%);
+  --deep-band:linear-gradient(160deg,#141a4a 0%,#2a1f7a 55%,#6a3df5 100%);
+  --btn-wash:linear-gradient(90deg,#ff3d8a,#6a3df5);
+  --shadow-card:0 24px 50px rgba(27,42,143,.18);
+  --shadow-btn:0 12px 30px rgba(90,43,214,.32);
+  --line:rgba(90,43,214,.12);
+  --font-display:'Sora','Noto Sans JP',sans-serif;
+  --font-body:'Manrope','Noto Sans JP',system-ui,sans-serif;
+  --font-jp:'Noto Sans JP',sans-serif;
+  --r-pill:999px; --r-card:20px; --r-tile:16px;
+  --max:1100px; --gap-section:64px;
 }
-@media (max-width:480px){ :root{ --t-display:44px; --gap-section:56px; } }
+@media(max-width:480px){:root{--gap-section:48px}}
+body{background:var(--ground);color:var(--ink);font-family:var(--font-body)}
+/* Sky Wash（ヒーローの光） */
+.hero{position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-30% -20% auto -20%;height:85%;pointer-events:none;opacity:.5;filter:blur(34px);
+  background:radial-gradient(55% 55% at 22% 35%,var(--orange) 0%,transparent 62%),
+             radial-gradient(50% 55% at 78% 25%,var(--magenta) 0%,transparent 62%),
+             radial-gradient(60% 60% at 60% 95%,var(--violet) 0%,transparent 60%),
+             radial-gradient(70% 50% at 95% 80%,var(--blue) 0%,transparent 60%)}
+.nav{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.8);border-radius:var(--r-pill);padding:10px 16px;backdrop-filter:blur(10px);box-shadow:0 8px 30px rgba(27,42,143,.10)}
+.eyebrow{display:inline-block;background:rgba(255,255,255,.8);border:1px solid rgba(90,43,214,.18);border-radius:var(--r-pill);padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--violet)}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(38px,8vw,80px);line-height:1.02;letter-spacing:-.03em;color:var(--navy);text-wrap:balance}
+h1 .accent{background:var(--text-wash);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn-primary{background:var(--btn-wash);color:#fff;border-radius:var(--r-pill);box-shadow:var(--shadow-btn);font-weight:800;font-size:14px;padding:14px 22px}
+.btn-secondary{background:#fff;color:var(--navy);border:1.5px solid rgba(27,42,143,.2);border-radius:var(--r-pill);font-weight:800;font-size:14px;padding:14px 22px}
+.photo-card{background:#fff;padding:8px;border-radius:var(--r-card);box-shadow:var(--shadow-card)}
+.photo-card img{display:block;width:100%;height:100%;object-fit:cover;border-radius:14px}
+.photo-card:nth-child(odd){transform:rotate(-4deg) translateY(10px)}.photo-card:nth-child(even){transform:rotate(3deg)}
+.stat{background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:var(--r-tile);padding:14px 18px;text-align:center}
+.stat b{display:block;font-family:var(--font-display);font-weight:800;font-size:30px;line-height:1;color:var(--violet);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.deep{background:var(--deep-band);color:#fff;padding:40px 16px 48px}
+.deep .eyebrow{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:var(--peach)}
+.deep .btn-secondary{background:#fff;color:var(--navy);border:0}
 ```
