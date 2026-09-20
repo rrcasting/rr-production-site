@@ -106,11 +106,11 @@ JA: 日本の映像に、【世界の顔】を。
 
 \*\*サブ\*\*
 
-EN: Rr.production's is a Tokyo-based casting company placing international extras, models and actors in Japanese films, TV dramas, commercials and music videos. Productions: contact us on WhatsApp. Talent: register once on our form — no experience needed, selection-based.
+EN: Rr.production's is a Tokyo-based casting company placing international extras, models and actors in Japanese films, TV dramas, commercials and music videos. Productions: contact us directly. Talent: register once on our form — no experience needed, selection-based.
 
-ES: Rr.production's es una empresa de casting con base en Tokio que coloca extras, modelos y actores internacionales en películas, dramas, comerciales y videos musicales japoneses. Productoras: contáctenos por WhatsApp. Talento: regístrate una vez en nuestro formulario — sin experiencia, por selección.
+ES: Rr.production's es una empresa de casting con base en Tokio que coloca extras, modelos y actores internacionales en películas, dramas, comerciales y videos musicales japoneses. Productoras: contáctenos directamente. Talento: regístrate una vez en nuestro formulario — sin experiencia, por selección.
 
-JA: Rr.production's は東京を拠点に、日本の映画・ドラマ・CM・MVへ外国人のエキストラ・モデル・役者を手配するキャスティング会社です。制作会社の方は WhatsApp からお問い合わせください。参加を希望される方は登録フォームから一度だけご登録ください。未経験歓迎・選考制です。
+JA: Rr.production's は東京を拠点に、日本の映画・ドラマ・CM・MVへ外国人のエキストラ・モデル・役者を手配するキャスティング会社です。制作会社の方は下記よりお問い合わせください。参加を希望される方は登録フォームから一度だけご登録ください。未経験歓迎・選考制です。
 
 
 
@@ -118,7 +118,7 @@ JA: Rr.production's は東京を拠点に、日本の映画・ドラマ・CM・M
 
 塗り: EN Register as Talent ／ ES Registrarse como talento ／ JA タレント登録
 
-枠線: EN For Productions → WhatsApp ／ ES Productoras → WhatsApp ／ JA 制作会社の方 → WhatsApp
+枠線: EN For Productions → Contact ／ ES Productoras → Contacto ／ JA 制作会社の方 → お問い合わせ（リンク先はページ内 `#productions`）
 
 
 
@@ -210,9 +210,13 @@ JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費
 
 
 
-\*\*ボタン（枠線・Gold）\*\*: 制作会社様のお問い合わせ（WhatsApp）（既存プレフィルURL）
+\*\*問い合わせ窓口（3つ・Richard 決定 2026-09-20。日本の制作会社は WhatsApp を使わないため）\*\*
 
-\*\*注記\*\*: タレント応募とは別の、制作会社様専用テンプレートが入力済みで開きます。
+1\. \*\*ボタン（白地・紺文字ピル）\*\*: メールでお問い合わせ → `mailto:rcomp.productions@gmail.com`（件名と本文のテンプレートを入力済みで開く）
+2\. \*\*テキスト行\*\*: お電話：070-8510-1040（日本語） → `tel:+81-70-8510-1040`。ボタンにしない
+3\. \*\*小さな文字リンク\*\*: 海外の制作会社の方は WhatsApp からもご連絡いただけます → 既存の制作会社向けプレフィル URL
+
+\*\*注記\*\*: 出演をご希望の方（タレント）のお問い合わせはこちらではなく、登録フォームからお願いいたします。
 
 
 
@@ -230,15 +234,15 @@ JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費
 
 |---|---|---|---|
 
-| 1 | \*\*Register once\*\* — Our online form takes about five minutes: your details, both sides of your residence card, and photos — face and full body. | \*\*Regístrate una vez\*\* — El formulario toma unos cinco minutos: tus datos, ambos lados de tu tarjeta de residencia y fotos — rostro y cuerpo entero. | \*\*一度だけ登録\*\* — 登録フォームは約5分。基本情報、在留カード表裏、写真（顔・全身）。 |
+| 1 | \*\*Register once\*\* Our online form takes about five minutes: your details, both sides of your residence card, and photos — face and full body. | \*\*Regístrate una vez\*\* El formulario toma unos cinco minutos: tus datos, ambos lados de tu tarjeta de residencia y fotos — rostro y cuerpo entero. | \*\*一度だけ登録\*\* 登録フォームは約5分。基本情報、在留カード表裏、写真（顔・全身）。 |
 
-| 2 | \*\*Selection\*\* — We match registered talent to each project's requirements. Only selected participants are contacted. | \*\*Selección\*\* — Comparamos el roster con los requisitos de cada proyecto. Solo contactamos a los seleccionados. | \*\*選考\*\* — 各作品の要件に合う方を選びます。連絡は採用者のみです。 |
+| 2 | \*\*Selection\*\* We match registered talent to each project's requirements. Only selected participants are contacted. | \*\*Selección\*\* Comparamos el roster con los requisitos de cada proyecto. Solo contactamos a los seleccionados. | \*\*選考\*\* 各作品の要件に合う方を選びます。連絡は採用者のみです。 |
 
-| 3 | \*\*WhatsApp group = confirmed\*\* — Being added to the project group means you are confirmed. No separate message is sent. | \*\*Grupo de WhatsApp = confirmado\*\* — Ser añadido al grupo del proyecto significa que estás confirmado. No se envía otro mensaje. | \*\*グループ追加＝確定\*\* — 作品の WhatsApp グループに追加された時点で確定です。別途の連絡はありません。 |
+| 3 | \*\*WhatsApp group = confirmed\*\* Being added to the project group means you are confirmed. No separate message is sent. | \*\*Grupo de WhatsApp = confirmado\*\* Ser añadido al grupo del proyecto significa que estás confirmado. No se envía otro mensaje. | \*\*グループ追加＝確定\*\* 作品の WhatsApp グループに追加された時点で確定です。別途の連絡はありません。 |
 
-| 4 | \*\*Details the day before\*\* — Meeting point, call time and wardrobe are shared in the group the day before the shoot. | \*\*Detalles el día anterior\*\* — Punto de encuentro, hora y vestuario se comparten en el grupo el día anterior. | \*\*詳細は前日\*\* — 集合場所・時間・服装は撮影前日にグループで共有します。 |
+| 4 | \*\*Details the day before\*\* Meeting point, call time and wardrobe are shared in the group the day before the shoot. | \*\*Detalles el día anterior\*\* Punto de encuentro, hora y vestuario se comparten en el grupo el día anterior. | \*\*詳細は前日\*\* 集合場所・時間・服装は撮影前日にグループで共有します。 |
 
-| 5 | \*\*Shoot day \& payment\*\* — Arrive on time, follow staff instructions. Bank transfer: end-of-month closing, paid on the 10th of the following month. | \*\*Rodaje y pago\*\* — Llega puntual y sigue al staff. Transferencia: cierre a fin de mes, pago el día 10 del mes siguiente. | \*\*撮影と支払い\*\* — 時間厳守、スタッフの指示に従ってください。銀行振込・月末締め・翌月10日払い。 |
+| 5 | \*\*Shoot day \& payment\*\* Arrive on time, follow staff instructions. Bank transfer: end-of-month closing, paid on the 10th of the following month. | \*\*Rodaje y pago\*\* Llega puntual y sigue al staff. Transferencia: cierre a fin de mes, pago el día 10 del mes siguiente. | \*\*撮影と支払い\*\* 時間厳守、スタッフの指示に従ってください。銀行振込・月末締め・翌月10日払い。 |
 
 
 
