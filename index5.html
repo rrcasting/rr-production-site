@@ -222,7 +222,7 @@ nav{display:none;align-items:center;gap:4px}
 .mobile-nav a{padding:12px 16px;font-size:14px;font-weight:700;color:var(--mute);border-bottom:1px solid var(--line)}
 .mobile-nav a:last-child{border-bottom:0}
 .mobile-nav a:hover{color:var(--violet)}
-@media(max-width:400px){.lang-btn{padding:0 6px;letter-spacing:.02em}.logo{font-size:16px}}
+@media(max-width:430px){.nav{padding:8px 10px;gap:6px}.bar-right{gap:4px}.lang-btns{padding:2px;gap:0}.lang-btn{font-size:10px;letter-spacing:0;padding:0 5px;min-height:28px}.hamburger{min-width:32px}}
 @media(min-width:1024px){nav{display:flex}.hamburger{display:none}.nav-cta{display:inline-flex}}
 
 /* sticky CTA (kept) */
@@ -296,9 +296,15 @@ nav{display:none;align-items:center;gap:4px}
 .card p{font-size:14px;line-height:1.7;color:var(--mute);margin-bottom:8px}
 .card ul{display:grid;gap:10px}
 .card li{display:flex;gap:10px;font-size:14px;line-height:1.7;color:var(--mute)}
-.card li::before{content:'—';color:var(--violet);flex-shrink:0}
 .card .tag{display:inline-block;margin-top:8px;border:1px solid var(--line);border-radius:var(--r-pill);padding:4px 12px;color:var(--violet);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 .rule-icon{width:36px;height:36px;border-radius:var(--r-pill);border:1.5px solid var(--violet);color:var(--violet);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.rule-icon svg{width:18px;height:18px}
+.ic-mail{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1.6 2L12 12.2 19.4 7H4.6z'/%3E%3C/svg%3E")}
+.deep-tel{margin-top:14px;font-size:16px;font-weight:800;color:#fff}
+.deep-tel a:hover{color:var(--peach)}
+.deep-wa{margin-top:8px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.82)}
+.deep-wa a{border-bottom:1px solid rgba(255,255,255,.25)}
+.deep-wa a:hover{color:var(--peach);border-color:var(--peach)}
 
 /* 10. works */
 .works{display:grid;gap:14px}
@@ -404,10 +410,10 @@ footer{border-top:1px solid var(--line);padding:32px 0 104px}
     <div class="hero-inner">
       <p class="eyebrow"><span data-lang="en" class="active">FOREIGN TALENT CASTING · TOKYO · JAPAN</span><span data-lang="es">CASTING DE TALENTO EXTRANJERO · TOKIO · JAPÓN</span><span data-lang="ja">外国人キャスティング · 東京 · 日本</span></p>
       <h1><span data-lang="en" class="active">International <span class="accent">Faces</span> for Japan's Screens</span><span data-lang="es"><span class="accent">Rostros</span> internacionales para la pantalla japonesa</span><span data-lang="ja">日本の映像に、<span class="accent">世界の顔</span>を。</span></h1>
-      <p class="hero-sub"><span data-lang="en" class="active">Rr.production's is a Tokyo-based casting company placing international extras, models and actors in Japanese films, TV dramas, commercials and music videos. Productions: contact us on WhatsApp. Talent: register once on our form — no experience needed, selection-based.</span><span data-lang="es">Rr.production's es una empresa de casting con base en Tokio que coloca extras, modelos y actores internacionales en películas, dramas, comerciales y videos musicales japoneses. Productoras: contáctenos por WhatsApp. Talento: regístrate una vez en nuestro formulario — sin experiencia, por selección.</span><span data-lang="ja">Rr.production's は東京を拠点に、日本の映画・ドラマ・CM・MVへ外国人のエキストラ・モデル・役者を手配するキャスティング会社です。制作会社の方は WhatsApp からお問い合わせください。参加を希望される方は登録フォームから一度だけご登録ください。未経験歓迎・選考制です。</span></p>
+      <p class="hero-sub"><span data-lang="en" class="active">Rr.production's is a Tokyo-based casting company placing international extras, models and actors in Japanese films, TV dramas, commercials and music videos. Productions: contact us directly. Talent: register once on our form — no experience needed, selection-based.</span><span data-lang="es">Rr.production's es una empresa de casting con base en Tokio que coloca extras, modelos y actores internacionales en películas, dramas, comerciales y videos musicales japoneses. Productoras: contáctenos directamente. Talento: regístrate una vez en nuestro formulario — sin experiencia, por selección.</span><span data-lang="ja">Rr.production's は東京を拠点に、日本の映画・ドラマ・CM・MVへ外国人のエキストラ・モデル・役者を手配するキャスティング会社です。制作会社の方は下記よりお問い合わせください。参加を希望される方は登録フォームから一度だけご登録ください。未経験歓迎・選考制です。</span></p>
       <div class="btn-row">
         <a href="register.html" target="_blank" rel="noopener" class="btn-primary"><i class="ic ic-form" aria-hidden="true"></i><span data-lang="en" class="active">Register as Talent</span><span data-lang="es">Registrarse como talento</span><span data-lang="ja">タレント登録</span></a>
-        <a href="https://wa.me/817085101040?text=%5BProduction%20Inquiry%5D%0ACompany%20name%3A%20%0AContact%20person%3A%20%0AProject%20type%20(Film%2FDrama%2FCM%2FMV)%3A%20%0AShoot%20date%20%26%20location%3A%20%0ACast%20requirements%3A%20" target="_blank" rel="noopener" class="btn-secondary"><i class="ic ic-chat" aria-hidden="true"></i><span data-lang="en" class="active">For Productions → WhatsApp</span><span data-lang="es">Productoras → WhatsApp</span><span data-lang="ja">制作会社の方 → WhatsApp</span></a>
+        <a href="#productions" class="btn-secondary"><span data-lang="en" class="active">For Productions → Contact</span><span data-lang="es">Productoras → Contacto</span><span data-lang="ja">制作会社の方 → お問い合わせ</span></a>
       </div>
     </div>
   </div>
@@ -461,8 +467,10 @@ footer{border-top:1px solid var(--line);padding:32px 0 104px}
           <li><span>映画・ドラマ・CM・MVでの手配実績</span></li>
           <li><span>英語・スペイン語・日本語でのディレクション対応</span></li>
         </ul>
-        <p class="btn-row" style="margin-top:24px"><a href="https://wa.me/817085101040?text=%5BProduction%20Inquiry%5D%0ACompany%20name%3A%20%0AContact%20person%3A%20%0AProject%20type%20(Film%2FDrama%2FCM%2FMV)%3A%20%0AShoot%20date%20%26%20location%3A%20%0ACast%20requirements%3A%20" target="_blank" rel="noopener" class="btn-secondary"><i class="ic ic-chat" aria-hidden="true"></i>制作会社様のお問い合わせ（WhatsApp）</a></p>
-        <p class="note">タレント応募とは別の、制作会社様専用テンプレートが入力済みで開きます。</p>
+        <p class="btn-row" style="margin-top:24px"><a href="mailto:rcomp.productions@gmail.com?subject=%E5%A4%96%E5%9B%BD%E4%BA%BA%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E6%89%8B%E9%85%8D%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87&body=%E4%BC%9A%E7%A4%BE%E5%90%8D%EF%BC%9A%0A%E3%81%94%E6%8B%85%E5%BD%93%E8%80%85%E5%90%8D%EF%BC%9A%0A%E4%BD%9C%E5%93%81%E7%A8%AE%E5%88%A5%EF%BC%88%E6%98%A0%E7%94%BB%EF%BC%8F%E3%83%89%E3%83%A9%E3%83%9E%EF%BC%8FCM%EF%BC%8FMV%EF%BC%89%EF%BC%9A%0A%E6%92%AE%E5%BD%B1%E6%97%A5%E3%83%BB%E6%92%AE%E5%BD%B1%E5%9C%B0%EF%BC%9A%0A%E5%BF%85%E8%A6%81%E3%81%AA%E4%BA%BA%E6%95%B0%E3%83%BB%E6%9D%A1%E4%BB%B6%EF%BC%88%E5%9B%BD%E7%B1%8D%E3%83%BB%E5%B9%B4%E9%BD%A2%E5%B1%A4%E3%81%AA%E3%81%A9%EF%BC%89%EF%BC%9A%0A" class="btn-secondary"><i class="ic ic-mail" aria-hidden="true"></i>メールでお問い合わせ</a></p>
+        <p class="deep-tel"><a href="tel:+81-70-8510-1040">お電話：070-8510-1040（日本語）</a></p>
+        <p class="deep-wa"><a href="https://wa.me/817085101040?text=%5BProduction%20Inquiry%5D%0ACompany%20name%3A%20%0AContact%20person%3A%20%0AProject%20type%20(Film%2FDrama%2FCM%2FMV)%3A%20%0AShoot%20date%20%26%20location%3A%20%0ACast%20requirements%3A%20" target="_blank" rel="noopener">海外の制作会社の方は WhatsApp からもご連絡いただけます</a></p>
+        <p class="note">ご参加をご希望の方（タレント）のお問い合わせはこちらではなく、登録フォームからお願いいたします。</p>
       </div>
       <figure class="deep-photo"><img src="https://rrcasting.github.io/rr-production-site/assets/cast/cast_member10.jpeg" alt="" width="2016" height="1512" loading="lazy" /></figure>
     </div>
@@ -479,23 +487,23 @@ footer{border-top:1px solid var(--line);padding:32px 0 104px}
     <div class="steps">
       <div class="card step">
         <div class="step-num">1</div>
-        <p><span data-lang="en" class="active"><strong>Register once</strong> — Our online form takes about five minutes: your details, both sides of your residence card, and photos — face and full body.</span><span data-lang="es"><strong>Regístrate una vez</strong> — El formulario toma unos cinco minutos: tus datos, ambos lados de tu tarjeta de residencia y fotos — rostro y cuerpo entero.</span><span data-lang="ja"><strong>一度だけ登録</strong> — 登録フォームは約5分。基本情報、在留カード表裏、写真（顔・全身）。</span></p>
+        <p><span data-lang="en" class="active"><strong>Register once</strong> Our online form takes about five minutes: your details, both sides of your residence card, and photos — face and full body.</span><span data-lang="es"><strong>Regístrate una vez</strong> El formulario toma unos cinco minutos: tus datos, ambos lados de tu tarjeta de residencia y fotos — rostro y cuerpo entero.</span><span data-lang="ja"><strong>一度だけ登録</strong> 登録フォームは約5分。基本情報、在留カード表裏、写真（顔・全身）。</span></p>
       </div>
       <div class="card step">
         <div class="step-num">2</div>
-        <p><span data-lang="en" class="active"><strong>Selection</strong> — We match registered talent to each project's requirements. Only selected participants are contacted.</span><span data-lang="es"><strong>Selección</strong> — Comparamos el roster con los requisitos de cada proyecto. Solo contactamos a los seleccionados.</span><span data-lang="ja"><strong>選考</strong> — 各作品の要件に合う方を選びます。連絡は採用者のみです。</span></p>
+        <p><span data-lang="en" class="active"><strong>Selection</strong> We match registered talent to each project's requirements. Only selected participants are contacted.</span><span data-lang="es"><strong>Selección</strong> Comparamos el roster con los requisitos de cada proyecto. Solo contactamos a los seleccionados.</span><span data-lang="ja"><strong>選考</strong> 各作品の要件に合う方を選びます。連絡は採用者のみです。</span></p>
       </div>
       <div class="card step">
         <div class="step-num">3</div>
-        <p><span data-lang="en" class="active"><strong>WhatsApp group = confirmed</strong> — Being added to the project group means you are confirmed. No separate message is sent.</span><span data-lang="es"><strong>Grupo de WhatsApp = confirmado</strong> — Ser añadido al grupo del proyecto significa que estás confirmado. No se envía otro mensaje.</span><span data-lang="ja"><strong>グループ追加＝確定</strong> — 作品の WhatsApp グループに追加された時点で確定です。別途の連絡はありません。</span></p>
+        <p><span data-lang="en" class="active"><strong>WhatsApp group = confirmed</strong> Being added to the project group means you are confirmed. No separate message is sent.</span><span data-lang="es"><strong>Grupo de WhatsApp = confirmado</strong> Ser añadido al grupo del proyecto significa que estás confirmado. No se envía otro mensaje.</span><span data-lang="ja"><strong>グループ追加＝確定</strong> 作品の WhatsApp グループに追加された時点で確定です。別途の連絡はありません。</span></p>
       </div>
       <div class="card step">
         <div class="step-num">4</div>
-        <p><span data-lang="en" class="active"><strong>Details the day before</strong> — Meeting point, call time and wardrobe are shared in the group the day before the shoot.</span><span data-lang="es"><strong>Detalles el día anterior</strong> — Punto de encuentro, hora y vestuario se comparten en el grupo el día anterior.</span><span data-lang="ja"><strong>詳細は前日</strong> — 集合場所・時間・服装は撮影前日にグループで共有します。</span></p>
+        <p><span data-lang="en" class="active"><strong>Details the day before</strong> Meeting point, call time and wardrobe are shared in the group the day before the shoot.</span><span data-lang="es"><strong>Detalles el día anterior</strong> Punto de encuentro, hora y vestuario se comparten en el grupo el día anterior.</span><span data-lang="ja"><strong>詳細は前日</strong> 集合場所・時間・服装は撮影前日にグループで共有します。</span></p>
       </div>
       <div class="card step">
         <div class="step-num">5</div>
-        <p><span data-lang="en" class="active"><strong>Shoot day & payment</strong> — Arrive on time, follow staff instructions. Bank transfer: end-of-month closing, paid on the 10th of the following month.</span><span data-lang="es"><strong>Rodaje y pago</strong> — Llega puntual y sigue al staff. Transferencia: cierre a fin de mes, pago el día 10 del mes siguiente.</span><span data-lang="ja"><strong>撮影と支払い</strong> — 時間厳守、スタッフの指示に従ってください。銀行振込・月末締め・翌月10日払い。</span></p>
+        <p><span data-lang="en" class="active"><strong>Shoot day & payment</strong> Arrive on time, follow staff instructions. Bank transfer: end-of-month closing, paid on the 10th of the following month.</span><span data-lang="es"><strong>Rodaje y pago</strong> Llega puntual y sigue al staff. Transferencia: cierre a fin de mes, pago el día 10 del mes siguiente.</span><span data-lang="ja"><strong>撮影と支払い</strong> 時間厳守、スタッフの指示に従ってください。銀行振込・月末締め・翌月10日払い。</span></p>
       </div>
     </div>
   </div>
@@ -539,7 +547,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 104px}
     <p class="eyebrow"><span data-lang="en" class="active">PRODUCTION STANDARDS</span><span data-lang="es">NORMAS</span><span data-lang="ja">参加ルール</span></p>
     <div class="cards">
       <div class="card">
-        <div class="rule-icon"><i class="ic ic-form" aria-hidden="true"></i></div>
+        <div class="rule-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
         <h3><span data-lang="en" class="active">⚠ Punctuality</span><span data-lang="es">⚠ Puntualidad</span><span data-lang="ja">⚠ 時間厳守</span></h3>
         <ul>
           <li><span><span data-lang="en" class="active">Arrival on time is mandatory — no exceptions</span><span data-lang="es">La llegada a tiempo es obligatoria — sin excepciones</span><span data-lang="ja">時間通りの到着は必須 — 例外なし</span></span></li>
@@ -549,7 +557,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 104px}
         </ul>
       </div>
       <div class="card">
-        <div class="rule-icon"><i class="ic ic-chat" aria-hidden="true"></i></div>
+        <div class="rule-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5h3l1.5-2h5.5"/><path d="M21 7.5v10a1.5 1.5 0 0 1-1.5 1.5H5"/><path d="M3 11.5v6A1.5 1.5 0 0 0 4.5 19"/><circle cx="12.5" cy="13" r="3.2"/><path d="M3 3l18 18"/></svg></div>
         <h3><span data-lang="en" class="active">⚠ On-Set Rules</span><span data-lang="es">⚠ Reglas en el Set</span><span data-lang="ja">⚠ 現場ルール</span></h3>
         <ul>
           <li><span><span data-lang="en" class="active">Follow all staff instructions at all times</span><span data-lang="es">Sigue las instrucciones del personal en todo momento</span><span data-lang="ja">スタッフの指示に必ず従うこと</span></span></li>
@@ -559,14 +567,14 @@ footer{border-top:1px solid var(--line);padding:32px 0 104px}
         </ul>
       </div>
       <div class="card">
-        <div class="rule-icon"><i class="ic ic-form" aria-hidden="true"></i></div>
+        <div class="rule-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8m4-8v8m6-8v8m4-8v8"/><path d="M3 19h18"/></svg></div>
         <h3><span data-lang="en" class="active">Payment Method</span><span data-lang="es">Método de Pago</span><span data-lang="ja">支払い方法</span></h3>
         <p><span data-lang="en" class="active"><strong>Bank transfer only.</strong> A Japanese bank account is required. No cash payments.</span><span data-lang="es"><strong>Solo transferencia bancaria.</strong> Se requiere cuenta bancaria japonesa. Sin pagos en efectivo.</span><span data-lang="ja"><strong>銀行振込のみ。</strong>日本の銀行口座が必要です。現金払いは行いません。</span></p>
         <h4><span data-lang="en" class="active">Payment Schedule</span><span data-lang="es">Calendario de Pago</span><span data-lang="ja">支払いスケジュール</span></h4>
         <p><span data-lang="en" class="active"><strong>End-of-month closing.</strong> Paid on the <strong>10th of the following month.</strong><br>Example: April work → paid May 10th.</span><span data-lang="es"><strong>Cierre a fin de mes.</strong> Pago el <strong>día 10 del mes siguiente.</strong><br>Ejemplo: trabajo en abril → pagado el 10 de mayo.</span><span data-lang="ja"><strong>月末締め。</strong>翌月<strong>10日払い。</strong><br>例：4月参加分 → 5月10日振込。</span></p>
       </div>
       <div class="card">
-        <div class="rule-icon"><i class="ic ic-chat" aria-hidden="true"></i></div>
+        <div class="rule-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="13" rx="3"/><path d="M5 10h14"/><path d="M9 20l-2 1.5M15 20l2 1.5"/><circle cx="9" cy="13.5" r="1"/><circle cx="15" cy="13.5" r="1"/><path d="M6.5 16.5h11"/></svg></div>
         <h3><span data-lang="en" class="active">Transportation</span><span data-lang="es">Transporte</span><span data-lang="ja">交通費</span></h3>
         <p><span data-lang="en" class="active">Transportation costs are <strong>generally not covered.</strong> Please budget your own travel to and from the shoot location.</span><span data-lang="es">Los costos de transporte <strong>generalmente no están cubiertos.</strong> Por favor presupuesta tu propio transporte.</span><span data-lang="ja">交通費は<strong>基本的に支給されません。</strong>集合場所までの交通費はご自身でご負担ください。</span></p>
         <span class="tag"><span data-lang="en" class="active">Generally not covered</span><span data-lang="es">Generalmente no cubierto</span><span data-lang="ja">基本支給なし</span></span>
