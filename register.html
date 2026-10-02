@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- register.html v1.11 -->
+<!-- register.html v1.12 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -14,6 +14,7 @@
     --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
   }
   *{box-sizing:border-box}
+  [hidden]{display:none!important}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
   body{padding:32px 16px 80px;line-height:1.55}
   .wrap{max-width:620px;margin:0 auto}
@@ -189,6 +190,7 @@
             <option value="Student" data-i18n="v_student">Student</option>
             <option value="Working" data-i18n="v_working">Working</option>
             <option value="Working Holiday" data-i18n="v_wh">Working Holiday</option>
+            <option value="Japanese National" data-i18n="v_jp">Japanese nationality</option>
             <option value="Spouse" data-i18n="v_spouse">Spouse of Japanese national</option>
             <option value="Permanent Resident" data-i18n="v_pr">Permanent Resident</option>
             <option value="Long-term Resident" data-i18n="v_ltr">Long-term Resident</option>
@@ -198,14 +200,14 @@
           </select>
           <div class="hint" data-i18n="h_visa_tourist">A tourist / temporary visitor status cannot be registered — all our projects are paid work.</div>
         </div>
-        <div class="field">
+        <div class="field" id="fVisaExp">
           <label><span data-i18n="l_visa_exp">Residence card expiry date</span> <span class="req">*</span></label>
           <input type="date" name="visaExpiry" required>
           <div class="hint" data-i18n="h_visa_exp">Exactly as printed on your card.</div>
         </div>
       </div>
 
-      <div class="field">
+      <div class="field" id="fPermit">
         <label><span data-i18n="l_permit">Permission to engage in activity other than that permitted (資格外活動許可)</span> <span class="req">*</span></label>
         <select name="permit" required>
           <option value="">—</option>
@@ -216,8 +218,19 @@
         <div class="hint" data-i18n="h_permit">Student and Dependent visas must have this permission. Without it we cannot register you.</div>
       </div>
 
-      <div class="row">
-        <div class="field">
+      <div class="field" id="fPassport" hidden>
+        <label><span data-i18n="l_passport">Japanese passport — photo page</span> <span class="req">*</span></label>
+        <label class="file">
+          <input type="file" name="passport" accept="image/*">
+          <div class="lbl" data-i18n="l_passport">Japanese passport — photo page</div>
+          <div class="h" data-i18n="h_tap">Tap to choose</div>
+          <div class="preview"><img alt=""><div class="meta"></div></div>
+        </label>
+        <div class="hint" data-i18n="h_jp">Japanese nationals do not have a residence card. Please send the photo page of your Japanese passport instead. We check it and delete the image, the same as with residence cards. If you do not have a passport, message us on WhatsApp.</div>
+      </div>
+
+      <div class="row" id="fCards">
+        <div class="field" id="fCardFront">
           <label><span data-i18n="l_card_f">Residence card — FRONT</span> <span class="req">*</span></label>
           <label class="file">
             <input type="file" name="cardFront" accept="image/*" required>
@@ -226,7 +239,7 @@
             <div class="preview"><img alt=""><div class="meta"></div></div>
           </label>
         </div>
-        <div class="field">
+        <div class="field" id="fCardBack">
           <label><span data-i18n="l_card_b">Residence card — BACK</span> <span class="req">*</span></label>
           <label class="file">
             <input type="file" name="cardBack" accept="image/*" required>
@@ -236,7 +249,14 @@
           </label>
         </div>
       </div>
-      <div class="hint" data-i18n="h_card_28">If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.</div>
+      <div class="field" id="fMyNum">
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;color:var(--text);font-size:13px;font-weight:500">
+          <input type="checkbox" name="cardMyNumber" id="cardMyNumber" style="margin-top:3px;accent-color:var(--accent)">
+          <span data-i18n="l_mynum">My residence card is also my My Number card (特定在留カード)</span>
+        </label>
+        <div class="hint" id="hMyNum" data-i18n="h_mynum" hidden>Send the FRONT only. Do not send the back — it shows your My Number.</div>
+      </div>
+      <div class="hint" id="fCard28" data-i18n="h_card_28">If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.</div>
     </div>
 
     <div class="section">
@@ -425,10 +445,10 @@
     </div>
 
     <div class="consent">
-      <div class="body" data-i18n="consent_body">How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked. If you choose an appearance type, we record it solely to match the casting requirements of productions.</div>
+      <div class="body" data-i18n="consent_body">How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked. If you choose an appearance type, we record it solely to match the casting requirements of productions. When you take part in a shoot, you also agree to follow the production's instructions on set and to keep the project confidential: no photos or videos on set, no social media posts about the shoot, and no sharing of project, brand or cast names unless the production allows it.</div>
       <label>
         <input type="checkbox" name="consent" required>
-        <span data-i18n="consent">I am 18 or over, the information above is accurate, and I agree to the use of my information as described.</span>
+        <span data-i18n="consent">I am 18 or over, the information above is accurate, and I agree to the use of my information as described, and I will follow the on-set rules above.</span>
       </label>
     </div>
 
@@ -518,6 +538,11 @@
       l_card_f:'Residence card — FRONT',l_card_f_s:'Front side',
       l_card_b:'Residence card — BACK',l_card_b_s:'Back side',
       h_tap:'Tap to choose',
+      v_jp:"Japanese nationality",
+      l_passport:"Japanese passport — photo page",
+      h_jp:"Japanese nationals do not have a residence card. Please send the photo page of your Japanese passport instead. We check it and delete the image, the same as with residence cards. If you do not have a passport, message us on WhatsApp.",
+      l_mynum:"My residence card is also my My Number card (特定在留カード)",
+      h_mynum:"Send the FRONT only. Do not send the back — it shows your My Number.",
       h_card_28:'If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.',
       h_photos:'A phone photo is fine. What matters is that the production can see your face and your build clearly.',
       h_photo_face:'FACE — from the shoulders up, looking straight at the camera. No sunglasses, no hat, no mask, no filter. Taken within the last 6 months.',
@@ -547,8 +572,8 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       o_male:'Male',o_female:'Female',o_other:'Other / N/A',
       o_none:'None',o_some:'Some',o_pro:'Professional',o_ref:'Referral / Friend',
       opt:'(optional)',
-      consent_body:'How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked. If you choose an appearance type, we record it solely to match the casting requirements of productions.',
-      consent:'I am 18 or over, the information above is accurate, and I agree to the use of my information as described.',
+      consent_body:"How we use your information: your details are used only to (1) consider you for casting requirements and (2) provide the production company with what they require for the projects you are selected for. We keep your registration while you remain active, and delete it whenever you ask — just message us. Your residence card images are deleted once checked. If you choose an appearance type, we record it solely to match the casting requirements of productions. When you take part in a shoot, you also agree to follow the production's instructions on set and to keep the project confidential: no photos or videos on set, no social media posts about the shoot, and no sharing of project, brand or cast names unless the production allows it.",
+      consent:"I am 18 or over, the information above is accurate, and I agree to the use of my information as described, and I will follow the on-set rules above.",
       submit:'Submit registration',
       e_age:'You must be 18 or over to register. This is a production requirement with no exceptions.',
       e_files:'Please attach all four images: residence card front, residence card back, face photo, full body photo.',
@@ -599,6 +624,11 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       l_card_f:'Tarjeta de residencia — FRENTE',l_card_f_s:'Frente',
       l_card_b:'Tarjeta de residencia — REVERSO',l_card_b_s:'Reverso',
       h_tap:'Toca para elegir',
+      v_jp:"Nacionalidad japonesa",
+      l_passport:"Pasaporte japonés — página con foto",
+      h_jp:"Las personas de nacionalidad japonesa no tienen tarjeta de residencia. Envía en su lugar la página con foto de tu pasaporte japonés. La revisamos y eliminamos la imagen, igual que con las tarjetas de residencia. Si no tienes pasaporte, escríbenos por WhatsApp.",
+      l_mynum:"Mi tarjeta de residencia es también mi tarjeta My Number (特定在留カード)",
+      h_mynum:"Envía solo el FRENTE. No envíes el reverso — muestra tu número My Number.",
       h_card_28:'Si tienes visa de estudiante o de dependiente, el límite de 28 horas semanales cuenta todos tus trabajos en conjunto. Mantenerte dentro de ese límite es tu responsabilidad — verifica que un día de rodaje no te haga superarlo.',
       h_photos:'Una foto tomada con el móvil está bien. Lo importante es que la producción vea con claridad tu rostro y tu complexión.',
       h_photo_face:'ROSTRO — de los hombros hacia arriba, mirando de frente a la cámara. Sin gafas de sol, sin gorra, sin mascarilla, sin filtros. Tomada en los últimos 6 meses.',
@@ -628,8 +658,8 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       o_male:'Masculino',o_female:'Femenino',o_other:'Otro / N/A',
       o_none:'Ninguna',o_some:'Algo',o_pro:'Profesional',o_ref:'Referido / Amigo',
       opt:'(opcional)',
-      consent_body:'Cómo usamos tu información: tus datos se usan únicamente para (1) considerarte en las convocatorias y (2) entregar a la productora lo que requiere para los proyectos en los que seas seleccionado/a. Conservamos tu registro mientras sigas activo/a y lo eliminamos cuando lo pidas — solo escríbenos. Las imágenes de tu tarjeta de residencia se eliminan una vez verificadas. Si eliges un tipo de apariencia, lo registramos únicamente para responder a los requisitos de casting de las producciones.',
-      consent:'Tengo 18 años o más, la información es correcta y acepto el uso de mis datos como se describe.',
+      consent_body:"Cómo usamos tu información: tus datos se usan únicamente para (1) considerarte en las convocatorias y (2) entregar a la productora lo que requiere para los proyectos en los que seas seleccionado/a. Conservamos tu registro mientras sigas activo/a y lo eliminamos cuando lo pidas — solo escríbenos. Las imágenes de tu tarjeta de residencia se eliminan una vez verificadas. Si eliges un tipo de apariencia, lo registramos únicamente para responder a los requisitos de casting de las producciones. Al participar en un rodaje, también aceptas seguir las indicaciones de la producción en el set y mantener la confidencialidad del proyecto: no tomar fotos ni videos en el set, no publicar sobre el rodaje en redes sociales y no compartir nombres del proyecto, marcas o elenco salvo que la producción lo permita.",
+      consent:"Tengo 18 años o más, la información es correcta y acepto el uso de mis datos como se describe, y cumpliré las reglas del set descritas arriba.",
       submit:'Enviar registro',
       e_age:'Debes tener 18 años o más para registrarte. Es un requisito de producción, sin excepciones.',
       e_files:'Adjunta las cuatro imágenes: frente y reverso de la tarjeta de residencia, foto de rostro y foto de cuerpo entero.',
@@ -680,6 +710,11 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       l_card_f:'在留カード — 表面',l_card_f_s:'表面',
       l_card_b:'在留カード — 裏面',l_card_b_s:'裏面',
       h_tap:'タップして選択',
+      v_jp:"日本国籍",
+      l_passport:"日本のパスポート（顔写真のページ）",
+      h_jp:"日本国籍の方は在留カードがありません。代わりに日本のパスポートの顔写真のページを送ってください。在留カードと同じく、確認したあと画像は削除します。パスポートをお持ちでない方は WhatsApp でご連絡ください。",
+      l_mynum:"私の在留カードはマイナンバーカードと一体のカード（特定在留カード）です",
+      h_mynum:"表面だけを送ってください。裏面はマイナンバーが載っているので送らないでください。",
       h_card_28:'留学・家族滞在の方は、週28時間の上限がすべての勤務先の合計に適用されます。上限内に収めるのはご本人の責任です。撮影日が上限を超えないかご確認ください。',
       h_photos:'スマホの写真で構いません。制作側が顔と体型をはっきり判断できることが重要です。',
       h_photo_face:'顔写真 — 肩から上。正面を向いて撮影。サングラス・帽子・マスク・加工は不可。直近6か月以内の写真。',
@@ -709,8 +744,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       o_male:'男性',o_female:'女性',o_other:'その他 / 未記入',
       o_none:'未経験',o_some:'少しあり',o_pro:'プロ',o_ref:'紹介 / 知人',
       opt:'（任意）',
-      consent_body:'個人情報の利用について：いただいた情報は、①キャスティング要件への照合、②選考された案件について制作会社が必要とする情報の提供、この2つの目的にのみ使用します。登録は活動中のあいだ保持し、ご希望があればいつでも削除します（メッセージをお送りください）。在留カードの画像は確認後に削除します。外見の系統を選択された場合は、制作側のキャスティング要件との照合のみに使用します。',
-      consent:'18歳以上であること、記入内容に相違ないこと、上記の利用に同意することを確認します。',
+      consent_body:"個人情報の利用について：いただいた情報は、①キャスティング要件への照合、②選考された案件について制作会社が必要とする情報の提供、この2つの目的にのみ使用します。登録は活動中のあいだ保持し、ご希望があればいつでも削除します（メッセージをお送りください）。在留カードの画像は確認後に削除します。外見の系統を選択された場合は、制作側のキャスティング要件との照合のみに使用します。 撮影に参加する際は、現場での制作側の指示に従い、案件の秘密を守ることにも同意したものとします（現場での写真・動画の撮影、撮影についての SNS 投稿、作品名・ブランド名・出演者名の口外は、制作側の許可がない限り禁止）。",
+      consent:"18歳以上であること、記入内容に相違ないこと、上記の利用に同意することを確認します。また、上記の現場のルールを守ります。",
       submit:'登録を送信',
       e_age:'登録は18歳以上に限ります。制作側の要件のため例外はありません。',
       e_files:'4枚すべてを添付してください：在留カード表面・裏面、顔写真、全身写真。',
@@ -821,7 +856,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       var img   = box.querySelector('.preview img');
       var meta  = box.querySelector('.preview .meta');
       var isPf = (input.name === 'portfolio');
-      var isCard = (input.name === 'cardFront' || input.name === 'cardBack');
+      var isCard = (input.name === 'cardFront' || input.name === 'cardBack' || input.name === 'passport');
       input.addEventListener('change', function(){
         var f = input.files[0];
         if (!f) { delete blobs[input.name]; box.classList.remove('has'); return; }
@@ -854,6 +889,27 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     })(boxes[q]);
   }
 
+  /* 日本国籍・特定在留カードで表示を切り替える。隠した欄は required を外す */
+  var visaSel = document.getElementById('visa');
+  var myNumCb = document.getElementById('cardMyNumber');
+  function $(id){ return document.getElementById(id); }
+  function applyVisa(){
+    var jp = (visaSel.value === 'Japanese National');
+    var my = !jp && myNumCb.checked;
+    $('fVisaExp').hidden = jp;     document.querySelector('[name=visaExpiry]').required = !jp;
+    $('fPermit').hidden = jp;      document.querySelector('[name=permit]').required = !jp;
+    $('fCards').hidden = jp;       document.querySelector('[name=cardFront]').required = !jp;
+    $('fCardBack').hidden = jp || my;
+    document.querySelector('[name=cardBack]').required = !(jp || my);
+    $('fMyNum').hidden = jp;
+    $('hMyNum').hidden = !my;
+    $('fCard28').hidden = jp;
+    $('fPassport').hidden = !jp;   document.querySelector('[name=passport]').required = jp;
+  }
+  visaSel.addEventListener('change', applyVisa);
+  myNumCb.addEventListener('change', applyVisa);
+  applyVisa();
+
   var form = document.getElementById('f');
   var done = document.getElementById('done');
   var donep = document.getElementById('donep');
@@ -863,7 +919,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
 
   /* 写真の種類 → 画面に出す名前（既存の辞書キーを使い回す） */
   var KIND_KEY = { face:'l_photo_face', body:'l_photo_body', front:'l_card_f', back:'l_card_b',
-                   extra1:'l_photo_x1', extra2:'l_photo_x2', extra3:'l_photo_x3', portfolio:'l_portfolio' };
+                   extra1:'l_photo_x1', extra2:'l_photo_x2', extra3:'l_photo_x3', portfolio:'l_portfolio', passport:'l_passport' };
   function kindLabel(kind, lng){
     var k = KIND_KEY[kind], dict = T[lng] || T.en;
     return (k && (dict[k] || T.en[k])) || kind;
@@ -893,12 +949,16 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     var age = ageFrom(form.dob.value);
     if (age === null || age < 18){ fail(t('e_age')); return; }
 
-    if (new Date(form.visaExpiry.value) < new Date(new Date().toDateString())){ fail(t('e_expired')); return; }
-
     var v = form.visa.value, p = form.permit.value;
-    if ((v === 'Student' || v === 'Dependent') && p !== 'Yes'){ fail(t('e_permit')); return; }
+    var isJP = (v === 'Japanese National');
+    var isMy = !isJP && myNumCb.checked;
 
-    if (!blobs.cardFront || !blobs.cardBack || !blobs.photoFace || !blobs.photoBody){ fail(t('e_files')); return; }
+    if (!isJP && new Date(form.visaExpiry.value) < new Date(new Date().toDateString())){ fail(t('e_expired')); return; }
+
+    if (!isJP && (v === 'Student' || v === 'Dependent') && p !== 'Yes'){ fail(t('e_permit')); return; }
+
+    var idFront = isJP ? blobs.passport : blobs.cardFront;   /* 日本国籍はパスポートを front として送る */
+    if (!idFront || (!isJP && !isMy && !blobs.cardBack) || !blobs.photoFace || !blobs.photoBody){ fail(t('e_files')); return; }
 
     var btn = form.querySelector('button.submit');
     var orig = btn.textContent;
@@ -908,14 +968,17 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     var data = {};
     var fd = new FormData(form);
     fd.forEach(function(val, key){
-      if (['cardFront','cardBack','photoFace','photoBody','portfolio',
+      if (['cardFront','cardBack','passport','photoFace','photoBody','portfolio',
            'photoExtra1','photoExtra2','photoExtra3'].indexOf(key) < 0) data[key] = val;
     });
     data.age     = age;
     data.consent = form.consent.checked;
     data.lang    = curLang;
-    data.cardFront = blobs.cardFront;
-    data.cardBack  = blobs.cardBack;
+    delete data.cardMyNumber;
+    if (isMy) data.cardMyNumber = true;
+    if (isJP){ data.visaExpiry = '2099-12-31'; data.permit = 'N/A'; }
+    data.cardFront = idFront;
+    if (!isJP && !isMy) data.cardBack = blobs.cardBack;
     data.photoFace = blobs.photoFace;
     data.photoBody = blobs.photoBody;
     if (blobs.portfolio) data.portfolio = blobs.portfolio;
@@ -931,15 +994,15 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     var shots = [];
     shots.push({ kind:'face',  url: blobs.photoFace.dataUrl });
     shots.push({ kind:'body',  url: blobs.photoBody.dataUrl });
-    shots.push({ kind:'front', url: blobs.cardFront.dataUrl });
-    shots.push({ kind:'back',  url: blobs.cardBack.dataUrl });
+    shots.push({ kind:'front', url: idFront.dataUrl });
+    if (!isJP && !isMy) shots.push({ kind:'back',  url: blobs.cardBack.dataUrl });
     if (blobs.photoExtra1) shots.push({ kind:'extra1', url: blobs.photoExtra1.dataUrl });
     if (blobs.photoExtra2) shots.push({ kind:'extra2', url: blobs.photoExtra2.dataUrl });
     if (blobs.photoExtra3) shots.push({ kind:'extra3', url: blobs.photoExtra3.dataUrl });
     if (blobs.portfolio)   shots.push({ kind:'portfolio', url: blobs.portfolio.dataUrl });
 
     var head = {};
-    for (var kk in data) if (['cardFront','cardBack','photoFace','photoBody','portfolio',
+    for (var kk in data) if (['cardFront','cardBack','passport','photoFace','photoBody','portfolio',
         'photoExtra1','photoExtra2','photoExtra3'].indexOf(kk) < 0) head[kk] = data[kk];
     head.op = 'register';
     head.photoCount = shots.length;
@@ -988,7 +1051,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
                                 results.push({ kind:sh2.kind, ok:true });  step++; setStep(step); })
             .catch(function(){   /* 1枚失敗しても登録は続ける（結果は記録する） */
               /* 在留カード表裏だけ、1280px に縮めて1回だけ送り直す（遅い回線だと 2000px が通らない） */
-              var src = sh2.kind === 'front' ? blobs.cardFront : sh2.kind === 'back' ? blobs.cardBack : null;
+              var src = sh2.kind === 'front' ? idFront : sh2.kind === 'back' ? blobs.cardBack : null;
               var retry = (src && src.file)
                 ? shrink(src.file, 1280, 0.78).then(function(o){
                     return post({ op:'photo', submissionId:data.submissionId, row:row, base:base,
@@ -1008,7 +1071,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       window.onbeforeunload = null;
       window.__subId = null;
       form.style.display = 'none';
-      var missing = results.filter(function(r){ return !r.ok; }).map(function(r){ return r.kind; });
+      var missing = results.filter(function(r){ return !r.ok; }).map(function(r){ return (isJP && r.kind === 'front') ? 'passport' : r.kind; });
       if (missing.length) showPartial(missing, data.fullName);
       else done.classList.add('show');
       window.scrollTo({top:0, behavior:'smooth'});

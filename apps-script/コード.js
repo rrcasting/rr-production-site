@@ -1,5 +1,5 @@
 /**
- * Rr.production's — 応募フォーム 受信スクリプト v1.2
+ * Rr.production's — 応募フォーム 受信スクリプト v1.12
  * 2026-08-26
  *
  * 置き場所: rcomp.productions@gmail.com のApps Script
@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.11', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.12', portfolio: true, extras: 3, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -173,6 +173,8 @@ function doPost(e) {
       cache.put('sub_' + sid, 'pending', 21600);   /* 6時間。行ができたら row/base に書き換える */
     }
     var t0 = new Date().getTime();
+    var isJP    = (d.visa === 'Japanese National');
+    var isMyNum = isTrue(d.cardMyNumber);
 
     var ctx  = openTracker();
     var sh   = ctx.sheet, H = ctx.headers, hRow = ctx.headerRow;
@@ -221,7 +223,7 @@ function doPost(e) {
     put('Nearest Station 最寄駅', d.nearestStation);
     put('Walk (min) 徒歩',    d.walkMin);
     put('VISA',               d.visa);
-    put('VISA Expiry',        d.visaExpiry);
+    put('VISA Expiry',        isJP ? '2099-12-31' : d.visaExpiry);
     put('Height (cm)',        d.height);
     put('Clothing Size',      d.clothingSize);
     put('Shoe Size (cm)',     d.shoeSize);
@@ -239,7 +241,7 @@ function doPost(e) {
     put('Owner',              'Richard');
 
     put('日本の電話番号',      String(d.jpPhone || ''));
-    put('資格外活動許可',      d.permit);
+    put('資格外活動許可',      isJP ? 'N/A' : d.permit);
     put('紹介者',             d.referrer);
     put('Face Photo URL',     faceUrl);
     put('Body Photo URL',     bodyUrl);
@@ -253,7 +255,11 @@ function doPost(e) {
     put('追加写真1 URL',       x1Url);
     put('追加写真2 URL',       x2Url);
     put('追加写真3 URL',       x3Url);
-    put('Notes',              'フォーム登録 / 表示言語: ' + (d.lang || '') + ' / 同意: ' + (d.consent ? 'yes' : 'no'));
+    if (isJP) put('在留カード番号下4桁', 'JPN');   /* 列があれば */
+    var notes = 'フォーム登録 / 表示言語: ' + (d.lang || '') + ' / 同意: ' + (d.consent ? 'yes' : 'no');
+    if (isMyNum) notes = '特定在留カード（表面のみ） / ' + notes;
+    if (isJP)    notes = '日本国籍・パスポートで確認 / ' + notes;
+    put('Notes',              notes);
 
     if (touched) {
       var rg = rowRange;
@@ -286,8 +292,10 @@ function doPost(e) {
 /* ================= 検証（クライアントを信用しない） ================= */
 
 function validate(d) {
+  var isJP = (d.visa === 'Japanese National');   /* 日本国籍：在留カードなし。期限・許可は見ない */
   var need = ['fullName','dob','gender','nationality','postalCode','address',
-              'nearestStation','visa','visaExpiry','permit','whatsapp','jpPhone'];
+              'nearestStation','visa','whatsapp','jpPhone'];
+  if (!isJP) need.push('visaExpiry', 'permit');
   for (var i = 0; i < need.length; i++) {
     if (!d[need[i]] || String(d[need[i]]).trim() === '') return 'missing field: ' + need[i];
   }
@@ -301,20 +309,24 @@ function validate(d) {
     if (String(d.visa).indexOf(BANNED_VISA[b]) >= 0) return 'this visa status cannot be registered';
   }
 
-  var exp = new Date(d.visaExpiry);
-  if (isNaN(exp.getTime())) return 'invalid residence card expiry date';
-  var today = new Date(); today.setHours(0,0,0,0);
-  if (exp < today) return 'residence card has expired';
+  if (!isJP) {
+    var exp = new Date(d.visaExpiry);
+    if (isNaN(exp.getTime())) return 'invalid residence card expiry date';
+    var today = new Date(); today.setHours(0,0,0,0);
+    if (exp < today) return 'residence card has expired';
 
-  if ((d.visa === 'Student' || d.visa === 'Dependent') && d.permit !== 'Yes') {
-    return 'student and dependent visas require permission to engage in other activity';
+    if ((d.visa === 'Student' || d.visa === 'Dependent') && d.permit !== 'Yes') {
+      return 'student and dependent visas require permission to engage in other activity';
+    }
   }
+  var isMyNum = isTrue(d.cardMyNumber);
 
   /* 写真は別リクエストで1枚ずつ送るので、op:'register' のときは枚数だけ確かめる */
   if (d.op === 'register') {
-    if (Number(d.photoCount || 0) < 4) return 'missing images';
+    /* 通常は face・body・front・back の4枚。日本国籍（パスポート）・特定在留カード（表のみ）は3枚 */
+    if (Number(d.photoCount || 0) < ((isJP || isMyNum) ? 3 : 4)) return 'missing images';
   } else {
-    var imgs = ['cardFront','cardBack','photoFace','photoBody'];
+    var imgs = (isJP || isMyNum) ? ['cardFront','photoFace','photoBody'] : ['cardFront','cardBack','photoFace','photoBody'];
     for (var k = 0; k < imgs.length; k++) {
       var o = d[imgs[k]];
       if (!o || !o.dataUrl || String(o.dataUrl).indexOf('data:image') !== 0) return 'missing image: ' + imgs[k];
@@ -327,6 +339,8 @@ function validate(d) {
   }
   return null;
 }
+
+function isTrue(v) { return v === true || v === 'true' || v === 'on'; }
 
 function ageFrom(s) {
   var d = new Date(s);
@@ -701,7 +715,10 @@ function notifyNewRegistration(d, row, faceUrl) {
       '名前　　　　: ' + (d.fullName || ''),
       '国籍　　　　: ' + (d.nationality || ''),
       '年齢／性別　: ' + (d.age || '') + ' / ' + (d.gender || ''),
-      '在留資格　　: ' + (d.visa || '') + '（期限 ' + (d.visaExpiry || '') + '／資格外活動許可 ' + (d.permit || '') + '）',
+      '在留資格　　: ' + (d.visa === 'Japanese National'
+                          ? '日本国籍（パスポート）'
+                          : (d.visa || '') + '（期限 ' + (d.visaExpiry || '') + '／資格外活動許可 ' + (d.permit || '') + '）'),
+      isTrue(d.cardMyNumber) ? '在留カード　: 特定在留カード（表面のみ）' : null,
       '最寄駅　　　: ' + (d.nearestStation || ''),
       '外見　　　　: ' + (jpLookName(d.appearance) || '（未選択）'),
       'WhatsApp　　: ' + (d.whatsapp || ''),
@@ -715,6 +732,7 @@ function notifyNewRegistration(d, row, faceUrl) {
       '',
       '次にやること: 在留カードを確認 → 記録 → deleteCheckedCards で画像を削除'
     ];
+    lines = lines.filter(function (x) { return x !== null; });
     MailApp.sendEmail({ to: NOTIFY_TO, subject: subject, body: lines.join('\n') });
   } catch (err) {}
 }
