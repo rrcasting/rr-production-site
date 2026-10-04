@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- register.html v1.14 -->
+<!-- register.html v1.15 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -15,6 +15,11 @@
   }
   *{box-sizing:border-box}
   [hidden]{display:none!important}
+  .up-note{margin:0 0 14px}
+  .st{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px;font-size:12px;color:var(--muted)}
+  .st.ok{color:var(--ok)}
+  .st.bad{color:#fca5a5}
+  .st button{background:none;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer}
   .inapp{position:relative;background:#1f2937;border:1px solid var(--accent-2);border-radius:10px;padding:14px 40px 14px 16px;margin:0 0 22px;font-size:13px}
   .inapp b{display:block;color:var(--accent-2);font-size:13px;margin-bottom:6px}
   .inapp p{margin:0 0 10px;color:var(--text);line-height:1.5}
@@ -141,57 +146,6 @@
   <form id="f" novalidate>
 
     <div class="section">
-      <h2 data-i18n="s_basic">Basic info</h2>
-      <div class="field">
-        <label><span data-i18n="l_name">Full name</span> <span class="req">*</span></label>
-        <input type="text" name="fullName" required>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_dob">Date of birth</span> <span class="req">*</span></label>
-          <input type="date" name="dob" id="dob" required>
-          <div class="hint" data-i18n="h_dob">You must be 18 or over. This is a production requirement with no exceptions.</div>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_gender">Gender</span> <span class="req">*</span></label>
-          <select name="gender" required>
-            <option value="">—</option>
-            <option value="Male" data-i18n="o_male">Male</option>
-            <option value="Female" data-i18n="o_female">Female</option>
-            <option value="Other / N/A" data-i18n="o_other">Other / N/A</option>
-          </select>
-        </div>
-      </div>
-      <div class="field">
-        <label><span data-i18n="l_nat">Nationality</span> <span class="req">*</span></label>
-        <input type="text" name="nationality" required>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 data-i18n="s_addr">Exact address in Japan</h2>
-      <div class="row">
-        <div class="field">
-          <label><span data-i18n="l_zip">Postal code 〒</span> <span class="req">*</span></label>
-          <input type="text" name="postalCode" placeholder="150-0002" required>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_station">Nearest station</span> <span class="req">*</span></label>
-          <input type="text" name="nearestStation" required>
-        </div>
-      </div>
-      <div class="field">
-        <label><span data-i18n="l_addr">Exact full address (street / building / room)</span> <span class="req">*</span></label>
-        <input type="text" name="address" required>
-        <div class="hint" data-i18n="h_addr">Building name and room number are required. Prefecture alone is not enough.</div>
-      </div>
-      <div class="field" style="max-width:240px">
-        <label><span data-i18n="l_walk">Walk from station (min)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-        <input type="number" name="walkMin" min="0" max="120">
-      </div>
-    </div>
-
-    <div class="section">
       <h2 data-i18n="s_visa">Visa &amp; residence card</h2>
 
       <div class="callout">
@@ -199,7 +153,6 @@
         <span data-i18n="c_card_p">Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image. Fill the frame with the card and shoot it straight from above, so the number and the text on the back can be read.</span>
       </div>
 
-      <div class="row">
         <div class="field">
           <label><span data-i18n="l_visa">VISA status</span> <span class="req">*</span></label>
           <select name="visa" id="visa" required>
@@ -217,23 +170,8 @@
           </select>
           <div class="hint" data-i18n="h_visa_tourist">A tourist / temporary visitor status cannot be registered — all our projects are paid work.</div>
         </div>
-        <div class="field" id="fVisaExp">
-          <label><span data-i18n="l_visa_exp">Residence card expiry date</span> <span class="req">*</span></label>
-          <input type="date" name="visaExpiry" required>
-          <div class="hint" data-i18n="h_visa_exp">Exactly as printed on your card.</div>
-        </div>
-      </div>
 
-      <div class="field" id="fPermit">
-        <label><span data-i18n="l_permit">Permission to engage in activity other than that permitted (資格外活動許可)</span> <span class="req">*</span></label>
-        <select name="permit" required>
-          <option value="">—</option>
-          <option value="Yes" data-i18n="p_yes">Yes — it is printed on the back of my card</option>
-          <option value="No" data-i18n="p_no">No — my card does not show it</option>
-          <option value="N/A" data-i18n="p_na">Not applicable — my card says no work restrictions</option>
-        </select>
-        <div class="hint" data-i18n="h_permit">Student and Dependent visas must have this permission. Without it we cannot register you.</div>
-      </div>
+      <p class="hint up-note" data-i18n="up_note">Photos are uploaded as soon as you choose them and are used only for your registration (identity and work-permission check, casting profile). If you do not complete registration, they are deleted automatically within 24 hours.</p>
 
       <div class="field" id="fPassport" hidden>
         <label><span data-i18n="l_passport">Japanese passport — photo page</span> <span class="req">*</span></label>
@@ -332,6 +270,75 @@
             <div class="preview"><img alt=""><div class="meta"></div></div>
           </label>
         </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="s_basic">Basic info</h2>
+      <div class="field">
+        <label><span data-i18n="l_name">Full name</span> <span class="req">*</span></label>
+        <input type="text" name="fullName" required>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_dob">Date of birth</span> <span class="req">*</span></label>
+          <input type="date" name="dob" id="dob" required>
+          <div class="hint" data-i18n="h_dob">You must be 18 or over. This is a production requirement with no exceptions.</div>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_gender">Gender</span> <span class="req">*</span></label>
+          <select name="gender" required>
+            <option value="">—</option>
+            <option value="Male" data-i18n="o_male">Male</option>
+            <option value="Female" data-i18n="o_female">Female</option>
+            <option value="Other / N/A" data-i18n="o_other">Other / N/A</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_nat">Nationality</span> <span class="req">*</span></label>
+        <input type="text" name="nationality" required>
+      </div>
+
+        <div class="field" id="fVisaExp">
+          <label><span data-i18n="l_visa_exp">Residence card expiry date</span> <span class="req">*</span></label>
+          <input type="date" name="visaExpiry" required>
+          <div class="hint" data-i18n="h_visa_exp">Exactly as printed on your card.</div>
+        </div>
+
+      <div class="field" id="fPermit">
+        <label><span data-i18n="l_permit">Permission to engage in activity other than that permitted (資格外活動許可)</span> <span class="req">*</span></label>
+        <select name="permit" required>
+          <option value="">—</option>
+          <option value="Yes" data-i18n="p_yes">Yes — it is printed on the back of my card</option>
+          <option value="No" data-i18n="p_no">No — my card does not show it</option>
+          <option value="N/A" data-i18n="p_na">Not applicable — my card says no work restrictions</option>
+        </select>
+        <div class="hint" data-i18n="h_permit">Student and Dependent visas must have this permission. Without it we cannot register you.</div>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="s_addr">Exact address in Japan</h2>
+      <div class="row">
+        <div class="field">
+          <label><span data-i18n="l_zip">Postal code 〒</span> <span class="req">*</span></label>
+          <input type="text" name="postalCode" placeholder="150-0002" required>
+        </div>
+        <div class="field">
+          <label><span data-i18n="l_station">Nearest station</span> <span class="req">*</span></label>
+          <input type="text" name="nearestStation" required>
+        </div>
+      </div>
+      <div class="field">
+        <label><span data-i18n="l_addr">Exact full address (street / building / room)</span> <span class="req">*</span></label>
+        <input type="text" name="address" required>
+        <div class="hint" data-i18n="h_addr">Building name and room number are required. Prefecture alone is not enough.</div>
+      </div>
+      <div class="field" style="max-width:240px">
+        <label><span data-i18n="l_walk">Walk from station (min)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <input type="number" name="walkMin" min="0" max="120">
       </div>
     </div>
 
@@ -642,7 +649,12 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This can take up to 3 m
       e_img_type:"This image format can't be read on this device. Please choose a JPG or PNG photo, or take a screenshot of the photo and choose that.",
       e_img_read:"We couldn't open this photo. Please try again, or choose a different photo.",
       e_files_jp:"Please attach all three images: passport photo page, face photo, full body photo.",
-      e_files_my:"Please attach all three images: residence card front, face photo, full body photo."
+      e_files_my:"Please attach all three images: residence card front, face photo, full body photo.",
+      up_note:"Photos are uploaded as soon as you choose them and are used only for your registration (identity and work-permission check, casting profile). If you do not complete registration, they are deleted automatically within 24 hours.",
+      st_up:"Uploading…",
+      st_ok:"✓ Received",
+      st_fail:"Upload failed",
+      st_retry:"Retry"
     },
     es:{
       hero:'Únete a una producción <span class="em">en Japón</span>.',
@@ -744,7 +756,12 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Puede tardar hast
       e_img_type:"Este formato de imagen no se puede leer en este dispositivo. Elige una foto JPG o PNG, o haz una captura de pantalla de la foto y elígela.",
       e_img_read:"No pudimos abrir esta foto. Inténtalo de nuevo o elige otra foto.",
       e_files_jp:"Adjunta las tres imágenes: página con foto del pasaporte, foto de rostro y foto de cuerpo entero.",
-      e_files_my:"Adjunta las tres imágenes: frente de la tarjeta de residencia, foto de rostro y foto de cuerpo entero."
+      e_files_my:"Adjunta las tres imágenes: frente de la tarjeta de residencia, foto de rostro y foto de cuerpo entero.",
+      up_note:"Las fotos se suben en cuanto las eliges y se usan solo para tu registro (verificación de identidad y permiso de trabajo, perfil de casting). Si no completas el registro, se eliminan automáticamente en un plazo de 24 horas.",
+      st_up:"Subiendo…",
+      st_ok:"✓ Recibida",
+      st_fail:"No se pudo subir",
+      st_retry:"Reintentar"
     },
     ja:{
       hero:'日本の映像制作に <span class="em">参加</span>。',
@@ -846,12 +863,18 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       e_img_type:"この端末ではこの画像形式を読み込めません。JPG か PNG の写真を選ぶか、写真のスクリーンショットを撮ってそれを選んでください。",
       e_img_read:"この写真を開けませんでした。もう一度選ぶか、別の写真を選んでください。",
       e_files_jp:"3枚すべてを添付してください：パスポートの顔写真ページ、顔写真、全身写真。",
-      e_files_my:"3枚すべてを添付してください：在留カード表面、顔写真、全身写真。"
+      e_files_my:"3枚すべてを添付してください：在留カード表面、顔写真、全身写真。",
+      up_note:"写真は選んだ時点で送信され、登録のため（本人確認・就労資格の確認・キャスティング用プロフィール）にだけ使います。登録を完了しなかった場合、24時間以内に自動で削除します。",
+      st_up:"送信中…",
+      st_ok:"✓ 届きました",
+      st_fail:"送信に失敗しました",
+      st_retry:"再送"
     }
   };
 
   var curLang = 'en';
   var inappCopied = false;
+  var stg = {};   /* 写真の欄ごとの stage 状態 */
   var missingKinds = null;   /* 届かなかった写真の種類。言語を切り替えたら書き直す */
 
   function t(k){ return (T[curLang] && T[curLang][k]) || T.en[k] || k; }
@@ -873,6 +896,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     var xb = document.getElementById('inappX');
     if (xb) xb.setAttribute('aria-label', t('inapp_close'));
     if (inappCopied) document.getElementById('inappCopy').textContent = t('inapp_copied');
+    renderAllStages();
   }
   var langBtns = document.querySelectorAll('.lang button');
   for (var b=0;b<langBtns.length;b++){
@@ -976,6 +1000,149 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
   }
 
   var blobs = {};
+
+  /* ---- 写真を選んだ瞬間に裏で送る（op:'stage'）。同時は最大2枚。同じ kind の操作は順番どおり ---- */
+  var STAGE_KIND = { photoFace:'face', photoBody:'body', cardFront:'front', passport:'front', cardBack:'back',
+                     photoExtra1:'extra1', photoExtra2:'extra2', photoExtra3:'extra3' };
+  function newSubId(){ return 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
+  if (!window.__subId) window.__subId = newSubId();   /* 送信IDはページを開いた時点で作る */
+  var stageQ = [], stageRun = [], stageLog = [];
+
+  function stagePump(){
+    while (stageRun.length < 2){
+      var pick = -1;
+      for (var i = 0; i < stageQ.length && pick < 0; i++){
+        var clash = false, j, k;
+        for (j = 0; j < stageRun.length; j++) if (stageRun[j].kind === stageQ[i].kind) clash = true;
+        for (k = 0; k < i; k++) if (stageQ[k].kind === stageQ[i].kind) clash = true;
+        if (!clash) pick = i;
+      }
+      if (pick < 0) return;
+      (function(task){
+        stageRun.push(task);
+        Promise.resolve().then(task.run).then(null, function(){}).then(function(){
+          stageRun.splice(stageRun.indexOf(task), 1);
+          stagePump();
+        });
+      })(stageQ.splice(pick, 1)[0]);
+    }
+  }
+  function stageEnqueue(kind, run){ stageQ.push({ kind:kind, run:run }); stagePump(); }
+
+  /* XMLHttpRequest で送る（upload.onprogress で % を取るため） */
+  function xhrPost(body, timeoutMs, onProg, holder){
+    return new Promise(function(resolve, reject){
+      var x = new XMLHttpRequest();
+      if (holder) holder.x = x;
+      x.open('POST', SCRIPT_URL);
+      x.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
+      x.timeout = timeoutMs;
+      if (x.upload && onProg) x.upload.onprogress = function(e){ if (e.lengthComputable) onProg(Math.round(e.loaded * 100 / e.total)); };
+      x.onload = function(){
+        if (holder) holder.x = null;
+        var j = null;
+        try { j = JSON.parse(x.responseText); } catch (er) { reject(new Error('invalid response')); return; }
+        if (j && j.success) resolve(j); else reject(new Error((j && j.error) || 'failed'));
+      };
+      x.onerror = function(){ if (holder) holder.x = null; reject(new Error('network')); };
+      x.ontimeout = function(){ if (holder) holder.x = null; reject(new Error('timeout')); };
+      x.onabort = function(){ reject(new Error('aborted')); };
+      x.send(JSON.stringify(body));
+    });
+  }
+
+  function renderStage(name){
+    var s = stg[name];
+    if (!s || !s.el) return;
+    if (s.state === 'none'){ s.el.hidden = true; return; }
+    s.el.hidden = false;
+    s.el.className = 'st' + (s.state === 'ok' ? ' ok' : s.state === 'fail' ? ' bad' : '');
+    s.txt.textContent = s.state === 'ok' ? t('st_ok')
+                      : s.state === 'fail' ? t('st_fail')
+                      : t('st_up') + (s.pct != null ? ' ' + s.pct + '%' : '');
+    s.btn.hidden = (s.state !== 'fail');
+    s.btn.textContent = t('st_retry');
+  }
+  function renderAllStages(){ for (var n in stg) renderStage(n); }
+
+  function stageInit(name, box, input){
+    var el = document.createElement('div'); el.className = 'st'; el.hidden = true;
+    var txt = document.createElement('span'), btn = document.createElement('button');
+    btn.type = 'button'; btn.hidden = true;
+    el.appendChild(txt); el.appendChild(btn);
+    box.parentNode.insertBefore(el, box.nextSibling);
+    stg[name] = { state:'none', pct:null, token:0, x:null, promise:null, el:el, txt:txt, btn:btn, box:box, input:input };
+    btn.addEventListener('click', function(){ stageStart(name); });
+  }
+
+  function stageStart(name){
+    var s = stg[name], bl = blobs[name], kind = STAGE_KIND[name];
+    if (!s || !bl || !kind) return;
+    /* 画像（JPEG/PNG）だけ stage する。それ以外は今までどおり op:'photo' で送る */
+    if (!/^data:image\/(jpeg|png);base64,/.test(bl.dataUrl)){ s.state = 'none'; renderStage(name); return; }
+    var tok = ++s.token, slow = !!(bl.diag && bl.diag.fb);
+    s.state = 'up'; s.pct = null; renderStage(name);
+    s.promise = new Promise(function(resolve){
+      stageEnqueue(kind, function(){
+        if (s.token !== tok){ resolve(); return; }
+        var t0 = Date.now(), tries = 0;
+        function attempt(){
+          tries++;
+          return xhrPost({ op:'stage', submissionId:window.__subId, kind:kind, dataUrl:bl.dataUrl }, slow ? 120000 : 60000,
+                         function(p){ if (s.token === tok){ s.pct = p; renderStage(name); } }, s)
+            .catch(function(er){
+              if (s.token === tok && tries < 2 && String(er && er.message) !== 'aborted')
+                return new Promise(function(r){ setTimeout(r, 1500); }).then(attempt);
+              throw er;
+            });
+        }
+        return attempt().then(function(){
+          if (s.token === tok){ s.state = 'ok'; renderStage(name); }
+          stageLog.push({ kind:kind, ms:Date.now() - t0, res:'ok' });
+        }, function(er){
+          if (s.token === tok){ s.state = 'fail'; renderStage(name); }
+          stageLog.push({ kind:kind, ms:Date.now() - t0, res:String((er && er.message) || er).slice(0, 80) });
+        }).then(resolve);
+      });
+    });
+  }
+
+  /* 選び直し・欄が隠れたとき：送信中なら止め、届いていれば一時ファイルを消す（op:'unstage'） */
+  function stageDrop(name){
+    var s = stg[name];
+    if (!s) return;
+    var had = (s.state !== 'none');
+    s.token++;
+    if (s.x){ try { s.x.abort(); } catch (e) {} s.x = null; }
+    s.state = 'none'; s.pct = null; s.promise = null; renderStage(name);
+    if (had){
+      var kind = STAGE_KIND[name];
+      stageEnqueue(kind, function(){
+        return xhrPost({ op:'unstage', submissionId:window.__subId, kind:kind }, 30000, null, null).then(null, function(){});
+      });
+    }
+  }
+  function dropHiddenFile(name){
+    var s = stg[name];
+    if (!s || (!blobs[name] && s.state === 'none')) return;
+    s.input.value = ''; delete blobs[name]; s.box.classList.remove('has');
+    stageDrop(name);
+  }
+
+  /* 送信ボタン：送信中の写真があれば最大 ms 待つ。間に合わないものは止めて op:'photo' に回す */
+  function waitStages(ms, onWait){
+    var pend = [];
+    for (var n in stg) if (stg[n].state === 'up' && stg[n].promise) pend.push(stg[n].promise);
+    if (!pend.length) return Promise.resolve();
+    if (onWait) onWait();
+    return Promise.race([ Promise.all(pend), new Promise(function(r){ setTimeout(r, ms); }) ]).then(function(){
+      for (var n2 in stg) if (stg[n2].state === 'up'){
+        var s = stg[n2]; s.token++;
+        if (s.x){ try { s.x.abort(); } catch (e) {} s.x = null; }
+        s.state = 'fail'; renderStage(n2);
+      }
+    });
+  }
   var boxes = document.querySelectorAll('.file');
   for (var q=0;q<boxes.length;q++){
     (function(box){
@@ -983,9 +1150,13 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       var img   = box.querySelector('.preview img');
       var meta  = box.querySelector('.preview .meta');
       var isPf = (input.name === 'portfolio');
+      var seq = 0;
+      if (STAGE_KIND[input.name]) stageInit(input.name, box, input);
       var isCard = (input.name === 'cardFront' || input.name === 'cardBack' || input.name === 'passport');
       input.addEventListener('change', function(){
         var f = input.files[0];
+        var mySeq = ++seq;
+        if (STAGE_KIND[input.name]) stageDrop(input.name);   /* 選び直し：前の一時ファイルを消す */
         if (!f) { delete blobs[input.name]; box.classList.remove('has'); return; }
 
         var isPdf = /pdf/i.test(f.type) || /\.pdf$/i.test(f.name);
@@ -1003,7 +1174,9 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
         (isPdf ? readRaw(f)
                : shrink(f, isCard ? MAX_DIM_CARD : MAX_DIM,
                             isCard ? JPEG_Q_CARD  : JPEG_Q)).then(function(o){
+          if (mySeq !== seq) return;   /* もっと新しい選択がある */
           blobs[input.name] = o;
+          if (STAGE_KIND[input.name]) stageStart(input.name);
           img.src = isPdf ? PDF_ICON : o.dataUrl;
           meta.textContent = f.name + ' · ' + Math.round(o.dataUrl.length/1365) + ' KB';
         }).catch(function(err){
@@ -1032,6 +1205,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     $('hMyNum').hidden = !my;
     $('fCard28').hidden = jp;
     $('fPassport').hidden = !jp;   document.querySelector('[name=passport]').required = jp;
+    var hid = { cardFront: jp, cardBack: (jp || my), passport: !jp };
+    for (var hn in hid) if (hid[hn]) dropHiddenFile(hn);
   }
   visaSel.addEventListener('change', applyVisa);
   myNumCb.addEventListener('change', applyVisa);
@@ -1150,13 +1325,25 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     if (blobs.photoExtra3) addShot('extra3', blobs.photoExtra3);
     if (blobs.portfolio)   addShot('portfolio', blobs.portfolio);
 
+    waitStages(60000, function(){ btn.textContent = t('sending'); }).then(function(){
+
+    /* 裏で先に届いている写真（stage）は register の staged で知らせ、残りだけ op:'photo' で送る */
+    var KIND_INPUT = { face:'photoFace', body:'photoBody', front:(isJP ? 'passport' : 'cardFront'), back:'cardBack',
+                       extra1:'photoExtra1', extra2:'photoExtra2', extra3:'photoExtra3' };
+    var stagedKinds = [], toSend = [];
+    shots.forEach(function(s9){
+      var nm = KIND_INPUT[s9.kind];
+      if (nm && stg[nm] && stg[nm].state === 'ok') stagedKinds.push(s9.kind); else toSend.push(s9);
+    });
+
     var head = {};
     for (var kk in data) if (['cardFront','cardBack','passport','photoFace','photoBody','portfolio',
         'photoExtra1','photoExtra2','photoExtra3'].indexOf(kk) < 0) head[kk] = data[kk];
     head.op = 'register';
-    head.photoCount = shots.length;
+    head.staged = stagedKinds;
+    head.photoCount = toSend.length;   /* これから op:'photo' で送る枚数（stage 済みは staged で数える） */
 
-    var total = shots.length + 1, step = 0;
+    var total = toSend.length + 1, step = 0;
     function setStep(n){
       var pct = Math.min(100, Math.round(n * 100 / total));
       btn.textContent = t('sending') + ' ' + n + '/' + total + (curLang === 'ja' ? '（' + pct + '%）' : ' (' + pct + '%)');
@@ -1206,7 +1393,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
         var payload = { op:'log', submissionId:data.submissionId, lang:curLang, userAgent:navigator.userAgent, inApp:IN_APP,
           photos: shots.map(function(s){ var d0 = s.diag || {};
             return { kind:s.kind, type:d0.origType || '', origKB:d0.origKB, outKB:d0.outKB, ms:d0.ms, raw:!!d0.raw }; }),
-          requests: reqLog, totalMs: Date.now() - tStart };
+          requests: reqLog, stages: stageLog, totalMs: Date.now() - tStart };
         fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
                             body:JSON.stringify(payload), keepalive:true }).catch(function(){});
       } catch (e) {}
@@ -1215,14 +1402,19 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     timedPost('register', head, { timeoutMs: 90000, tries: 5, reg: true })
     .then(function(j){
       if (!j.row || !j.base) throw new Error('no row');   /* 行番号なしで写真送信に進ませない */
+      /* サーバーが一時ファイルを見つけられなかった写真は op:'photo' に回す */
+      (j.missing || []).forEach(function(mk){
+        shots.forEach(function(s9){ if (s9.kind === mk && toSend.indexOf(s9) < 0) toSend.push(s9); });
+      });
+      total = toSend.length + 1;
       step = 1; setStep(step);
       var row = j.row, base = j.base, faceUrl = '';
       var chain = Promise.resolve();
-      shots.forEach(function(sh2, i2){
+      toSend.forEach(function(sh2, i2){
         chain = chain.then(function(){
           /* index / total を付ける。最後の1枚を受けたサーバーが「写真完了」メールを送る */
           return timedPost(sh2.kind, { op:'photo', submissionId:data.submissionId, row:row, base:base,
-                        kind:sh2.kind, dataUrl:sh2.url, index:i2, total:shots.length }, sh2.slow ? { timeoutMs:120000 } : undefined)
+                        kind:sh2.kind, dataUrl:sh2.url, index:i2, total:toSend.length, all:shots.length }, sh2.slow ? { timeoutMs:120000 } : undefined)
             .then(function(r2){ if (sh2.kind === 'face') faceUrl = r2.url || '';
                                 results.push({ kind:sh2.kind, ok:true });  step++; setStep(step); })
             .catch(function(){   /* 1枚失敗しても登録は続ける（結果は記録する） */
@@ -1231,7 +1423,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
               var retry = (src && src.file)
                 ? shrink(src.file, 1280, 0.78).then(function(o){
                     return timedPost(sh2.kind + '-retry', { op:'photo', submissionId:data.submissionId, row:row, base:base,
-                                  kind:sh2.kind, dataUrl:o.dataUrl, index:i2, total:shots.length }, { tries:1, timeoutMs:45000 });
+                                  kind:sh2.kind, dataUrl:o.dataUrl, index:i2, total:toSend.length, all:shots.length }, { tries:1, timeoutMs:45000 });
                   })
                 : Promise.reject(new Error('no retry'));
               return retry
@@ -1255,6 +1447,12 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     })
     .catch(function(e){
       sendLog();
+      window.onbeforeunload = null;
+      fail(t('e_send') + ' (' + (e.message || e) + ')');
+      btn.disabled = false; btn.textContent = orig;
+    });
+
+    }).catch(function(e){   /* ここに来るのは上の流れに入る前の例外だけ */
       window.onbeforeunload = null;
       fail(t('e_send') + ' (' + (e.message || e) + ')');
       btn.disabled = false; btn.textContent = orig;
