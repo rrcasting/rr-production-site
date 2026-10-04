@@ -1,5 +1,5 @@
 /**
- * Rr.production's — 応募フォーム 受信スクリプト v1.12
+ * Rr.production's — 応募フォーム 受信スクリプト v1.13
  * 2026-08-26
  *
  * 置き場所: rcomp.productions@gmail.com のApps Script
@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.12', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.13', portfolio: true, extras: 3, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -175,6 +175,7 @@ function doPost(e) {
     var t0 = new Date().getTime();
     var isJP    = (d.visa === 'Japanese National');
     var isMyNum = isTrue(d.cardMyNumber);
+    var sz      = cleanSizes(d);   /* 3サイズ：おかしい値は捨てる（登録は失敗させない） */
 
     var ctx  = openTracker();
     var sh   = ctx.sheet, H = ctx.headers, hRow = ctx.headerRow;
@@ -225,6 +226,9 @@ function doPost(e) {
     put('VISA',               d.visa);
     put('VISA Expiry',        isJP ? '2099-12-31' : d.visaExpiry);
     put('Height (cm)',        d.height);
+    put('バスト',              sz.bust);
+    put('ウエスト',            sz.waist);
+    put('ヒップ',              sz.hip);
     put('Clothing Size',      d.clothingSize);
     put('Shoe Size (cm)',     d.shoeSize);
     put('Hair Color',         d.hairColor);
@@ -257,6 +261,7 @@ function doPost(e) {
     put('追加写真3 URL',       x3Url);
     if (isJP) put('在留カード番号下4桁', 'JPN');   /* 列があれば */
     var notes = 'フォーム登録 / 表示言語: ' + (d.lang || '') + ' / 同意: ' + (d.consent ? 'yes' : 'no');
+    if (sz.bad.length) notes += ' / 3サイズ入力値エラー（原文: ' + sz.bad.join(', ') + '）';
     if (isMyNum) notes = '特定在留カード（表面のみ） / ' + notes;
     if (isJP)    notes = '日本国籍・パスポートで確認 / ' + notes;
     put('Notes',              notes);
@@ -338,6 +343,26 @@ function validate(d) {
     if (o2 && (!o2.dataUrl || String(o2.dataUrl).indexOf('data:image') !== 0)) return 'invalid image: ' + opt[k2];
   }
   return null;
+}
+
+/* 3サイズ（cm）。数字に直せて範囲内のときだけ数値にする。それ以外は捨てて bad に原文を残す */
+var SIZE_RANGE = { bust:[60,160], waist:[45,150], hip:[60,170] };
+function cleanSizes(d) {
+  var out = { bust:'', waist:'', hip:'', bad:[] };
+  for (var k in SIZE_RANGE) {
+    var raw = d[k];
+    if (raw == null || String(raw).trim() === '') continue;
+    var s = String(raw);
+    if (s.normalize) s = s.normalize('NFKC');
+    s = s.replace(/cm/ig, '').replace(/\s+/g, '');
+    var n = /^\d+(\.\d+)?$/.test(s) ? parseFloat(s) : NaN;
+    if (isNaN(n) || n < SIZE_RANGE[k][0] || n > SIZE_RANGE[k][1] || Math.round(n * 2) !== n * 2) {
+      out.bad.push(k + '=' + String(raw).slice(0, 20));
+    } else {
+      out[k] = n;
+    }
+  }
+  return out;
 }
 
 function isTrue(v) { return v === true || v === 'true' || v === 'on'; }
@@ -719,6 +744,7 @@ function notifyNewRegistration(d, row, faceUrl) {
                           ? '日本国籍（パスポート）'
                           : (d.visa || '') + '（期限 ' + (d.visaExpiry || '') + '／資格外活動許可 ' + (d.permit || '') + '）'),
       isTrue(d.cardMyNumber) ? '在留カード　: 特定在留カード（表面のみ）' : null,
+      '3サイズ　　: ' + sizesLine(d),
       '最寄駅　　　: ' + (d.nearestStation || ''),
       '外見　　　　: ' + (jpLookName(d.appearance) || '（未選択）'),
       'WhatsApp　　: ' + (d.whatsapp || ''),
@@ -735,6 +761,13 @@ function notifyNewRegistration(d, row, faceUrl) {
     lines = lines.filter(function (x) { return x !== null; });
     MailApp.sendEmail({ to: NOTIFY_TO, subject: subject, body: lines.join('\n') });
   } catch (err) {}
+}
+/* 通知メール用：「3サイズ: B88 / W68 / H92」の右側。空は「―」、全部空なら「未記入」 */
+function sizesLine(d) {
+  var z = cleanSizes(d);
+  if (z.bust === '' && z.waist === '' && z.hip === '') return '未記入';
+  var f = function (x) { return x === '' ? '―' : x; };
+  return 'B' + f(z.bust) + ' / W' + f(z.waist) + ' / H' + f(z.hip);
 }
 function testMail() {
   MailApp.sendEmail(NOTIFY_TO, '【テスト】通知の確認', 'これが届けばメール権限はOKです。');
