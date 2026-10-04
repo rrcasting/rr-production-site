@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- register.html v1.12 -->
+<!-- register.html v1.13 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -15,6 +15,9 @@
   }
   *{box-sizing:border-box}
   [hidden]{display:none!important}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .row3 input{min-width:0}
+  @media (max-width:520px){.row3{grid-template-columns:1fr}}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
   body{padding:32px 16px 80px;line-height:1.55}
   .wrap{max-width:620px;margin:0 auto}
@@ -348,6 +351,24 @@
           <input type="text" name="clothingSize" placeholder="S / M / L / XL">
         </div>
       </div>
+      <div class="field">
+        <label><span data-i18n="l_sizes">Body measurements (cm)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
+        <div class="row3">
+          <div class="field">
+            <label><span data-i18n="l_bust">Chest / Bust</span></label>
+            <input type="text" inputmode="decimal" name="bust">
+          </div>
+          <div class="field">
+            <label><span data-i18n="l_waist">Waist</span></label>
+            <input type="text" inputmode="decimal" name="waist">
+          </div>
+          <div class="field">
+            <label><span data-i18n="l_hip">Hips</span></label>
+            <input type="text" inputmode="decimal" name="hip">
+          </div>
+        </div>
+        <div class="hint" data-i18n="h_sizes">Optional. Productions often ask for these for costume fitting, and complete profiles are easier for us to put forward. Measure with a tape in centimetres: chest/bust at the fullest part, waist at the narrowest part, hips at the fullest part. Numbers only (e.g. 88).</div>
+      </div>
       <div class="row">
         <div class="field">
           <label><span data-i18n="l_shoe">Shoe size (cm)</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
@@ -556,6 +577,12 @@
       h_jpphone:'Used by the production team on shoot days. Must work inside Japan.',
       l_email:'Email',
       l_height:'Height (cm)',l_clothing:'Clothing size',l_shoe:'Shoe size (cm)',
+      l_sizes:"Body measurements (cm)",
+      l_bust:"Chest / Bust",
+      l_waist:"Waist",
+      l_hip:"Hips",
+      h_sizes:"Optional. Productions often ask for these for costume fitting, and complete profiles are easier for us to put forward. Measure with a tape in centimetres: chest/bust at the fullest part, waist at the narrowest part, hips at the fullest part. Numbers only (e.g. 88).",
+      e_size_cm:"Please check your measurements. They must be in centimetres (e.g. chest 88, waist 68, hips 92). If you are not sure, leave them blank.",
       l_hair:'Hair color',l_eye:'Eye color',l_features:'Features (tattoo, piercing, beard...)',
 l_look:'Appearance type',o_look_no:'Prefer not to say',o_look_af:'African',o_look_eu:'European',o_look_la:'Latin American',o_look_me:'Middle Eastern',o_look_sa:'South Asian',o_look_ea:'East Asian',o_look_se:'Southeast Asian',o_look_mx:'Mixed',h_look:'Productions often ask for a specific look. Telling us makes it far more likely you are put forward for the right project. This is entirely optional — leaving it blank does not affect your registration, and by choosing an option you agree to us recording it for casting purposes only.',
 sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seconds — please keep this page open.',
@@ -642,6 +669,12 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       h_jpphone:'Lo usa el equipo de producción los días de rodaje. Debe funcionar dentro de Japón.',
       l_email:'Correo electrónico',
       l_height:'Estatura (cm)',l_clothing:'Talla de ropa',l_shoe:'Talla de calzado (cm)',
+      l_sizes:"Medidas corporales (cm)",
+      l_bust:"Pecho / Busto",
+      l_waist:"Cintura",
+      l_hip:"Cadera",
+      h_sizes:"Opcional. Las producciones suelen pedirlas para el vestuario, y los perfiles completos son más fáciles de proponer. Mide con una cinta en centímetros: pecho/busto en la parte más ancha, cintura en la parte más estrecha y cadera en la parte más ancha. Solo números (p. ej., 88).",
+      e_size_cm:"Revisa tus medidas. Deben estar en centímetros (p. ej., pecho 88, cintura 68, cadera 92). Si no estás seguro/a, déjalas en blanco.",
       l_hair:'Color de cabello',l_eye:'Color de ojos',l_features:'Marcas (tatuajes, piercings, barba...)',
 l_look:'Tipo de apariencia',o_look_no:'Prefiero no decirlo',o_look_af:'Africana',o_look_eu:'Europea',o_look_la:'Latinoamericana',o_look_me:'De Oriente Medio',o_look_sa:'Del sur de Asia',o_look_ea:'De Asia oriental',o_look_se:'Del sudeste asiático',o_look_mx:'Mixta',h_look:'Las producciones suelen pedir un tipo de apariencia concreto. Indicárnoslo aumenta mucho las probabilidades de que te presentemos al proyecto adecuado. Es totalmente opcional — dejarlo en blanco no afecta tu registro, y al elegir una opción aceptas que la registremos únicamente con fines de casting.',
 sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 segundos — no cierres esta página.',
@@ -728,6 +761,12 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       h_jpphone:'撮影当日に制作チームが使用します。日本国内で繋がる番号を入力してください。',
       l_email:'メールアドレス',
       l_height:'身長（cm）',l_clothing:'服サイズ',l_shoe:'靴サイズ（cm）',
+      l_sizes:"スリーサイズ（cm）",
+      l_bust:"バスト（胸囲）",
+      l_waist:"ウエスト",
+      l_hip:"ヒップ",
+      h_sizes:"任意です。衣装合わせのために制作側から求められることが多く、記入のあるプロフィールの方が提案しやすくなります。メジャーで cm で測ってください：バストは一番太いところ、ウエストは一番細いところ、ヒップは一番太いところ。数字だけ（例：88）。",
+      e_size_cm:"サイズを確認してください。cm で入力してください（例：バスト 88、ウエスト 68、ヒップ 92）。分からない場合は空欄のままで構いません。",
       l_hair:'髪色',l_eye:'目の色',l_features:'特徴（タトゥー・ピアス・ヒゲ等）',
 l_look:'外見の系統',o_look_no:'回答しない',o_look_af:'アフリカ系',o_look_eu:'ヨーロッパ系',o_look_la:'ラテン系',o_look_me:'中東系',o_look_sa:'南アジア系',o_look_ea:'東アジア系',o_look_se:'東南アジア系',o_look_mx:'ミックス',h_look:'制作側から外見の系統を指定されることが多く、お知らせいただくと該当案件に推薦できる可能性が大きく上がります。回答は任意です。空欄でも登録に影響はありません。選択された場合、キャスティング目的でのみ記録することに同意したものとして扱います。',
 sending:'送信中…',h_send_wait:'写真をアップロードしています。30〜60秒かかります。このページを閉じないでください。',
@@ -910,6 +949,19 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
   myNumCb.addEventListener('change', applyVisa);
   applyVisa();
 
+  /* 3サイズ：全角→半角、前後の空白と cm を取る。空欄は '' 、不正は null */
+  var SIZE_RANGE = { bust:[60,160], waist:[45,150], hip:[60,170] };
+  function normSize(raw, key){
+    var s = String(raw == null ? '' : raw);
+    if (s.normalize) s = s.normalize('NFKC');
+    s = s.replace(/cm/ig, '').replace(/\s+/g, '');
+    if (s === '') return '';
+    if (!/^\d+(\.\d+)?$/.test(s)) return null;
+    var n = parseFloat(s), r = SIZE_RANGE[key];
+    if (n < r[0] || n > r[1] || Math.round(n * 2) !== n * 2) return null;
+    return String(n);
+  }
+
   var form = document.getElementById('f');
   var done = document.getElementById('done');
   var donep = document.getElementById('donep');
@@ -949,6 +1001,12 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     var age = ageFrom(form.dob.value);
     if (age === null || age < 18){ fail(t('e_age')); return; }
 
+    var sizes = {};
+    for (var sk in SIZE_RANGE){
+      sizes[sk] = normSize(form[sk].value, sk);
+      if (sizes[sk] === null){ fail(t('e_size_cm')); return; }
+    }
+
     var v = form.visa.value, p = form.permit.value;
     var isJP = (v === 'Japanese National');
     var isMy = !isJP && myNumCb.checked;
@@ -971,6 +1029,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       if (['cardFront','cardBack','passport','photoFace','photoBody','portfolio',
            'photoExtra1','photoExtra2','photoExtra3'].indexOf(key) < 0) data[key] = val;
     });
+    for (var sk2 in sizes){ if (sizes[sk2] !== '') data[sk2] = sizes[sk2]; else delete data[sk2]; }
     data.age     = age;
     data.consent = form.consent.checked;
     data.lang    = curLang;
