@@ -1,5 +1,5 @@
 /**
- * Rr.production's — 応募フォーム 受信スクリプト v1.13
+ * Rr.production's — 応募フォーム 受信スクリプト v1.14
  * 2026-08-26
  *
  * 置き場所: rcomp.productions@gmail.com のApps Script
@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.13', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.14', portfolio: true, extras: 3, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -131,6 +131,47 @@ function notifyPhotosComplete(d, sh, H, row, base) {
   } catch (err) {}
 }
 
+/* フォーム診断ログ（名前・住所・電話・画像は受け取らない。決まった項目だけ拾う）
+   Tracker とは別タブ。見出しに「Full Name」を入れない（openTracker が見出しで Tracker を探すため）。ロックは取らない。 */
+var DIAG_SHEET = 'フォーム診断';
+var DIAG_MAX_ROWS = 2000;
+function handleLog(d) {
+  try {
+    var cut = function (v, n) {
+      var s = String(v == null ? '' : v).slice(0, n);
+      return /^[=+\-@]/.test(s) ? "'" + s : s;   /* 数式として解釈させない */
+    };
+    var num = function (v) { var n = Number(v); return isNaN(n) ? '' : Math.round(n); };
+    var photos = (d.photos instanceof Array ? d.photos : []).slice(0, 12).map(function (p) {
+      p = p || {};
+      return cut(p.kind, 12) + ' ' + cut(p.type, 24) + ' ' + num(p.origKB) + '→' + num(p.outKB) + 'KB ' + num(p.ms) + 'ms' + (p.raw ? ' 元ファイル' : '');
+    }).join(' / ').slice(0, 6000);
+    var reqs = (d.requests instanceof Array ? d.requests : []).slice(0, 40).map(function (r) {
+      r = r || {};
+      return cut(r.kind, 20) + ' ' + num(r.tries) + '回 ' + num(r.ms) + 'ms ' + cut(r.res, 80);
+    }).join(' / ').slice(0, 6000);
+    var row = [
+      Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy-MM-dd HH:mm:ss'),
+      cut(String(d.submissionId || '').replace(/[^\w-]/g, ''), 60),
+      cut(d.lang, 5),
+      d.inApp === true ? 'yes' : 'no',
+      Math.round(Number(d.totalMs || 0) / 100) / 10,
+      photos, reqs, cut(d.userAgent, 300)
+    ];
+    var ss = SpreadsheetApp.openById(SHEET_ID);
+    var sh = ss.getSheetByName(DIAG_SHEET);
+    if (!sh) {
+      sh = ss.insertSheet(DIAG_SHEET);
+      sh.appendRow(['日時', 'submissionId', 'lang', 'アプリ内', '合計秒', '写真の内訳', 'リクエストの内訳', 'UA']);
+      sh.setFrozenRows(1);
+    }
+    sh.appendRow(row);
+    var n = sh.getLastRow();
+    if (n > DIAG_MAX_ROWS + 1) sh.deleteRows(2, n - DIAG_MAX_ROWS - 1);   /* 古い行から消す */
+  } catch (err) {}
+  return json({ success:true });
+}
+
 /* 全部終わったあとの通知メール */
 function handleDone(d) {
   /* 旧バージョンのフォーム用。今のフォームは register の時点で通知するので何もしない */
@@ -144,6 +185,7 @@ function doPost(e) {
       var pre = JSON.parse(e.postData.contents);
       if (pre && pre.op === 'photo') return handlePhoto(pre);
       if (pre && pre.op === 'done')  return handleDone(pre);
+      if (pre && pre.op === 'log')   return handleLog(pre);
     }
   } catch (e0) { /* 続行して従来処理へ */ }
 
@@ -440,6 +482,7 @@ function saveImage(o, folderId, filename) {
   var parts = String(o.dataUrl).split(',');
   if (parts.length < 2) return '';
   var type = (parts[0].match(/data:([^;]+);/) || [])[1] || 'image/jpeg';
+  if (type === 'image/png') filename = String(filename).replace(/\.jpg$/i, '.png');   /* 中身が PNG なら拡張子も PNG */
   var blob = Utilities.newBlob(Utilities.base64Decode(parts[1]), type, filename);
   return DriveApp.getFolderById(folderId).createFile(blob).getUrl();
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- register.html v1.13 -->
+<!-- register.html v1.14 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -15,6 +15,12 @@
   }
   *{box-sizing:border-box}
   [hidden]{display:none!important}
+  .inapp{position:relative;background:#1f2937;border:1px solid var(--accent-2);border-radius:10px;padding:14px 40px 14px 16px;margin:0 0 22px;font-size:13px}
+  .inapp b{display:block;color:var(--accent-2);font-size:13px;margin-bottom:6px}
+  .inapp p{margin:0 0 10px;color:var(--text);line-height:1.5}
+  .inapp .x{position:absolute;top:6px;right:6px;width:32px;height:32px;background:none;border:0;color:var(--muted);font-size:22px;line-height:1;cursor:pointer}
+  .inapp .cp{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer}
+  .inapp input{display:block;width:100%;margin-top:10px;min-width:0}
   .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
   .row3 input{min-width:0}
   @media (max-width:520px){.row3{grid-template-columns:1fr}}
@@ -117,6 +123,14 @@
     <span class="badge" data-i18n="b3">Spots are limited</span>
     <span class="badge" data-i18n="b4">Selection based</span>
     <span class="badge" data-i18n="b5">18 and over</span>
+  </div>
+
+  <div class="inapp" id="inapp" role="note" hidden>
+    <button type="button" class="x" id="inappX" aria-label="Close">&times;</button>
+    <b data-i18n="inapp_t">For the best result, open this page in Chrome or Safari.</b>
+    <p data-i18n="inapp_b">In-app browsers (Instagram, Facebook, LINE…) often fail to upload photos. Tap ⋯ and choose "Open in browser", or copy the link.</p>
+    <button type="button" class="cp" id="inappCopy" data-i18n="inapp_copy">Copy link</button>
+    <input type="text" id="inappUrl" readonly hidden>
   </div>
 
   <div class="notice">
@@ -474,7 +488,7 @@
     </div>
 
     <button class="submit" type="submit" data-i18n="submit">Submit registration</button>
-    <div class="hint" style="text-align:center;margin-top:8px" data-i18n="h_send_wait">Uploading your photos. This takes 30–60 seconds — please keep this page open.</div>
+    <div class="hint" style="text-align:center;margin-top:8px" data-i18n="h_send_wait">Uploading your photos. This can take up to 3 minutes — please keep this page open.</div>
     <div class="global-err" id="gerr"></div>
   </form>
 
@@ -585,7 +599,7 @@
       e_size_cm:"Please check your measurements. They must be in centimetres (e.g. chest 88, waist 68, hips 92). If you are not sure, leave them blank.",
       l_hair:'Hair color',l_eye:'Eye color',l_features:'Features (tattoo, piercing, beard...)',
 l_look:'Appearance type',o_look_no:'Prefer not to say',o_look_af:'African',o_look_eu:'European',o_look_la:'Latin American',o_look_me:'Middle Eastern',o_look_sa:'South Asian',o_look_ea:'East Asian',o_look_se:'Southeast Asian',o_look_mx:'Mixed',h_look:'Productions often ask for a specific look. Telling us makes it far more likely you are put forward for the right project. This is entirely optional — leaving it blank does not affect your registration, and by choosing an option you agree to us recording it for casting purposes only.',
-sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seconds — please keep this page open.',
+sending:'Sending…',h_send_wait:'Uploading your photos. This can take up to 3 minutes — please keep this page open.',
       l_lang:'Languages spoken (with level)',l_acting:'Acting / modelling experience',
       l_source:'How did you find us?',l_referrer:'Who referred you? (name)',
       s_exp:'Experience & portfolio',s_exp_h:'(only if you have them \u2014 not required)',
@@ -618,7 +632,17 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       comm_t:'Join the casting community',
       comm_p:'Some castings are posted only in our WhatsApp community, not on Instagram. Announcements only — you cannot be messaged by other members.',
       comm_btn:'Open WhatsApp community',
-      comm_opt:'Optional. You can leave at any time.'
+      comm_opt:'Optional. You can leave at any time.',
+      inapp_t:"For the best result, open this page in Chrome or Safari.",
+      inapp_b:"In-app browsers (Instagram, Facebook, LINE…) often fail to upload photos. Tap ⋯ and choose \"Open in browser\", or copy the link.",
+      inapp_copy:"Copy link",
+      inapp_copied:"Link copied",
+      inapp_close:"Close",
+      e_img_size:"This file is too large (over 12 MB). Please choose a smaller photo.",
+      e_img_type:"This image format can't be read on this device. Please choose a JPG or PNG photo, or take a screenshot of the photo and choose that.",
+      e_img_read:"We couldn't open this photo. Please try again, or choose a different photo.",
+      e_files_jp:"Please attach all three images: passport photo page, face photo, full body photo.",
+      e_files_my:"Please attach all three images: residence card front, face photo, full body photo."
     },
     es:{
       hero:'Únete a una producción <span class="em">en Japón</span>.',
@@ -677,7 +701,7 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This takes 30–60 seco
       e_size_cm:"Revisa tus medidas. Deben estar en centímetros (p. ej., pecho 88, cintura 68, cadera 92). Si no estás seguro/a, déjalas en blanco.",
       l_hair:'Color de cabello',l_eye:'Color de ojos',l_features:'Marcas (tatuajes, piercings, barba...)',
 l_look:'Tipo de apariencia',o_look_no:'Prefiero no decirlo',o_look_af:'Africana',o_look_eu:'Europea',o_look_la:'Latinoamericana',o_look_me:'De Oriente Medio',o_look_sa:'Del sur de Asia',o_look_ea:'De Asia oriental',o_look_se:'Del sudeste asiático',o_look_mx:'Mixta',h_look:'Las producciones suelen pedir un tipo de apariencia concreto. Indicárnoslo aumenta mucho las probabilidades de que te presentemos al proyecto adecuado. Es totalmente opcional — dejarlo en blanco no afecta tu registro, y al elegir una opción aceptas que la registremos únicamente con fines de casting.',
-sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 segundos — no cierres esta página.',
+sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Puede tardar hasta 3 minutos — no cierres esta página.',
       l_lang:'Idiomas que hablas (con nivel)',l_acting:'Experiencia de actuación / modelaje',
       l_source:'¿Cómo nos encontraste?',l_referrer:'¿Quién te recomendó? (nombre)',
       s_exp:'Experiencia y portafolio',s_exp_h:'(solo si los tienes \u2014 no es obligatorio)',
@@ -710,7 +734,17 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       comm_t:'Únete a la comunidad de casting',
       comm_p:'Algunas convocatorias se publican solo en nuestra comunidad de WhatsApp, no en Instagram. Es solo para anuncios — otros miembros no pueden escribirte.',
       comm_btn:'Abrir la comunidad de WhatsApp',
-      comm_opt:'Es opcional. Puedes salir cuando quieras.'
+      comm_opt:'Es opcional. Puedes salir cuando quieras.',
+      inapp_t:"Para que funcione bien, abre esta página en Chrome o Safari.",
+      inapp_b:"Los navegadores dentro de las apps (Instagram, Facebook, LINE…) suelen fallar al subir fotos. Toca ⋯ y elige \"Abrir en el navegador\", o copia el enlace.",
+      inapp_copy:"Copiar enlace",
+      inapp_copied:"Enlace copiado",
+      inapp_close:"Cerrar",
+      e_img_size:"Este archivo es demasiado grande (más de 12 MB). Elige una foto más pequeña.",
+      e_img_type:"Este formato de imagen no se puede leer en este dispositivo. Elige una foto JPG o PNG, o haz una captura de pantalla de la foto y elígela.",
+      e_img_read:"No pudimos abrir esta foto. Inténtalo de nuevo o elige otra foto.",
+      e_files_jp:"Adjunta las tres imágenes: página con foto del pasaporte, foto de rostro y foto de cuerpo entero.",
+      e_files_my:"Adjunta las tres imágenes: frente de la tarjeta de residencia, foto de rostro y foto de cuerpo entero."
     },
     ja:{
       hero:'日本の映像制作に <span class="em">参加</span>。',
@@ -769,7 +803,7 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Tarda de 30 a 60 
       e_size_cm:"サイズを確認してください。cm で入力してください（例：バスト 88、ウエスト 68、ヒップ 92）。分からない場合は空欄のままで構いません。",
       l_hair:'髪色',l_eye:'目の色',l_features:'特徴（タトゥー・ピアス・ヒゲ等）',
 l_look:'外見の系統',o_look_no:'回答しない',o_look_af:'アフリカ系',o_look_eu:'ヨーロッパ系',o_look_la:'ラテン系',o_look_me:'中東系',o_look_sa:'南アジア系',o_look_ea:'東アジア系',o_look_se:'東南アジア系',o_look_mx:'ミックス',h_look:'制作側から外見の系統を指定されることが多く、お知らせいただくと該当案件に推薦できる可能性が大きく上がります。回答は任意です。空欄でも登録に影響はありません。選択された場合、キャスティング目的でのみ記録することに同意したものとして扱います。',
-sending:'送信中…',h_send_wait:'写真をアップロードしています。30〜60秒かかります。このページを閉じないでください。',
+sending:'送信中…',h_send_wait:'写真をアップロードしています。最大3分かかります。このページを閉じないでください。',
       l_lang:'話せる言語（レベル併記）',l_acting:'演技/モデル経験',
       l_source:'当社を知ったきっかけ',l_referrer:'紹介者のお名前',
       s_exp:'\u7d4c歴\u30fb\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa',s_exp_h:'\uff08\u304a\u6301\u3061\u306e\u65b9\u306e\u307f\u30fb\u5fc5\u9808\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09',
@@ -802,11 +836,22 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       comm_t:'キャスティングコミュニティに参加',
       comm_p:'一部の案件はInstagramには出さず、WhatsAppコミュニティ内でのみ告知します。告知専用のため、他の参加者からメッセージが届くことはありません。',
       comm_btn:'WhatsAppコミュニティを開く',
-      comm_opt:'参加は任意です。いつでも退出できます。'
+      comm_opt:'参加は任意です。いつでも退出できます。',
+      inapp_t:"Chrome か Safari で開いてください。",
+      inapp_b:"Instagram・Facebook・LINE などのアプリの中のブラウザでは、写真の送信に失敗することがあります。⋯ から「ブラウザで開く」を選ぶか、リンクをコピーしてください。",
+      inapp_copy:"リンクをコピー",
+      inapp_copied:"コピーしました",
+      inapp_close:"閉じる",
+      e_img_size:"ファイルが大きすぎます（12MB 超）。もっと小さい写真を選んでください。",
+      e_img_type:"この端末ではこの画像形式を読み込めません。JPG か PNG の写真を選ぶか、写真のスクリーンショットを撮ってそれを選んでください。",
+      e_img_read:"この写真を開けませんでした。もう一度選ぶか、別の写真を選んでください。",
+      e_files_jp:"3枚すべてを添付してください：パスポートの顔写真ページ、顔写真、全身写真。",
+      e_files_my:"3枚すべてを添付してください：在留カード表面、顔写真、全身写真。"
     }
   };
 
   var curLang = 'en';
+  var inappCopied = false;
   var missingKinds = null;   /* 届かなかった写真の種類。言語を切り替えたら書き直す */
 
   function t(k){ return (T[curLang] && T[curLang][k]) || T.en[k] || k; }
@@ -825,6 +870,9 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       bs[j].classList.toggle('on', bs[j].getAttribute('data-lang')===lng);
     }
     if (missingKinds) renderMissing();
+    var xb = document.getElementById('inappX');
+    if (xb) xb.setAttribute('aria-label', t('inapp_close'));
+    if (inappCopied) document.getElementById('inappCopy').textContent = t('inapp_copied');
   }
   var langBtns = document.querySelectorAll('.lang button');
   for (var b=0;b<langBtns.length;b++){
@@ -832,6 +880,28 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
   }
   var nav = (navigator.language || 'en').slice(0,2);
   setLang(nav === 'ja' ? 'ja' : nav === 'es' ? 'es' : 'en');
+
+  /* アプリ内ブラウザ（Instagram / Facebook / LINE / TikTok など）では写真の送信に失敗しやすい。帯を出して外のブラウザへ誘導する */
+  var INAPP_RE = /Instagram|FBAN|FBAV|FB_IAB|Messenger|Line\/|musical_ly|BytedanceWebview/i;
+  function isInApp(ua){ return INAPP_RE.test(ua || ''); }
+  var IN_APP = isInApp(navigator.userAgent);
+  function applyInApp(ua){ document.getElementById('inapp').hidden = !isInApp(ua); }
+  applyInApp(navigator.userAgent);
+  document.getElementById('inappX').addEventListener('click', function(){ document.getElementById('inapp').hidden = true; });
+  document.getElementById('inappCopy').addEventListener('click', function(){
+    var btn = document.getElementById('inappCopy'), box = document.getElementById('inappUrl');
+    function ok(){ inappCopied = true; btn.textContent = t('inapp_copied'); }
+    function manual(){   /* clipboard が使えない端末：URL を選択状態の入力欄で見せる */
+      box.value = location.href; box.hidden = false; box.focus(); box.select();
+      try { if (document.execCommand && document.execCommand('copy')) ok(); } catch (e) {}
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(location.href).then(ok, manual);
+    } else manual();
+  });
+
+  /* GAS を起こしておく（結果は使わない・失敗しても何もしない） */
+  try { fetch(SCRIPT_URL, { method:'GET', mode:'no-cors' }).catch(function(){}); } catch (e) {}
 
   /* 生年月日の上限を「今日から18年前」に設定 */
   (function(){
@@ -850,28 +920,44 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     return a;
   }
 
-  /* 画像を縮小してから送る（4枚送るので元サイズだと通らない） */
+  /* 画像を縮小してから送る（4枚送るので元サイズだと通らない）
+     失敗の種類：reject(err) の err.code が 'type'（HEIC など、この端末のブラウザが画像として読めない形式）／'read'（壊れた JPEG/PNG・FileReader の失敗・縮小できず元ファイルも使えない）
+     縮小（canvas）が失敗したとき（toDataURL の例外・空に近い結果）は、元ファイルが JPEG/PNG で 8MB 以下ならそのまま使う（diag.fb = true） */
   function shrink(file, maxDim, q){
-    var lim = maxDim || MAX_DIM, quality = q || JPEG_Q;
+    var lim = maxDim || MAX_DIM, quality = q || JPEG_Q, t0 = Date.now();
     return new Promise(function(resolve, reject){
+      function bad(code){ var er = new Error(code); er.code = code; reject(er); }
       var r = new FileReader();
-      r.onerror = function(){ reject(new Error('read error')); };
+      r.onerror = function(){ bad('read'); };
       r.onload = function(e){
+        var orig = e.target.result;
+        function diag(u, fb){
+          return { origType:file.type || '', origKB:Math.round(file.size/1024), outKB:Math.round(String(u).length*0.75/1024),
+                   ms:Date.now() - t0, raw:!!fb, fb:!!fb };
+        }
+        function useOriginal(){
+          if ((file.type === 'image/jpeg' || file.type === 'image/png') && file.size <= PF_MAX && /^data:image\/(jpeg|png);base64,./.test(orig)){
+            resolve({ dataUrl:orig, name:file.name, type:file.type, file:file, diag:diag(orig, true) });
+          } else bad('read');
+        }
         var img = new Image();
-        img.onerror = function(){ reject(new Error('image error')); };
+        /* JPEG/PNG なのに開けない＝壊れたファイル（read）。それ以外の形式（HEIC など）＝この端末では読めない形式（type） */
+        img.onerror = function(){ bad((file.type === 'image/jpeg' || file.type === 'image/png') ? 'read' : 'type'); };
         img.onload = function(){
-          var w = img.width, h = img.height;
-          var s = Math.min(1, lim / Math.max(w, h));
-          var cw = Math.max(1, Math.round(w*s)), ch = Math.max(1, Math.round(h*s));
-          var c = document.createElement('canvas');
-          c.width = cw; c.height = ch;
-          c.getContext('2d').drawImage(img, 0, 0, cw, ch);
-          var url;
-          try { url = c.toDataURL('image/jpeg', quality); }
-          catch (err) { url = e.target.result; }
-          resolve({ dataUrl:url, name:file.name, type:'image/jpeg', file:file });
+          var url = '';
+          try {
+            var w = img.width, h = img.height;
+            var s = Math.min(1, lim / Math.max(w, h));
+            var cw = Math.max(1, Math.round(w*s)), ch = Math.max(1, Math.round(h*s));
+            var c = document.createElement('canvas');
+            c.width = cw; c.height = ch;
+            c.getContext('2d').drawImage(img, 0, 0, cw, ch);
+            url = c.toDataURL('image/jpeg', quality);
+          } catch (err) { url = ''; }
+          if (!url || url.length < 1000){ useOriginal(); return; }   /* 'data:,' などの空の結果 */
+          resolve({ dataUrl:url, name:file.name, type:(url.match(/^data:([^;]+);/) || [])[1] || 'image/jpeg', file:file, diag:diag(url, false) });
         };
-        img.src = e.target.result;
+        img.src = orig;
       };
       r.readAsDataURL(file);
     });
@@ -881,8 +967,10 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
   function readRaw(file){
     return new Promise(function(resolve, reject){
       var r = new FileReader();
-      r.onerror = function(){ reject(new Error('read error')); };
-      r.onload  = function(e){ resolve({ dataUrl:e.target.result, name:file.name, type:file.type || 'application/pdf' }); };
+      var t0 = Date.now();
+      r.onerror = function(){ var er = new Error('read error'); er.code = 'read'; reject(er); };
+      r.onload  = function(e){ resolve({ dataUrl:e.target.result, name:file.name, type:file.type || 'application/pdf',
+                                         diag:{ origType:file.type || '', origKB:Math.round(file.size/1024), outKB:Math.round(file.size/1024), ms:Date.now() - t0, raw:true, fb:false } }); };
       r.readAsDataURL(file);
     });
   }
@@ -906,7 +994,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
           if (!isPdf && !/^image\//i.test(f.type)){ alert(t('e_pftype')); input.value=''; return; }
           if (f.size > PF_MAX){ alert(t('e_pfsize')); input.value=''; return; }
         } else {
-          if (f.size > MAX_BYTES){ alert('File too large (max 12MB).'); input.value=''; return; }
+          if (f.size > MAX_BYTES){ alert(t('e_img_size')); input.value=''; return; }
         }
 
         meta.textContent = '…';
@@ -918,11 +1006,11 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
           blobs[input.name] = o;
           img.src = isPdf ? PDF_ICON : o.dataUrl;
           meta.textContent = f.name + ' · ' + Math.round(o.dataUrl.length/1365) + ' KB';
-        }).catch(function(){
+        }).catch(function(err){
           box.classList.remove('has');
           input.value = '';
           delete blobs[input.name];
-          alert('Could not read that file. Please try another one.');
+          alert(t(err && err.code === 'type' ? 'e_img_type' : 'e_img_read'));
         });
       });
     })(boxes[q]);
@@ -1016,10 +1104,11 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     if (!isJP && (v === 'Student' || v === 'Dependent') && p !== 'Yes'){ fail(t('e_permit')); return; }
 
     var idFront = isJP ? blobs.passport : blobs.cardFront;   /* 日本国籍はパスポートを front として送る */
-    if (!idFront || (!isJP && !isMy && !blobs.cardBack) || !blobs.photoFace || !blobs.photoBody){ fail(t('e_files')); return; }
+    if (!idFront || (!isJP && !isMy && !blobs.cardBack) || !blobs.photoFace || !blobs.photoBody){ fail(t(isJP ? 'e_files_jp' : isMy ? 'e_files_my' : 'e_files')); return; }
 
     var btn = form.querySelector('button.submit');
     var orig = btn.textContent;
+    var tStart = Date.now();
     btn.disabled = true; btn.textContent = '…';
     window.onbeforeunload = function(e){ if (e) { e.preventDefault(); e.returnValue = ''; } return ''; };   /* 送信中にページを離れない */
 
@@ -1051,14 +1140,15 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
 
     /* 写真は1枚ずつ別々に送る。1回の通信を短くして切断を防ぐ */
     var shots = [];
-    shots.push({ kind:'face',  url: blobs.photoFace.dataUrl });
-    shots.push({ kind:'body',  url: blobs.photoBody.dataUrl });
-    shots.push({ kind:'front', url: idFront.dataUrl });
-    if (!isJP && !isMy) shots.push({ kind:'back',  url: blobs.cardBack.dataUrl });
-    if (blobs.photoExtra1) shots.push({ kind:'extra1', url: blobs.photoExtra1.dataUrl });
-    if (blobs.photoExtra2) shots.push({ kind:'extra2', url: blobs.photoExtra2.dataUrl });
-    if (blobs.photoExtra3) shots.push({ kind:'extra3', url: blobs.photoExtra3.dataUrl });
-    if (blobs.portfolio)   shots.push({ kind:'portfolio', url: blobs.portfolio.dataUrl });
+    function addShot(kind, bl){ shots.push({ kind:kind, url:bl.dataUrl, diag:bl.diag || null, slow:!!(bl.diag && bl.diag.fb) }); }
+    addShot('face',  blobs.photoFace);
+    addShot('body',  blobs.photoBody);
+    addShot('front', idFront);
+    if (!isJP && !isMy) addShot('back', blobs.cardBack);
+    if (blobs.photoExtra1) addShot('extra1', blobs.photoExtra1);
+    if (blobs.photoExtra2) addShot('extra2', blobs.photoExtra2);
+    if (blobs.photoExtra3) addShot('extra3', blobs.photoExtra3);
+    if (blobs.portfolio)   addShot('portfolio', blobs.portfolio);
 
     var head = {};
     for (var kk in data) if (['cardFront','cardBack','passport','photoFace','photoBody','portfolio',
@@ -1067,11 +1157,15 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     head.photoCount = shots.length;
 
     var total = shots.length + 1, step = 0;
-    function setStep(n){ btn.textContent = t('sending') + ' ' + n + '/' + total; }
+    function setStep(n){
+      var pct = Math.min(100, Math.round(n * 100 / total));
+      btn.textContent = t('sending') + ' ' + n + '/' + total + (curLang === 'ja' ? '（' + pct + '%）' : ' (' + pct + '%)');
+    }
     setStep(0);
 
     /* opt = { timeoutMs, tries }。省略時は 45000 / 3（写真） */
-    function post(body, attempt, opt){
+    function post(body, attempt, opt, info){
+      if (info) info.tries = attempt;
       var timeoutMs = (opt && opt.timeoutMs) || 45000, tries = (opt && opt.tries) || 3;
       var ctl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
       var killer = ctl ? setTimeout(function(){ ctl.abort(); }, timeoutMs) : null;
@@ -1086,8 +1180,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       .then(function(j){ if (j && j.success) return j; throw new Error((j && j.error) || 'failed'); })
       .catch(function(err){
         /* opt 付き（register）は 3・6・9・12 秒と間隔を広げる。写真は今までどおり 2 秒 */
-        if (attempt < tries) return new Promise(function(res){ setTimeout(res, opt ? attempt * 3000 : 2000); })
-                                .then(function(){ return post(body, attempt + 1, opt); });
+        if (attempt < tries) return new Promise(function(res){ setTimeout(res, (opt && opt.reg) ? attempt * 3000 : 2000); })
+                                .then(function(){ return post(body, attempt + 1, opt, info); });
         throw err;
       });
     }
@@ -1095,7 +1189,30 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     /* 1枚ごとの成否を記録する。握りつぶすと全部失敗でも完了画面が出てしまう。 */
     var results = [];
 
-    post(head, 1, { timeoutMs: 90000, tries: 5 })
+    /* 診断ログ：名前・住所・電話・画像は入れない。最後に1回だけ、失敗しても何も出さない */
+    var reqLog = [], logSent = false;
+    function rec(kind, info, t0, err){
+      reqLog.push({ kind:kind, tries:(info && info.tries) || 1, ms:Date.now() - t0,
+                    res: err ? String((err && err.message) || err).slice(0, 80) : 'ok' });
+    }
+    function timedPost(kind, body, opt){
+      var info = {}, t0 = Date.now();
+      return post(body, 1, opt, info).then(function(r){ rec(kind, info, t0); return r; },
+                                           function(er){ rec(kind, info, t0, er); throw er; });
+    }
+    function sendLog(){
+      if (logSent) return; logSent = true;
+      try {
+        var payload = { op:'log', submissionId:data.submissionId, lang:curLang, userAgent:navigator.userAgent, inApp:IN_APP,
+          photos: shots.map(function(s){ var d0 = s.diag || {};
+            return { kind:s.kind, type:d0.origType || '', origKB:d0.origKB, outKB:d0.outKB, ms:d0.ms, raw:!!d0.raw }; }),
+          requests: reqLog, totalMs: Date.now() - tStart };
+        fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+                            body:JSON.stringify(payload), keepalive:true }).catch(function(){});
+      } catch (e) {}
+    }
+
+    timedPost('register', head, { timeoutMs: 90000, tries: 5, reg: true })
     .then(function(j){
       if (!j.row || !j.base) throw new Error('no row');   /* 行番号なしで写真送信に進ませない */
       step = 1; setStep(step);
@@ -1104,8 +1221,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       shots.forEach(function(sh2, i2){
         chain = chain.then(function(){
           /* index / total を付ける。最後の1枚を受けたサーバーが「写真完了」メールを送る */
-          return post({ op:'photo', submissionId:data.submissionId, row:row, base:base,
-                        kind:sh2.kind, dataUrl:sh2.url, index:i2, total:shots.length }, 1)
+          return timedPost(sh2.kind, { op:'photo', submissionId:data.submissionId, row:row, base:base,
+                        kind:sh2.kind, dataUrl:sh2.url, index:i2, total:shots.length }, sh2.slow ? { timeoutMs:120000 } : undefined)
             .then(function(r2){ if (sh2.kind === 'face') faceUrl = r2.url || '';
                                 results.push({ kind:sh2.kind, ok:true });  step++; setStep(step); })
             .catch(function(){   /* 1枚失敗しても登録は続ける（結果は記録する） */
@@ -1113,8 +1230,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
               var src = sh2.kind === 'front' ? idFront : sh2.kind === 'back' ? blobs.cardBack : null;
               var retry = (src && src.file)
                 ? shrink(src.file, 1280, 0.78).then(function(o){
-                    return post({ op:'photo', submissionId:data.submissionId, row:row, base:base,
-                                  kind:sh2.kind, dataUrl:o.dataUrl, index:i2, total:shots.length }, 1, { tries:1, timeoutMs:45000 });
+                    return timedPost(sh2.kind + '-retry', { op:'photo', submissionId:data.submissionId, row:row, base:base,
+                                  kind:sh2.kind, dataUrl:o.dataUrl, index:i2, total:shots.length }, { tries:1, timeoutMs:45000 });
                   })
                 : Promise.reject(new Error('no retry'));
               return retry
@@ -1127,6 +1244,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       return chain;   /* 通知メールはサーバーが最初の段階で送る。ここでは待たない */
     })
     .then(function(){
+      sendLog();
       window.onbeforeunload = null;
       window.__subId = null;
       form.style.display = 'none';
@@ -1136,6 +1254,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       window.scrollTo({top:0, behavior:'smooth'});
     })
     .catch(function(e){
+      sendLog();
       window.onbeforeunload = null;
       fail(t('e_send') + ' (' + (e.message || e) + ')');
       btn.disabled = false; btn.textContent = orig;
