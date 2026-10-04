@@ -1091,7 +1091,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
           return xhrPost({ op:'stage', submissionId:window.__subId, kind:kind, dataUrl:bl.dataUrl }, slow ? 120000 : 60000,
                          function(p){ if (s.token === tok){ s.pct = p; renderStage(name); } }, s)
             .catch(function(er){
-              if (s.token === tok && tries < 2 && String(er && er.message) !== 'aborted')
+              if (s.token === tok && tries < 2 && String(er && er.message) !== 'aborted' && String(er && er.message) !== 'stage full')
                 return new Promise(function(r){ setTimeout(r, 1500); }).then(attempt);
               throw er;
             });

@@ -151,7 +151,9 @@ var STAGE_KINDS     = ['face','body','front','back','extra1','extra2','extra3'];
 var STAGE_MAX_FILES = 12;
 var STAGE_MAX_BYTES = 60 * 1024 * 1024;
 var STAGE_FILE_MAX  = 12 * 1024 * 1024;
-var STAGE_TTL_MS    = 24 * 60 * 60 * 1000;
+var STAGE_TTL_MS    = 23 * 60 * 60 * 1000;   /* 23時間：1時間ごとの掃除でも「24時間以内」に収める */
+var STAGE_DIR_MAX_FILES = 300;                   /* 一時フォルダ全体の上限（超えたら 'stage full'） */
+var STAGE_DIR_MAX_BYTES = 3 * 1024 * 1024 * 1024;
 
 function cleanSid(v) { return String(v || '').replace(/[^\w-]/g, '').slice(0, 60); }
 
@@ -205,6 +207,11 @@ function handleStage(d) {
     if (bytes.length > STAGE_FILE_MAX) return json({ success:false, error:'file too large' });
 
     var dir = stageDir();
+    /* 一時フォルダ全体の上限。いっぱいなら断る（フォームは op:'photo' で送り直す） */
+    var allFiles = 0, allBytes = 0, itAll = dir.getFiles();
+    while (itAll.hasNext()) { allFiles++; allBytes += itAll.next().getSize(); }
+    if (allFiles >= STAGE_DIR_MAX_FILES || allBytes >= STAGE_DIR_MAX_BYTES) return json({ success:false, error:'stage full' });
+
     /* 同じ submissionId の他の kind の数と合計サイズ */
     var files = 0, total = 0, it = dir.searchFiles("title contains '" + sid + "'");
     while (it.hasNext()) {
