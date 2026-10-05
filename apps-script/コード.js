@@ -1,5 +1,5 @@
 /**
- * Rr.production's — 応募フォーム 受信スクリプト v1.14
+ * Rr.production's — 応募フォーム 受信スクリプト v1.15
  * 2026-08-26
  *
  * 置き場所: rcomp.productions@gmail.com のApps Script
@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.14', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.15', portfolio: true, extras: 3, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -77,12 +77,7 @@ function handlePhoto(d) {
   }
   if (!url) return json({ success:false, error:'save failed' });
 
-  if (H[m.col] != null) sh.getRange(row, H[m.col] + 1).setValue(url);
-  if (d.kind === 'face') {
-    if (H['Photo URL']   != null) sh.getRange(row, H['Photo URL'] + 1).setValue(url);
-    if (H['Face Photo']  != null) sh.getRange(row, H['Face Photo'] + 1).setValue('Yes');
-  }
-  if (d.kind === 'body' && H['Body Photo'] != null) sh.getRange(row, H['Body Photo'] + 1).setValue('Yes');
+  applyPhotoToRow(d.kind, url, sh, H, row);
 
   /* 最後の1枚が届いた時点で「写真完了」メールを送る。追加の通信はさせない。 */
   notifyPhotosComplete(d, sh, H, row, base);
@@ -90,13 +85,29 @@ function handlePhoto(d) {
   return json({ success:true, url:url });
 }
 
+/* 保存した写真の URL を Tracker の行に書く（op:'photo' と、stage 済みの写真の移動で共通） */
+function applyPhotoToRow(kind, url, sh, H, row) {
+  var m = PHOTO_MAP[kind];
+  if (!m) return;
+  if (H[m.col] != null) sh.getRange(row, H[m.col] + 1).setValue(url);
+  if (kind === 'face') {
+    if (H['Photo URL']   != null) sh.getRange(row, H['Photo URL'] + 1).setValue(url);
+    if (H['Face Photo']  != null) sh.getRange(row, H['Face Photo'] + 1).setValue('Yes');
+  }
+  if (kind === 'body' && H['Body Photo'] != null) sh.getRange(row, H['Body Photo'] + 1).setValue('Yes');
+}
+
 /* 写真が全部届いたことを知らせるメール。最後の1枚（index === total-1）のリクエストの中で送る。
    index / total を送ってこない古いフォームからは何も送らない（v1.8 のフォームでも動く）。 */
 function notifyPhotosComplete(d, sh, H, row, base) {
+  var total = Number(d.total || 0);
+  if (!total) return;
+  if (Number(d.index) !== total - 1) return;
+  sendPhotosCompleteMail(sh, H, row, base, Number(d.all || total));   /* all＝stage 済みも含めた全枚数（表示用） */
+}
+
+function sendPhotosCompleteMail(sh, H, row, base, total) {
   try {
-    var total = Number(d.total || 0);
-    if (!total) return;
-    if (Number(d.index) !== total - 1) return;
 
     /* 同じ登録で2通出さない。base をキーに10分だけ送信済みフラグを置く。 */
     var key = 'pc_' + String(base || row).replace(/[^\w-]/g, '').slice(0, 200);
@@ -131,6 +142,169 @@ function notifyPhotosComplete(d, sh, H, row, base) {
   } catch (err) {}
 }
 
+/* ================= stage（写真を選んだ瞬間に届く一時保存） =================
+   op:'stage' は Drive の一時フォルダに「submissionId_kind.拡張子」で置くだけ。シートには書かない・ロックは取らない。
+   op:'register' の staged で知らされた kind を、行ができたあとで本番の保存先・本番の名前に移す。
+   24時間たった一時ファイルは cleanupStage（1時間ごとのトリガー）が消す。 */
+var STAGE_NAME      = 'Rr_一時アップロード';
+var STAGE_KINDS     = ['face','body','front','back','extra1','extra2','extra3'];
+var STAGE_MAX_FILES = 12;
+var STAGE_MAX_BYTES = 60 * 1024 * 1024;
+var STAGE_FILE_MAX  = 12 * 1024 * 1024;
+var STAGE_TTL_MS    = 23 * 60 * 60 * 1000;   /* 23時間：1時間ごとの掃除でも「24時間以内」に収める */
+var STAGE_DIR_MAX_FILES = 300;                   /* 一時フォルダ全体の上限（超えたら 'stage full'） */
+var STAGE_DIR_MAX_BYTES = 3 * 1024 * 1024 * 1024;
+
+function cleanSid(v) { return String(v || '').replace(/[^\w-]/g, '').slice(0, 60); }
+
+function validStagedKinds(list) {
+  var out = [];
+  if (!(list instanceof Array)) return out;
+  for (var i = 0; i < list.length; i++) {
+    var k = String(list[i]);
+    if (STAGE_KINDS.indexOf(k) >= 0 && out.indexOf(k) < 0) out.push(k);
+  }
+  return out;
+}
+
+function stageDir() {
+  var props = PropertiesService.getScriptProperties();
+  var id = props.getProperty('STAGE_DIR');
+  if (id) { try { return DriveApp.getFolderById(id); } catch (e) {} }
+  var it = DriveApp.getFoldersByName(STAGE_NAME);
+  var f = it.hasNext() ? it.next() : DriveApp.createFolder(STAGE_NAME);
+  props.setProperty('STAGE_DIR', f.getId());
+  return f;
+}
+
+/* 一時ファイルを完全に消す。Drive の高度なサービスが有効ならゴミ箱を経由せず削除、無ければゴミ箱へ */
+function eraseFile(f) {
+  try {
+    if (typeof Drive !== 'undefined' && Drive.Files && Drive.Files.remove) { Drive.Files.remove(f.getId()); return; }
+  } catch (e) {}
+  f.setTrashed(true);
+}
+
+function findStageFiles(dir, sid, kind) {
+  var out = [], exts = ['jpg', 'png'];
+  for (var i = 0; i < exts.length; i++) {
+    var it = dir.getFilesByName(sid + '_' + kind + '.' + exts[i]);
+    while (it.hasNext()) out.push(it.next());
+  }
+  return out;
+}
+
+function handleStage(d) {
+  try {
+    var sid = cleanSid(d.submissionId), kind = String(d.kind || '');
+    if (!sid) return json({ success:false, error:'no submissionId' });
+    if (STAGE_KINDS.indexOf(kind) < 0) return json({ success:false, error:'unknown kind' });
+    var du = String(d.dataUrl || '');
+    var mm = du.match(/^data:image\/(jpeg|png);base64,/);
+    if (!mm) return json({ success:false, error:'jpeg or png only' });
+    var bytes = Utilities.base64Decode(du.slice(mm[0].length));
+    if (!bytes.length) return json({ success:false, error:'empty image' });
+    if (bytes.length > STAGE_FILE_MAX) return json({ success:false, error:'file too large' });
+
+    var dir = stageDir();
+    /* 一時フォルダ全体の上限。いっぱいなら断る（フォームは op:'photo' で送り直す） */
+    var allFiles = 0, allBytes = 0, itAll = dir.getFiles();
+    while (itAll.hasNext()) { allFiles++; allBytes += itAll.next().getSize(); }
+    if (allFiles >= STAGE_DIR_MAX_FILES || allBytes >= STAGE_DIR_MAX_BYTES) return json({ success:false, error:'stage full' });
+
+    /* 同じ submissionId の他の kind の数と合計サイズ */
+    var files = 0, total = 0, it = dir.searchFiles("title contains '" + sid + "'");
+    while (it.hasNext()) {
+      var f0 = it.next(), nm = f0.getName();
+      if (nm.indexOf(sid + '_') !== 0) continue;
+      if (nm.indexOf(sid + '_' + kind + '.') === 0) continue;   /* 同じ kind は置き換えるので数えない */
+      files++; total += f0.getSize();
+    }
+    if (files + 1 > STAGE_MAX_FILES) return json({ success:false, error:'too many files' });
+    if (total + bytes.length > STAGE_MAX_BYTES) return json({ success:false, error:'too large in total' });
+
+    /* 選び直し：古い方を消してから保存 */
+    var old = findStageFiles(dir, sid, kind);
+    for (var i = 0; i < old.length; i++) eraseFile(old[i]);
+    var ext = mm[1] === 'png' ? 'png' : 'jpg';
+    dir.createFile(Utilities.newBlob(bytes, mm[1] === 'png' ? 'image/png' : 'image/jpeg', sid + '_' + kind + '.' + ext));
+    return json({ success:true, kind:kind });
+  } catch (err) {
+    return json({ success:false, error: String(err && err.message ? err.message : err) });
+  }
+}
+
+function handleUnstage(d) {
+  try {
+    var sid = cleanSid(d.submissionId), kind = String(d.kind || '');
+    if (!sid || STAGE_KINDS.indexOf(kind) < 0) return json({ success:false, error:'bad request' });
+    var old = findStageFiles(stageDir(), sid, kind);
+    for (var i = 0; i < old.length; i++) eraseFile(old[i]);
+    return json({ success:true, kind:kind });
+  } catch (err) {
+    return json({ success:false, error: String(err && err.message ? err.message : err) });
+  }
+}
+
+/* register のあと：staged の kind を本番の保存先に移し（名前は base＋PHOTO_MAP の suffix）、URL を Tracker に書く。
+   戻り値 { moved:[kind], missing:[kind] }。missing はクライアントが op:'photo' で送り直す。 */
+function processStaged(d, row, base, ctx) {
+  var kinds = validStagedKinds(d.staged), res = { moved:[], missing:[] };
+  if (!kinds.length) return res;
+  var sid = cleanSid(d.submissionId);
+  if (!sid) { res.missing = kinds; return res; }
+
+  var cache = CacheService.getScriptCache(), ck = 'stg_' + sid, done = [];
+  try { done = JSON.parse(cache.get(ck) || '[]'); } catch (e) { done = []; }   /* 前の呼び出しで移し済みの kind */
+
+  ctx = ctx || openTracker();
+  var dir = stageDir();
+  for (var i = 0; i < kinds.length; i++) {
+    var k = kinds[i], m = PHOTO_MAP[k];
+    var found = findStageFiles(dir, sid, k);
+    if (!found.length) {
+      if (done.indexOf(k) >= 0) res.moved.push(k); else res.missing.push(k);
+      continue;
+    }
+    try {
+      var f = found[0];
+      var ext = /\.png$/i.test(f.getName()) ? 'png' : 'jpg';
+      f.setName(base + m.suffix.replace(/\.jpg$/, '.' + ext));
+      f.moveTo(DriveApp.getFolderById(m.dir === 'CARD' ? CARD_DIR : PHOTO_DIR));
+      for (var j = 1; j < found.length; j++) eraseFile(found[j]);
+      applyPhotoToRow(k, f.getUrl(), ctx.sheet, ctx.headers, row);
+      res.moved.push(k);
+      if (done.indexOf(k) < 0) done.push(k);
+    } catch (err) {
+      res.missing.push(k);
+    }
+  }
+  try { cache.put(ck, JSON.stringify(done), 21600); } catch (e2) {}
+  return res;
+}
+
+/* 24時間を過ぎた一時ファイルを消す（1時間ごとのトリガーから呼ばれる） */
+function cleanupStage() {
+  var dir = stageDir(), now = new Date().getTime(), it = dir.getFiles(), n = 0;
+  while (it.hasNext()) {
+    var f = it.next();
+    if (now - f.getDateCreated().getTime() > STAGE_TTL_MS) { eraseFile(f); n++; }
+  }
+  return n;
+}
+
+/* 手で1回だけ実行：一時フォルダを作り、cleanupStage を1時間ごとに動かす */
+function installStageCleanup() {
+  stageDir();
+  stopStageCleanup();
+  ScriptApp.newTrigger('cleanupStage').timeBased().everyHours(1).create();
+}
+
+function stopStageCleanup() {
+  var ts = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < ts.length; i++) if (ts[i].getHandlerFunction() === 'cleanupStage') ScriptApp.deleteTrigger(ts[i]);
+}
+
 /* フォーム診断ログ（名前・住所・電話・画像は受け取らない。決まった項目だけ拾う）
    Tracker とは別タブ。見出しに「Full Name」を入れない（openTracker が見出しで Tracker を探すため）。ロックは取らない。 */
 var DIAG_SHEET = 'フォーム診断';
@@ -150,6 +324,12 @@ function handleLog(d) {
       r = r || {};
       return cut(r.kind, 20) + ' ' + num(r.tries) + '回 ' + num(r.ms) + 'ms ' + cut(r.res, 80);
     }).join(' / ').slice(0, 6000);
+    var stg = (d.stages instanceof Array ? d.stages : []).slice(0, 40).map(function (r) {
+      r = r || {};
+      return 'stage:' + cut(r.kind, 12) + ' ' + num(r.ms) + 'ms ' + cut(r.res, 80);
+    }).join(' / ');
+    if (stg) reqs = (reqs ? reqs + ' / ' : '') + stg;
+    reqs = reqs.slice(0, 6000);
     var row = [
       Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy-MM-dd HH:mm:ss'),
       cut(String(d.submissionId || '').replace(/[^\w-]/g, ''), 60),
@@ -186,6 +366,8 @@ function doPost(e) {
       if (pre && pre.op === 'photo') return handlePhoto(pre);
       if (pre && pre.op === 'done')  return handleDone(pre);
       if (pre && pre.op === 'log')   return handleLog(pre);
+      if (pre && pre.op === 'stage')   return handleStage(pre);
+      if (pre && pre.op === 'unstage') return handleUnstage(pre);
     }
   } catch (e0) { /* 続行して従来処理へ */ }
 
@@ -208,7 +390,13 @@ function doPost(e) {
       if (seen) {
         var prev = null;
         try { prev = JSON.parse(seen); } catch (e1) {}
-        if (prev && prev.row) return json({ success:true, duplicate:true, row:prev.row, base:prev.base });
+        if (prev && prev.row) {
+          var dup = { success:true, duplicate:true, row:prev.row, base:prev.base };
+          try {
+            if (d.op === 'register') { var rs0 = processStaged(d, prev.row, prev.base); if (rs0.missing.length) dup.missing = rs0.missing; }
+          } catch (e5) {}
+          return json(dup);
+        }
         /* まだ1回目が処理中（pending） → クライアントに再送させる */
         return json({ success:false, error:'busy, please retry' });
       }
@@ -332,6 +520,17 @@ function doPost(e) {
   }
 
   /* ここはロックの外（register のときだけ到達する）。写真を待たずにすぐ通知する */
+  try {
+    var rs = processStaged(d, regResp.row, regResp.base, ctx);
+    if (rs.missing.length) regResp.missing = rs.missing;
+    /* stage だけで全部揃った（op:'photo' が1枚も来ない）ときは、ここで「写真完了」メールを1通 */
+    if (rs.moved.length && !rs.missing.length && !Number(d.photoCount || 0)) {
+      sendPhotosCompleteMail(ctx.sheet, ctx.headers, regResp.row, regResp.base, rs.moved.length);
+    }
+  } catch (e6) {
+    /* 移せなかった分は、クライアントが op:'photo' で送り直す */
+    regResp.missing = validStagedKinds(d.staged);
+  }
   try { notifyNewRegistration(d, regResp.row, ''); } catch (e4) {}
   return json(regResp);
 }
@@ -370,8 +569,9 @@ function validate(d) {
 
   /* 写真は別リクエストで1枚ずつ送るので、op:'register' のときは枚数だけ確かめる */
   if (d.op === 'register') {
-    /* 通常は face・body・front・back の4枚。日本国籍（パスポート）・特定在留カード（表のみ）は3枚 */
-    if (Number(d.photoCount || 0) < ((isJP || isMyNum) ? 3 : 4)) return 'missing images';
+    /* photoCount＝これから op:'photo' で送る枚数。stage 済み（staged）と足して数える。
+       通常は face・body・front・back の4枚。日本国籍（パスポート）・特定在留カード（表のみ）は3枚 */
+    if (Number(d.photoCount || 0) + validStagedKinds(d.staged).length < ((isJP || isMyNum) ? 3 : 4)) return 'missing images';
   } else {
     var imgs = (isJP || isMyNum) ? ['cardFront','photoFace','photoBody'] : ['cardFront','cardBack','photoFace','photoBody'];
     for (var k = 0; k < imgs.length; k++) {
