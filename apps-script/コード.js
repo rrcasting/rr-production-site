@@ -1,5 +1,5 @@
 /**
- * Rr.production's — 応募フォーム 受信スクリプト v1.15
+ * Rr.production's — 応募フォーム 受信スクリプト v1.16
  * 2026-08-26
  *
  * 置き場所: rcomp.productions@gmail.com のApps Script
@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.15', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.16', portfolio: true, extras: 3, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -492,7 +492,7 @@ function doPost(e) {
     if (isJP) put('在留カード番号下4桁', 'JPN');   /* 列があれば */
     var notes = 'フォーム登録 / 表示言語: ' + (d.lang || '') + ' / 同意: ' + (d.consent ? 'yes' : 'no');
     if (sz.bad.length) notes += ' / 3サイズ入力値エラー（原文: ' + sz.bad.join(', ') + '）';
-    if (isMyNum) notes = '特定在留カード（表面のみ） / ' + notes;
+    if (isMyNum) notes = MYNUM_FLAG + ' / ' + notes;
     if (isJP)    notes = '日本国籍・パスポートで確認 / ' + notes;
     put('Notes',              notes);
 
@@ -606,6 +606,9 @@ function cleanSizes(d) {
   }
   return out;
 }
+
+/* 特定在留カードの誤選択を見つけるための目印（Notes の先頭と通知メール）。2025/6/14 より前に交付されたカードは特定在留カードではない */
+var MYNUM_FLAG = '⚠️特定在留カード（表のみ）＝交付日を確認・2025/6/14 より前なら誤選択 → 裏面を依頼';
 
 function isTrue(v) { return v === true || v === 'true' || v === 'on'; }
 
@@ -986,7 +989,7 @@ function notifyNewRegistration(d, row, faceUrl) {
       '在留資格　　: ' + (d.visa === 'Japanese National'
                           ? '日本国籍（パスポート）'
                           : (d.visa || '') + '（期限 ' + (d.visaExpiry || '') + '／資格外活動許可 ' + (d.permit || '') + '）'),
-      isTrue(d.cardMyNumber) ? '在留カード　: 特定在留カード（表面のみ）' : null,
+      isTrue(d.cardMyNumber) ? '在留カード　: ' + MYNUM_FLAG : null,
       '3サイズ　　: ' + sizesLine(d),
       '最寄駅　　　: ' + (d.nearestStation || ''),
       '外見　　　　: ' + (jpLookName(d.appearance) || '（未選択）'),

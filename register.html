@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- register.html v1.15 -->
+<!-- register.html v1.16 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -15,6 +15,9 @@
   }
   *{box-sizing:border-box}
   [hidden]{display:none!important}
+  details.mynum{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  details.mynum summary{cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
+  details.mynum[open] summary{color:var(--text)}
   .up-note{margin:0 0 14px}
   .st{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px;font-size:12px;color:var(--muted)}
   .st.ok{color:var(--ok)}
@@ -204,13 +207,14 @@
           </label>
         </div>
       </div>
-      <div class="field" id="fMyNum">
-        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;color:var(--text);font-size:13px;font-weight:500">
+      <details class="field mynum" id="fMyNum">
+        <summary data-i18n="s_mynum">Do you have a 特定在留カード (residence card + My Number in one)?</summary>
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;color:var(--text);font-size:13px;font-weight:500;margin-top:10px">
           <input type="checkbox" name="cardMyNumber" id="cardMyNumber" style="margin-top:3px;accent-color:var(--accent)">
-          <span data-i18n="l_mynum">My residence card is also my My Number card (特定在留カード)</span>
+          <span data-i18n="l_mynum">Only if your residence card and My Number card are ONE single card (特定在留カード — issued since June 2025). Most people do NOT have this. If you have a separate My Number card, leave this unchecked.</span>
         </label>
-        <div class="hint" id="hMyNum" data-i18n="h_mynum" hidden>Send the FRONT only. Do not send the back — it shows your My Number.</div>
-      </div>
+        <div class="hint" id="hMyNum" data-i18n="h_mynum" hidden>Please check: the front of a 特定在留カード shows an issue date of June 2025 or later. If your card was issued before that, uncheck this and upload the back. Send the FRONT only. Do not send the back — it shows your My Number.</div>
+      </details>
       <div class="hint" id="fCard28" data-i18n="h_card_28">If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.</div>
     </div>
 
@@ -583,8 +587,9 @@
       v_jp:"Japanese nationality",
       l_passport:"Japanese passport — photo page",
       h_jp:"Japanese nationals do not have a residence card. Please send the photo page of your Japanese passport instead. We check it and delete the image, the same as with residence cards. If you do not have a passport, message us on WhatsApp.",
-      l_mynum:"My residence card is also my My Number card (特定在留カード)",
-      h_mynum:"Send the FRONT only. Do not send the back — it shows your My Number.",
+      l_mynum:"Only if your residence card and My Number card are ONE single card (特定在留カード — issued since June 2025). Most people do NOT have this. If you have a separate My Number card, leave this unchecked.",
+      h_mynum:"Please check: the front of a 特定在留カード shows an issue date of June 2025 or later. If your card was issued before that, uncheck this and upload the back. Send the FRONT only. Do not send the back — it shows your My Number.",
+      s_mynum:"Do you have a 特定在留カード (residence card + My Number in one)?",
       h_card_28:'If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.',
       h_photos:'A phone photo is fine. What matters is that the production can see your face and your build clearly.',
       h_photo_face:'FACE — from the shoulders up, looking straight at the camera. No sunglasses, no hat, no mask, no filter. Taken within the last 6 months.',
@@ -690,8 +695,9 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This can take up to 3 m
       v_jp:"Nacionalidad japonesa",
       l_passport:"Pasaporte japonés — página con foto",
       h_jp:"Las personas de nacionalidad japonesa no tienen tarjeta de residencia. Envía en su lugar la página con foto de tu pasaporte japonés. La revisamos y eliminamos la imagen, igual que con las tarjetas de residencia. Si no tienes pasaporte, escríbenos por WhatsApp.",
-      l_mynum:"Mi tarjeta de residencia es también mi tarjeta My Number (特定在留カード)",
-      h_mynum:"Envía solo el FRENTE. No envíes el reverso — muestra tu número My Number.",
+      l_mynum:"Solo si tu tarjeta de residencia y tu tarjeta My Number son UNA sola tarjeta (特定在留カード — emitida desde junio de 2025). La mayoría de las personas NO la tiene. Si tienes una tarjeta My Number aparte, no marques esta casilla.",
+      h_mynum:"Comprueba: el frente de una 特定在留カード tiene fecha de emisión de junio de 2025 o posterior. Si tu tarjeta se emitió antes, desmarca esta casilla y sube el reverso. Envía solo el FRENTE. No envíes el reverso — muestra tu número My Number.",
+      s_mynum:"¿Tienes una 特定在留カード (tarjeta de residencia + My Number en una)?",
       h_card_28:'Si tienes visa de estudiante o de dependiente, el límite de 28 horas semanales cuenta todos tus trabajos en conjunto. Mantenerte dentro de ese límite es tu responsabilidad — verifica que un día de rodaje no te haga superarlo.',
       h_photos:'Una foto tomada con el móvil está bien. Lo importante es que la producción vea con claridad tu rostro y tu complexión.',
       h_photo_face:'ROSTRO — de los hombros hacia arriba, mirando de frente a la cámara. Sin gafas de sol, sin gorra, sin mascarilla, sin filtros. Tomada en los últimos 6 meses.',
@@ -797,8 +803,9 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Puede tardar hast
       v_jp:"日本国籍",
       l_passport:"日本のパスポート（顔写真のページ）",
       h_jp:"日本国籍の方は在留カードがありません。代わりに日本のパスポートの顔写真のページを送ってください。在留カードと同じく、確認したあと画像は削除します。パスポートをお持ちでない方は WhatsApp でご連絡ください。",
-      l_mynum:"私の在留カードはマイナンバーカードと一体のカード（特定在留カード）です",
-      h_mynum:"表面だけを送ってください。裏面はマイナンバーが載っているので送らないでください。",
+      l_mynum:"在留カードとマイナンバーカードが1枚になったカード（特定在留カード・2025年6月から交付）の方だけチェックしてください。ほとんどの方は該当しません。マイナンバーカードを別に持っている方はチェックしないでください。",
+      h_mynum:"確認してください：特定在留カードは、表面の交付年月日が2025年6月以降です。それより前に交付されたカードなら、チェックを外して裏面をアップしてください。 表面だけを送ってください。裏面はマイナンバーが載っているので送らないでください。",
+      s_mynum:"特定在留カード（在留カードとマイナンバーが一体）をお持ちの方",
       h_card_28:'留学・家族滞在の方は、週28時間の上限がすべての勤務先の合計に適用されます。上限内に収めるのはご本人の責任です。撮影日が上限を超えないかご確認ください。',
       h_photos:'スマホの写真で構いません。制作側が顔と体型をはっきり判断できることが重要です。',
       h_photo_face:'顔写真 — 肩から上。正面を向いて撮影。サングラス・帽子・マスク・加工は不可。直近6か月以内の写真。',
