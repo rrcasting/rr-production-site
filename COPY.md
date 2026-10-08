@@ -216,6 +216,8 @@ JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費
 2\. \*\*テキスト行\*\*: お電話：070-8510-1040（日本語） → `tel:+81-70-8510-1040`。ボタンにしない
 3\. \*\*小さな文字リンク\*\*: 海外の制作会社の方は WhatsApp からもご連絡いただけます → 既存の制作会社向けプレフィル URL
 
+\*\*所在地（リンクなし・日本語のみ・電話行 p.deep-tel のすぐ下に同じ見た目の1行）\*\*: 所在地：〒107-0062 東京都港区南青山3丁目1番36号 青山丸竹ビル6F
+
 \*\*注記\*\*: ご参加をご希望の方（タレント）のお問い合わせはこちらではなく、登録フォームからお願いいたします。
 
 
@@ -351,6 +353,14 @@ JA: 登録フォームから一度だけご登録ください（約5分）。以
 
 
 Rr.production's — Foreign Talent \& Extra Casting Japan | Kanto Region \& Nationwide ／ ナビ ／ © 2025 → \*\*© 2026\*\* に修正 ／ Instagram・Facebook（`弊社のSNS` のリンク）
+
+\*\*所在地行（最初の p.footer-copy のすぐ下に p.footer-copy を1行・3言語・電話番号は入れない）\*\*
+
+en: Rr.production's | Aoyama Marutake Bldg. 6F, 3-1-36 Minami-Aoyama, Minato-ku, Tokyo 107-0062, Japan
+
+es: Rr.production's | Aoyama Marutake Bldg. 6F, 3-1-36 Minami-Aoyama, Minato-ku, Tokio 107-0062, Japón
+
+ja: Rr.production's ｜ 〒107-0062 東京都港区南青山3丁目1番36号 青山丸竹ビル6F
 
 
 
