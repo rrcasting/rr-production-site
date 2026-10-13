@@ -1,5 +1,5 @@
 /**
- * Rr.production's — 応募フォーム 受信スクリプト v1.16
+ * Rr.production's — 応募フォーム 受信スクリプト v1.17
  * 2026-08-26
  *
  * 置き場所: rcomp.productions@gmail.com のApps Script
@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.16', portfolio: true, extras: 3, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.17', portfolio: true, extras: 2, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -48,7 +48,8 @@ var PHOTO_MAP = {
   back:      { dir: 'CARD',  suffix: '_card_back.jpg',  col: 'Card Back URL' },
   extra1:    { dir: 'PHOTO', suffix: '_extra1.jpg',     col: '追加写真1 URL' },
   extra2:    { dir: 'PHOTO', suffix: '_extra2.jpg',     col: '追加写真2 URL' },
-  extra3:    { dir: 'PHOTO', suffix: '_extra3.jpg',     col: '追加写真3 URL' },
+  extra3:    { dir: 'PHOTO', suffix: '_extra3.jpg',     col: '追加写真3 URL' },   /* 古い画面から来たときのために残す */
+  shiteisho: { dir: 'CARD',  suffix: '_shiteisho.jpg',  col: '指定書 URL' },      /* 列は addShiteishoCol() で作る。無い間は URL を書かずに飛ばす */
   portfolio: { dir: 'PHOTO', suffix: '_portfolio',      col: 'Portfolio File URL' }
 };
 
@@ -147,7 +148,7 @@ function sendPhotosCompleteMail(sh, H, row, base, total) {
    op:'register' の staged で知らされた kind を、行ができたあとで本番の保存先・本番の名前に移す。
    24時間たった一時ファイルは cleanupStage（1時間ごとのトリガー）が消す。 */
 var STAGE_NAME      = 'Rr_一時アップロード';
-var STAGE_KINDS     = ['face','body','front','back','extra1','extra2','extra3'];
+var STAGE_KINDS     = ['face','body','front','back','extra1','extra2','extra3','shiteisho'];
 var STAGE_MAX_FILES = 12;
 var STAGE_MAX_BYTES = 60 * 1024 * 1024;
 var STAGE_FILE_MAX  = 12 * 1024 * 1024;
@@ -493,6 +494,8 @@ function doPost(e) {
     var notes = 'フォーム登録 / 表示言語: ' + (d.lang || '') + ' / 同意: ' + (d.consent ? 'yes' : 'no');
     if (sz.bad.length) notes += ' / 3サイズ入力値エラー（原文: ' + sz.bad.join(', ') + '）';
     if (isMyNum) notes = MYNUM_FLAG + ' / ' + notes;
+    var shiNote = shiteiNote(d);
+    if (shiNote) notes = shiNote + ' / ' + notes;
     if (isJP)    notes = '日本国籍・パスポートで確認 / ' + notes;
     put('Notes',              notes);
 
@@ -609,6 +612,44 @@ function cleanSizes(d) {
 
 /* 特定在留カードの誤選択を見つけるための目印（Notes の先頭と通知メール）。2025/6/14 より前に交付されたカードは特定在留カードではない */
 var MYNUM_FLAG = '⚠️特定在留カード（表のみ）＝交付日を確認・2025/6/14 より前なら誤選択 → 裏面を依頼';
+
+/* ワーホリ・特定活動の指定書。'has'（staged か photoKinds に shiteisho がある）／'none'（photoKinds があり shiteisho が無い）／
+   'unknown'（photoKinds が無い＝古いフォーム。なしとは言えない） */
+function shiteishoState(d) {
+  if (validStagedKinds(d.staged).indexOf('shiteisho') >= 0) return 'has';
+  if (d.photoKinds instanceof Array) return d.photoKinds.indexOf('shiteisho') >= 0 ? 'has' : 'none';
+  return 'unknown';
+}
+
+/* Notes の先頭に足す文（ワーホリ・特定活動のときだけ） */
+function shiteiNote(d) {
+  var s;
+  if (d.visa === 'Working Holiday') s = '特定活動（ワーホリ）・指定書（要確認）';
+  else if (d.visa === 'Designated Activities') s = '特定活動（ワーホリ以外）・指定書（要確認）・原則不可';
+  else return '';
+  if (shiteishoState(d) === 'none') s += '・指定書なし';
+  return s;
+}
+
+/* 通知メールの1行（ワーホリ・特定活動のときだけ。そうでなければ null） */
+function shiteiMailLine(d) {
+  if (d.visa !== 'Working Holiday' && d.visa !== 'Designated Activities') return null;
+  var st = shiteishoState(d);
+  if (st === 'has') return '指定書　　: 添付あり（要確認）';
+  if (st === 'none') return '指定書　　: なし（本人に依頼）';
+  return '指定書　　: 要確認（旧フォームのため有無が分からない）';
+}
+
+/* 手で1回だけ実行：Tracker に「指定書 URL」列が無ければ、「Card Back URL」のすぐ右に1列差し込む。何度実行しても同じ */
+function addShiteishoCol() {
+  var ctx = openTracker(), sh = ctx.sheet, H = ctx.headers, hRow = ctx.headerRow;
+  if (H['指定書 URL'] != null) return '既にあります（列 ' + (H['指定書 URL'] + 1) + '）';
+  if (H['Card Back URL'] == null) throw new Error('Card Back URL の列が見つかりません');
+  var after = H['Card Back URL'] + 1;            /* 1始まりの列番号 */
+  sh.insertColumnAfter(after);
+  sh.getRange(hRow, after + 1).setValue('指定書 URL').setFontWeight('bold');
+  return '「指定書 URL」を列 ' + (after + 1) + ' に作りました';
+}
 
 function isTrue(v) { return v === true || v === 'true' || v === 'on'; }
 
@@ -989,6 +1030,7 @@ function notifyNewRegistration(d, row, faceUrl) {
       '在留資格　　: ' + (d.visa === 'Japanese National'
                           ? '日本国籍（パスポート）'
                           : (d.visa || '') + '（期限 ' + (d.visaExpiry || '') + '／資格外活動許可 ' + (d.permit || '') + '）'),
+      shiteiMailLine(d),
       isTrue(d.cardMyNumber) ? '在留カード　: ' + MYNUM_FLAG : null,
       '3サイズ　　: ' + sizesLine(d),
       '最寄駅　　　: ' + (d.nearestStation || ''),

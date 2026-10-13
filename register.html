@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- register.html v1.16 -->
+<!-- register.html v1.17 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -162,7 +162,8 @@
             <option value="">—</option>
             <option value="Student" data-i18n="v_student">Student</option>
             <option value="Working" data-i18n="v_working">Working</option>
-            <option value="Working Holiday" data-i18n="v_wh">Working Holiday</option>
+            <option value="Working Holiday" data-i18n="v_wh">Working Holiday (Designated Activities)</option>
+            <option value="Designated Activities" data-i18n="v_da">Designated Activities — other than Working Holiday</option>
             <option value="Japanese National" data-i18n="v_jp">Japanese nationality</option>
             <option value="Spouse" data-i18n="v_spouse">Spouse of Japanese national</option>
             <option value="Permanent Resident" data-i18n="v_pr">Permanent Resident</option>
@@ -207,6 +208,16 @@
           </label>
         </div>
       </div>
+      <div class="field" id="fShitei" hidden>
+        <label><span data-i18n="l_shitei">Designation paper (指定書) — photo</span> <span class="req">*</span></label>
+        <label class="file">
+          <input type="file" name="shiteisho" accept="image/*">
+          <div class="lbl" data-i18n="l_shitei">Designation paper (指定書) — photo</div>
+          <div class="h" data-i18n="h_tap">Tap to choose</div>
+          <div class="preview"><img alt=""><div class="meta"></div></div>
+        </label>
+        <div class="hint" data-i18n="h_shitei">If your residence card says "Designated Activities" (特定活動), the work you are allowed to do is written on the 指定書 — the paper attached to your passport. Please send a clear photo of it, with all the text readable. If it says "Working Holiday" (ワーキング・ホリデー), you can join paid projects. We check it, record only your visa type and expiry date, and delete the image.</div>
+      </div>
       <details class="field mynum" id="fMyNum">
         <summary data-i18n="s_mynum">Do you have a 特定在留カード (residence card + My Number in one)?</summary>
         <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;color:var(--text);font-size:13px;font-weight:500;margin-top:10px">
@@ -224,7 +235,7 @@
       <ul class="hint" style="margin:6px 0 14px;padding-left:18px;line-height:1.7">
         <li data-i18n="h_photo_face">FACE — from the shoulders up, looking straight at the camera. No sunglasses, no hat, no mask, no filter. Taken within the last 6 months.</li>
         <li data-i18n="h_photo_body">FULL BODY — head to feet, standing straight, plain background, clothes that show your build (not baggy).</li>
-        <li data-i18n="h_photo_extra">EXTRA (optional, up to 3) — another angle, a smile, or a photo from a shoot. These help you get selected.</li>
+        <li data-i18n="h_photo_extra">EXTRA (optional, up to 2) — another angle, a smile, or a photo from a shoot. These help you get selected.</li>
       </ul>
       <div class="row">
         <div class="field">
@@ -260,15 +271,6 @@
           <label><span data-i18n="l_photo_x2">Extra photo 2</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
           <label class="file">
             <input type="file" name="photoExtra2" accept="image/*">
-            <div class="lbl" data-i18n="l_photo_x_s">Extra</div>
-            <div class="h" data-i18n="h_tap">Tap to choose</div>
-            <div class="preview"><img alt=""><div class="meta"></div></div>
-          </label>
-        </div>
-        <div class="field">
-          <label><span data-i18n="l_photo_x3">Extra photo 3</span> <span class="opt-tag" data-i18n="opt">(optional)</span></label>
-          <label class="file">
-            <input type="file" name="photoExtra3" accept="image/*">
             <div class="lbl" data-i18n="l_photo_x_s">Extra</div>
             <div class="h" data-i18n="h_tap">Tap to choose</div>
             <div class="preview"><img alt=""><div class="meta"></div></div>
@@ -573,7 +575,7 @@
       c_card_p:'Paid work in Japan requires us to confirm your status. This applies to every performer, no exceptions. We check the card, record only your visa type and expiry date, and then delete the image. Fill the frame with the card and shoot it straight from above, so the number and the text on the back can be read.',
       l_visa:'VISA status',
       h_visa_tourist:'A tourist / temporary visitor status cannot be registered — all our projects are paid work.',
-      v_student:'Student',v_working:'Working',v_wh:'Working Holiday',v_spouse:'Spouse of Japanese national',
+      v_student:'Student',v_working:'Working',v_wh:"Working Holiday (Designated Activities)",v_da:"Designated Activities — other than Working Holiday",v_spouse:'Spouse of Japanese national',
       v_pr:'Permanent Resident',v_ltr:'Long-term Resident',v_dep:'Dependent',v_ssw:'Specified Skilled Worker',v_other:'Other',
       l_visa_exp:'Residence card expiry date',h_visa_exp:'Exactly as printed on your card.',
       l_permit:'Permission to engage in activity other than that permitted (資格外活動許可)',
@@ -590,12 +592,15 @@
       l_mynum:"Only if your residence card and My Number card are ONE single card (特定在留カード — issued since June 2025). Most people do NOT have this. If you have a separate My Number card, leave this unchecked.",
       h_mynum:"Please check: the front of a 特定在留カード shows an issue date of June 2025 or later. If your card was issued before that, uncheck this and upload the back. Send the FRONT only. Do not send the back — it shows your My Number.",
       s_mynum:"Do you have a 特定在留カード (residence card + My Number in one)?",
+      l_shitei:"Designation paper (指定書) — photo",
+      h_shitei:"If your residence card says \"Designated Activities\" (特定活動), the work you are allowed to do is written on the 指定書 — the paper attached to your passport. Please send a clear photo of it, with all the text readable. If it says \"Working Holiday\" (ワーキング・ホリデー), you can join paid projects. We check it, record only your visa type and expiry date, and delete the image.",
+      e_files_shitei:"Please attach a photo of your 指定書 (the designation paper attached to your passport).",
       h_card_28:'If you hold a Student or Dependent visa, the 28-hour weekly limit counts all of your work together. Staying within it is your responsibility — check that a shooting day will not take you over.',
       h_photos:'A phone photo is fine. What matters is that the production can see your face and your build clearly.',
       h_photo_face:'FACE — from the shoulders up, looking straight at the camera. No sunglasses, no hat, no mask, no filter. Taken within the last 6 months.',
       h_photo_body:'FULL BODY — head to feet, standing straight, plain background, clothes that show your build (not baggy).',
-      h_photo_extra:'EXTRA (optional, up to 3) — another angle, a smile, or a photo from a shoot. These help you get selected.',
-      l_photo_x1:'Extra photo 1',l_photo_x2:'Extra photo 2',l_photo_x3:'Extra photo 3',l_photo_x_s:'Extra',
+      h_photo_extra:"EXTRA (optional, up to 2) — another angle, a smile, or a photo from a shoot. These help you get selected.",
+      l_photo_x1:'Extra photo 1',l_photo_x2:'Extra photo 2',l_photo_x_s:'Extra',
       l_photo_face:'Face photo',l_photo_face_s:'Face',
       l_photo_body:'Full body photo',l_photo_body_s:'Full body',
       l_wa:'WhatsApp (with country code)',h_wa:'All casting communication happens on WhatsApp.',
@@ -681,7 +686,7 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This can take up to 3 m
       c_card_p:'El trabajo remunerado en Japón exige que verifiquemos tu estatus. Esto aplica a todos los actores, sin excepción. Revisamos la tarjeta, registramos únicamente tu tipo de visa y su fecha de vencimiento, y luego eliminamos la imagen. Encuadra la tarjeta llenando la pantalla y fotografíala justo desde arriba, de modo que el número y el texto del reverso se puedan leer.',
       l_visa:'Estado de visa',
       h_visa_tourist:'Un estatus de turista / visitante temporal no puede registrarse — todos nuestros proyectos son trabajo remunerado.',
-      v_student:'Estudiante',v_working:'Trabajo',v_wh:'Working Holiday',v_spouse:'Cónyuge de japonés/a',
+      v_student:'Estudiante',v_working:'Trabajo',v_wh:"Working Holiday (Actividades Designadas)",v_da:"Actividades Designadas — distinto de Working Holiday",v_spouse:'Cónyuge de japonés/a',
       v_pr:'Residente permanente',v_ltr:'Residente de larga duración',v_dep:'Dependiente',v_ssw:'Trabajador con habilidades específicas',v_other:'Otro',
       l_visa_exp:'Fecha de vencimiento de la tarjeta',h_visa_exp:'Exactamente como aparece impresa en tu tarjeta.',
       l_permit:'Permiso para realizar actividades no autorizadas (資格外活動許可)',
@@ -698,12 +703,15 @@ sending:'Sending…',h_send_wait:'Uploading your photos. This can take up to 3 m
       l_mynum:"Solo si tu tarjeta de residencia y tu tarjeta My Number son UNA sola tarjeta (特定在留カード — emitida desde junio de 2025). La mayoría de las personas NO la tiene. Si tienes una tarjeta My Number aparte, no marques esta casilla.",
       h_mynum:"Comprueba: el frente de una 特定在留カード tiene fecha de emisión de junio de 2025 o posterior. Si tu tarjeta se emitió antes, desmarca esta casilla y sube el reverso. Envía solo el FRENTE. No envíes el reverso — muestra tu número My Number.",
       s_mynum:"¿Tienes una 特定在留カード (tarjeta de residencia + My Number en una)?",
+      l_shitei:"Hoja de designación (指定書) — foto",
+      h_shitei:"Si tu tarjeta de residencia dice \"Actividades Designadas\" (特定活動), el trabajo que puedes hacer está escrito en el 指定書 — la hoja pegada en tu pasaporte. Envía una foto clara de esa hoja, con todo el texto legible. Si dice \"Working Holiday\" (ワーキング・ホリデー), puedes participar en proyectos pagados. La revisamos, registramos solo tu tipo de visa y su vencimiento, y eliminamos la imagen.",
+      e_files_shitei:"Adjunta una foto de tu 指定書 (la hoja de designación pegada en tu pasaporte).",
       h_card_28:'Si tienes visa de estudiante o de dependiente, el límite de 28 horas semanales cuenta todos tus trabajos en conjunto. Mantenerte dentro de ese límite es tu responsabilidad — verifica que un día de rodaje no te haga superarlo.',
       h_photos:'Una foto tomada con el móvil está bien. Lo importante es que la producción vea con claridad tu rostro y tu complexión.',
       h_photo_face:'ROSTRO — de los hombros hacia arriba, mirando de frente a la cámara. Sin gafas de sol, sin gorra, sin mascarilla, sin filtros. Tomada en los últimos 6 meses.',
       h_photo_body:'CUERPO ENTERO — de la cabeza a los pies, de pie y recto, fondo sencillo, ropa que permita ver tu complexión (no holgada).',
-      h_photo_extra:'ADICIONALES (opcional, hasta 3) — otro ángulo, una sonrisa, o una foto de un rodaje. Ayudan a que te seleccionen.',
-      l_photo_x1:'Foto adicional 1',l_photo_x2:'Foto adicional 2',l_photo_x3:'Foto adicional 3',l_photo_x_s:'Adicional',
+      h_photo_extra:"ADICIONALES (opcional, hasta 2) — otro ángulo, una sonrisa, o una foto de un rodaje. Ayudan a que te seleccionen.",
+      l_photo_x1:'Foto adicional 1',l_photo_x2:'Foto adicional 2',l_photo_x_s:'Adicional',
       l_photo_face:'Foto de rostro',l_photo_face_s:'Rostro',
       l_photo_body:'Foto de cuerpo entero',l_photo_body_s:'Cuerpo entero',
       l_wa:'WhatsApp (con código de país)',h_wa:'Toda la comunicación de casting ocurre por WhatsApp.',
@@ -789,7 +797,7 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Puede tardar hast
       c_card_p:'日本で有償の仕事をするには、在留資格の確認が必要です。全員に適用され、例外はありません。カードを確認し、在留資格と有効期限のみを記録したうえで、画像は削除します。カードを画面いっぱいに、真上から撮影してください。番号と裏面の文字が読める状態でお願いします。',
       l_visa:'在留資格',
       h_visa_tourist:'観光・短期滞在の方は登録できません（当社の案件はすべて有償のため）。',
-      v_student:'留学',v_working:'就労ビザ',v_wh:'ワーキングホリデー',v_spouse:'日本人の配偶者等',
+      v_student:'留学',v_working:'就労ビザ',v_wh:"ワーキングホリデー（特定活動）",v_da:"特定活動（ワーキングホリデー以外）",v_spouse:'日本人の配偶者等',
       v_pr:'永住者',v_ltr:'定住者',v_dep:'家族滞在',v_ssw:'特定技能',v_other:'その他',
       l_visa_exp:'在留カードの有効期限',h_visa_exp:'カードに印字されているとおりに入力してください。',
       l_permit:'資格外活動許可',
@@ -806,12 +814,15 @@ sending:'Enviando…',h_send_wait:'Estamos subiendo tus fotos. Puede tardar hast
       l_mynum:"在留カードとマイナンバーカードが1枚になったカード（特定在留カード・2025年6月から交付）の方だけチェックしてください。ほとんどの方は該当しません。マイナンバーカードを別に持っている方はチェックしないでください。",
       h_mynum:"確認してください：特定在留カードは、表面の交付年月日が2025年6月以降です。それより前に交付されたカードなら、チェックを外して裏面をアップしてください。 表面だけを送ってください。裏面はマイナンバーが載っているので送らないでください。",
       s_mynum:"特定在留カード（在留カードとマイナンバーが一体）をお持ちの方",
+      l_shitei:"指定書の写真",
+      h_shitei:"在留カードに「特定活動」と書かれている方は、できる仕事の内容がパスポートに貼られた「指定書」に書かれています。文字がすべて読めるように、指定書の写真を送ってください。「ワーキング・ホリデー」と書かれていれば、報酬ありの案件に参加できます。確認したあと、在留資格と期限だけを記録し、画像は削除します。",
+      e_files_shitei:"指定書（パスポートに貼られた紙）の写真を添付してください。",
       h_card_28:'留学・家族滞在の方は、週28時間の上限がすべての勤務先の合計に適用されます。上限内に収めるのはご本人の責任です。撮影日が上限を超えないかご確認ください。',
       h_photos:'スマホの写真で構いません。制作側が顔と体型をはっきり判断できることが重要です。',
       h_photo_face:'顔写真 — 肩から上。正面を向いて撮影。サングラス・帽子・マスク・加工は不可。直近6か月以内の写真。',
       h_photo_body:'全身写真 — 頭から足先まで。まっすぐ立ち、背景はシンプルに。体型がわかる服装で（ダボっとした服は不可）。',
-      h_photo_extra:'追加写真（任意・最大3枚）— 別角度・笑顔・現場での写真など。選ばれやすくなります。',
-      l_photo_x1:'追加写真1',l_photo_x2:'追加写真2',l_photo_x3:'追加写真3',l_photo_x_s:'追加',
+      h_photo_extra:"追加写真（任意・最大2枚）— 別角度・笑顔・現場での写真など。選ばれやすくなります。",
+      l_photo_x1:'追加写真1',l_photo_x2:'追加写真2',l_photo_x_s:'追加',
       l_photo_face:'顔写真',l_photo_face_s:'顔',
       l_photo_body:'全身写真',l_photo_body_s:'全身',
       l_wa:'WhatsApp 番号（国番号付き）',h_wa:'キャスティングの連絡はすべて WhatsApp で行います。',
@@ -1010,7 +1021,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
 
   /* ---- 写真を選んだ瞬間に裏で送る（op:'stage'）。同時は最大2枚。同じ kind の操作は順番どおり ---- */
   var STAGE_KIND = { photoFace:'face', photoBody:'body', cardFront:'front', passport:'front', cardBack:'back',
-                     photoExtra1:'extra1', photoExtra2:'extra2', photoExtra3:'extra3' };
+                     photoExtra1:'extra1', photoExtra2:'extra2', shiteisho:'shiteisho' };
   function newSubId(){ return 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
   if (!window.__subId) window.__subId = newSubId();   /* 送信IDはページを開いた時点で作る */
   var stageQ = [], stageRun = [], stageLog = [];
@@ -1163,7 +1174,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
       var isPf = (input.name === 'portfolio');
       var seq = 0;
       if (STAGE_KIND[input.name]) stageInit(input.name, box, input);
-      var isCard = (input.name === 'cardFront' || input.name === 'cardBack' || input.name === 'passport');
+      var isCard = (input.name === 'cardFront' || input.name === 'cardBack' || input.name === 'passport' || input.name === 'shiteisho');
       input.addEventListener('change', function(){
         var f = input.files[0];
         var mySeq = ++seq;
@@ -1216,7 +1227,10 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     $('hMyNum').hidden = !my;
     $('fCard28').hidden = jp;
     $('fPassport').hidden = !jp;   document.querySelector('[name=passport]').required = jp;
-    var hid = { cardFront: jp, cardBack: (jp || my), passport: !jp };
+    /* 指定書：ワーホリ・特定活動のときだけ出して必須にする */
+    var shi = (visaSel.value === 'Working Holiday' || visaSel.value === 'Designated Activities');
+    $('fShitei').hidden = !shi;    document.querySelector('[name=shiteisho]').required = shi;
+    var hid = { cardFront: jp, cardBack: (jp || my), passport: !jp, shiteisho: !shi };
     for (var hn in hid) if (hid[hn]) dropHiddenFile(hn);
   }
   visaSel.addEventListener('change', applyVisa);
@@ -1245,7 +1259,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
 
   /* 写真の種類 → 画面に出す名前（既存の辞書キーを使い回す） */
   var KIND_KEY = { face:'l_photo_face', body:'l_photo_body', front:'l_card_f', back:'l_card_b',
-                   extra1:'l_photo_x1', extra2:'l_photo_x2', extra3:'l_photo_x3', portfolio:'l_portfolio', passport:'l_passport' };
+                   extra1:'l_photo_x1', extra2:'l_photo_x2', shiteisho:'l_shitei', portfolio:'l_portfolio', passport:'l_passport' };
   function kindLabel(kind, lng){
     var k = KIND_KEY[kind], dict = T[lng] || T.en;
     return (k && (dict[k] || T.en[k])) || kind;
@@ -1284,6 +1298,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     var v = form.visa.value, p = form.permit.value;
     var isJP = (v === 'Japanese National');
     var isMy = !isJP && myNumCb.checked;
+    var needShitei = (v === 'Working Holiday' || v === 'Designated Activities');
 
     if (!isJP && new Date(form.visaExpiry.value) < new Date(new Date().toDateString())){ fail(t('e_expired')); return; }
 
@@ -1291,6 +1306,7 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
 
     var idFront = isJP ? blobs.passport : blobs.cardFront;   /* 日本国籍はパスポートを front として送る */
     if (!idFront || (!isJP && !isMy && !blobs.cardBack) || !blobs.photoFace || !blobs.photoBody){ fail(t(isJP ? 'e_files_jp' : isMy ? 'e_files_my' : 'e_files')); return; }
+    if (needShitei && !blobs.shiteisho){ fail(t('e_files_shitei')); return; }
 
     var btn = form.querySelector('button.submit');
     var orig = btn.textContent;
@@ -1301,8 +1317,8 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     var data = {};
     var fd = new FormData(form);
     fd.forEach(function(val, key){
-      if (['cardFront','cardBack','passport','photoFace','photoBody','portfolio',
-           'photoExtra1','photoExtra2','photoExtra3'].indexOf(key) < 0) data[key] = val;
+      if (['cardFront','cardBack','passport','shiteisho','photoFace','photoBody','portfolio',
+           'photoExtra1','photoExtra2'].indexOf(key) < 0) data[key] = val;
     });
     for (var sk2 in sizes){ if (sizes[sk2] !== '') data[sk2] = sizes[sk2]; else delete data[sk2]; }
     data.age     = age;
@@ -1318,7 +1334,6 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     if (blobs.portfolio) data.portfolio = blobs.portfolio;
     if (blobs.photoExtra1) data.photoExtra1 = blobs.photoExtra1;
     if (blobs.photoExtra2) data.photoExtra2 = blobs.photoExtra2;
-    if (blobs.photoExtra3) data.photoExtra3 = blobs.photoExtra3;
 
     /* 送信ID：通信が切れて押し直しても、サーバー側で二重登録にならない */
     if (!window.__subId) window.__subId = 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
@@ -1331,16 +1346,16 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     addShot('body',  blobs.photoBody);
     addShot('front', idFront);
     if (!isJP && !isMy) addShot('back', blobs.cardBack);
+    if (needShitei) addShot('shiteisho', blobs.shiteisho);   /* 指定書（ワーホリ・特定活動）。保存先は CARD フォルダ */
     if (blobs.photoExtra1) addShot('extra1', blobs.photoExtra1);
     if (blobs.photoExtra2) addShot('extra2', blobs.photoExtra2);
-    if (blobs.photoExtra3) addShot('extra3', blobs.photoExtra3);
     if (blobs.portfolio)   addShot('portfolio', blobs.portfolio);
 
     waitStages(60000, function(){ btn.textContent = t('sending'); }).then(function(){
 
     /* 裏で先に届いている写真（stage）は register の staged で知らせ、残りだけ op:'photo' で送る */
     var KIND_INPUT = { face:'photoFace', body:'photoBody', front:(isJP ? 'passport' : 'cardFront'), back:'cardBack',
-                       extra1:'photoExtra1', extra2:'photoExtra2', extra3:'photoExtra3' };
+                       extra1:'photoExtra1', extra2:'photoExtra2', shiteisho:'shiteisho' };
     var stagedKinds = [], toSend = [];
     shots.forEach(function(s9){
       var nm = KIND_INPUT[s9.kind];
@@ -1348,11 +1363,12 @@ sending:'送信中…',h_send_wait:'写真をアップロードしています�
     });
 
     var head = {};
-    for (var kk in data) if (['cardFront','cardBack','passport','photoFace','photoBody','portfolio',
-        'photoExtra1','photoExtra2','photoExtra3'].indexOf(kk) < 0) head[kk] = data[kk];
+    for (var kk in data) if (['cardFront','cardBack','passport','shiteisho','photoFace','photoBody','portfolio',
+        'photoExtra1','photoExtra2'].indexOf(kk) < 0) head[kk] = data[kk];
     head.op = 'register';
     head.staged = stagedKinds;
     head.photoCount = toSend.length;   /* これから op:'photo' で送る枚数（stage 済みは staged で数える） */
+    head.photoKinds = toSend.map(function(s9){ return s9.kind; });   /* op:'photo' で送る予定の kind の一覧（サーバーが「指定書なし」を判定する） */
 
     var total = toSend.length + 1, step = 0;
     function setStep(n){
