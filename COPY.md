@@ -180,11 +180,11 @@ JA: Rr.production's は、日本の映画・ドラマ・CM・MVに外国人の�
 
 \*\*チェック4つ\*\*
 
-EN: No experience required ／ Selection-based — reliability matters ／ Free to register — you are paid, never charged ／ Bank transfer · end-of-month closing · paid on the 10th
+EN: No experience required ／ Selection-based — reliability matters ／ Free to register — you are paid, never charged ／ Bank transfer · end-of-month closing · paid by the end of the second month
 
-ES: Sin experiencia ／ Por selección — la fiabilidad cuenta ／ Registro gratuito — te pagan, nunca pagas ／ Transferencia · cierre a fin de mes · pago el día 10
+ES: Sin experiencia ／ Por selección — la fiabilidad cuenta ／ Registro gratuito — te pagan, nunca pagas ／ Transferencia · cierre a fin de mes · pago antes del fin del segundo mes
 
-JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費用は一切かかりません） ／ 銀行振込・月末締め・翌月10日払い
+JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費用は一切かかりません） ／ 銀行振込・月末締め・翌々月末払い
 
 
 
@@ -244,7 +244,7 @@ JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費
 
 | 4 | \*\*Details the day before\*\* Meeting point, call time and wardrobe are shared in the group the day before the shoot. | \*\*Detalles el día anterior\*\* Punto de encuentro, hora y vestuario se comparten en el grupo el día anterior. | \*\*詳細は前日\*\* 集合場所・時間・服装は撮影前日にグループで共有します。 |
 
-| 5 | \*\*Shoot day \& payment\*\* Arrive on time, follow staff instructions. Bank transfer: end-of-month closing, paid on the 10th of the following month. | \*\*Rodaje y pago\*\* Llega puntual y sigue al staff. Transferencia: cierre a fin de mes, pago el día 10 del mes siguiente. | \*\*撮影と支払い\*\* 時間厳守、スタッフの指示に従ってください。銀行振込・月末締め・翌月10日払い。 |
+| 5 | \*\*Shoot day \& payment\*\* Arrive on time, follow staff instructions. Bank transfer: end-of-month closing, paid by the end of the second month after the shoot (e.g. a November shoot is paid by 31 January). | \*\*Rodaje y pago\*\* Llega puntual y sigue al staff. Transferencia: cierre a fin de mes, pago antes del fin del segundo mes después del rodaje (p. ej., un rodaje en noviembre se paga antes del 31 de enero). | \*\*撮影と支払い\*\* 時間厳守、スタッフの指示に従ってください。銀行振込・月末締め・翌々月末払い（例：11月の撮影 → 1月31日まで）。 |
 
 
 
@@ -372,7 +372,7 @@ ja: Rr.production's ｜ 〒107-0062 東京都港区南青山3丁目1番36号 青
 
 \- meta description（現行のまま）
 
-\- JSON-LD Organization・FAQPage: \*\*バイト単位でそのまま\*\*
+\- JSON-LD Organization・FAQPage: そのまま（バイト単位）ではなくなった。事実のみ ／ Organization には 2026-10-08 に address（東京都港区南青山の事業所在地）を足した ／ FAQPage は 2026-10-20 反映分で「How and when am I paid?」の text だけを替えた（支払いを「撮影月の翌々月末まで」に。FAQ の EN 文と同じ）
 
 \- OGP/Twitter/canonical/favicon: そのまま
 
