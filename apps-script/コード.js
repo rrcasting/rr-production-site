@@ -1,5 +1,5 @@
 /**
- * Rr.production's — 応募フォーム 受信スクリプト v1.17
+ * Rr.production's — 応募フォーム 受信スクリプト v1.18
  * 2026-08-26
  *
  * 置き場所: rcomp.productions@gmail.com のApps Script
@@ -38,7 +38,7 @@ var PF_MAX_BYTES = 9 * 1024 * 1024;
 /* ================= 入口 ================= */
 
 function doGet() {
-  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.17', portfolio: true, extras: 2, notify: true });}
+  return json({ success: true, service: "Rr.production's registration endpoint", version: '1.18', portfolio: true, extras: 2, notify: true });}
 
 /* 写真の種類 → 保存先フォルダと Tracker の列 */
 var PHOTO_MAP = {
@@ -90,12 +90,39 @@ function handlePhoto(d) {
 function applyPhotoToRow(kind, url, sh, H, row) {
   var m = PHOTO_MAP[kind];
   if (!m) return;
-  if (H[m.col] != null) sh.getRange(row, H[m.col] + 1).setValue(url);
+  if (H[m.col] != null) {
+    if (m.dir === 'CARD') trashReplacedCard(kind, url, sh.getRange(row, H[m.col] + 1).getValue());   /* 送り直しで古い在留カード画像が残らないように */
+    sh.getRange(row, H[m.col] + 1).setValue(url);
+  }
   if (kind === 'face') {
     if (H['Photo URL']   != null) sh.getRange(row, H['Photo URL'] + 1).setValue(url);
     if (H['Face Photo']  != null) sh.getRange(row, H['Face Photo'] + 1).setValue('Yes');
   }
   if (kind === 'body' && H['Body Photo'] != null) sh.getRange(row, H['Body Photo'] + 1).setValue('Yes');
+}
+
+/* 在留カード表・裏・指定書（CARD フォルダ）が同じ行に2回届いたとき、URL の列を書き換える前に、古い方をゴミ箱に入れる。
+   行がずれて別の人の行に書いてしまった場合に別人の画像を消さないよう、古いファイルの名前が
+   「新しいファイルの名前から種類の部分（_card_front 等）を取った base」で始まり、同じ種類の名前で終わるときだけ消す。
+   開けない・名前が合わない・すでにゴミ箱のときは何もしない（登録は止めない）。完全削除（eraseFile）は使わない。 */
+function trashReplacedCard(kind, newUrl, oldValue) {
+  try {
+    var m = PHOTO_MAP[kind];
+    var idRe = /[-\w]{25,}/;
+    var oldId = (String(oldValue || '').match(idRe) || [])[0];
+    var newId = (String(newUrl || '').match(idRe) || [])[0];
+    if (!m || !oldId || !newId || oldId === newId) return;
+    var tail = m.suffix.replace(/\.(jpg|png)$/i, '');                 /* 例 _card_front */
+    var newName = DriveApp.getFileById(newId).getName().replace(/\.(jpg|png)$/i, '');
+    if (tail === '' || newName.length <= tail.length || newName.slice(-tail.length) !== tail) return;
+    var base = newName.slice(0, newName.length - tail.length);        /* 例 20261013-120000_Jane */
+    if (base.length < 8) return;
+    var old = DriveApp.getFileById(oldId);
+    if (old.isTrashed()) return;
+    var oldName = old.getName().replace(/\.(jpg|png)$/i, '');
+    if (oldName.indexOf(base) !== 0 || oldName.slice(-tail.length) !== tail) return;
+    old.setTrashed(true);
+  } catch (e) { /* 何もしない */ }
 }
 
 /* 写真が全部届いたことを知らせるメール。最後の1枚（index === total-1）のリクエストの中で送る。
