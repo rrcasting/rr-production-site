@@ -372,7 +372,7 @@ ja: Rr.production's ｜ 〒107-0062 東京都港区南青山3丁目1番36号 青
 
 \- meta description（現行のまま）
 
-\- JSON-LD Organization・FAQPage: \*\*バイト単位でそのまま\*\*
+\- JSON-LD Organization・FAQPage: 事実のみ ／ Organization には 2026-10-08 に address（事業所在地）を足した ／ FAQPage は 2026-10-19 に How and when am I paid? の text だけを替えた（支払日を書かない文に・FAQ の EN 文と同じ）
 
 \- OGP/Twitter/canonical/favicon: そのまま
 
