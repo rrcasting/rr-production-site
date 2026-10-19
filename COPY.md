@@ -180,11 +180,11 @@ JA: Rr.production's は、日本の映画・ドラマ・CM・MVに外国人の�
 
 \*\*チェック4つ\*\*
 
-EN: No experience required ／ Selection-based — reliability matters ／ Free to register — you are paid, never charged ／ Bank transfer · end-of-month closing · paid on the 10th
+EN: No experience required ／ Selection-based — reliability matters ／ Free to register — you are paid, never charged ／ Bank transfer · payment date confirmed in writing before each shoot
 
-ES: Sin experiencia ／ Por selección — la fiabilidad cuenta ／ Registro gratuito — te pagan, nunca pagas ／ Transferencia · cierre a fin de mes · pago el día 10
+ES: Sin experiencia ／ Por selección — la fiabilidad cuenta ／ Registro gratuito — te pagan, nunca pagas ／ Transferencia · fecha de pago confirmada por escrito antes de cada rodaje
 
-JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費用は一切かかりません） ／ 銀行振込・月末締め・翌月10日払い
+JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費用は一切かかりません） ／ 銀行振込・支払日は撮影前に書面でお伝えします
 
 
 
@@ -244,7 +244,7 @@ JA: 未経験歓迎 ／ 選考制（信頼性を重視） ／ 登録無料（費
 
 | 4 | \*\*Details the day before\*\* Meeting point, call time and wardrobe are shared in the group the day before the shoot. | \*\*Detalles el día anterior\*\* Punto de encuentro, hora y vestuario se comparten en el grupo el día anterior. | \*\*詳細は前日\*\* 集合場所・時間・服装は撮影前日にグループで共有します。 |
 
-| 5 | \*\*Shoot day \& payment\*\* Arrive on time, follow staff instructions. Bank transfer: end-of-month closing, paid on the 10th of the following month. | \*\*Rodaje y pago\*\* Llega puntual y sigue al staff. Transferencia: cierre a fin de mes, pago el día 10 del mes siguiente. | \*\*撮影と支払い\*\* 時間厳守、スタッフの指示に従ってください。銀行振込・月末締め・翌月10日払い。 |
+| 5 | \*\*Shoot day \& payment\*\* Arrive on time, follow staff instructions. Payment is via bank transfer only. The payment date depends on the project and is written in your confirmation before the shoot. | \*\*Rodaje y pago\*\* Llega puntual y sigue al staff. El pago es solo por transferencia bancaria. La fecha de pago depende del proyecto y aparece en tu confirmación antes del rodaje. | \*\*撮影と支払い\*\* 時間厳守、スタッフの指示に従ってください。銀行振込のみです。支払日は案件によって異なり、撮影前の確認メッセージに書きます。 |
 
 
 
@@ -372,7 +372,7 @@ ja: Rr.production's ｜ 〒107-0062 東京都港区南青山3丁目1番36号 青
 
 \- meta description（現行のまま）
 
-\- JSON-LD Organization・FAQPage: \*\*バイト単位でそのまま\*\*
+\- JSON-LD Organization・FAQPage: 事実のみ ／ Organization には 2026-10-08 に address（事業所在地）を足した ／ FAQPage は 2026-10-19 に How and when am I paid? の text だけを替えた（支払日を書かない文に・FAQ の EN 文と同じ）
 
 \- OGP/Twitter/canonical/favicon: そのまま
 
