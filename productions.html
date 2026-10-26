@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>制作会社の方へ｜外国人キャスティング Rr.production's</title>
+  <meta name="description" content="外国人エキストラ・モデル・役者の手配を業務委託で承ります。30か国以上の登録者から、国籍・年齢層・人数・撮影地に合わせて手配。関東中心・全国対応。">
+  <link rel="canonical" href="https://rrcasting.github.io/rr-production-site/productions.html">
+
+  <!-- Icons -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23080808'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='38' font-weight='bold' font-style='italic' fill='%23C9A84C' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;700;900&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+/* base tokens and components: DESIGN.md v3 "Dusk" (mock-up B2), pasted as given */
+:root{
+  --ground:#f6f4fb; --ink:#1a1a3a; --navy:#141a4a; --mute:#4a4a6a; --label:#6a6a8a;
+  --orange:#ff8a3d; --magenta:#ff3d8a; --violet:#6a3df5; --blue:#2b6cf6; --deep-mid:#2a1f7a; --peach:#ffd2a8;
+  --text-wash:linear-gradient(90deg,#ff8a3d 0%,#ff3d8a 45%,#6a3df5 100%);
+  --deep-band:linear-gradient(160deg,#141a4a 0%,#2a1f7a 55%,#6a3df5 100%);
+  --btn-wash:linear-gradient(90deg,#ff3d8a,#6a3df5);
+  --shadow-card:0 24px 50px rgba(27,42,143,.18);
+  --shadow-btn:0 12px 30px rgba(90,43,214,.32);
+  --line:rgba(90,43,214,.12);
+  --font-display:'Sora','Noto Sans JP',sans-serif;
+  --font-body:'Manrope','Noto Sans JP',system-ui,sans-serif;
+  --font-jp:'Noto Sans JP',sans-serif;
+  --r-pill:999px; --r-card:20px; --r-tile:16px;
+  --max:1100px; --gap-section:64px;
+}
+@media(max-width:480px){:root{--gap-section:48px}}
+body{background:var(--ground);color:var(--ink);font-family:var(--font-body)}
+/* Sky Wash（ヒーローの光） */
+.hero{position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-30% -20% auto -20%;height:85%;pointer-events:none;opacity:.5;filter:blur(34px);
+  background:radial-gradient(55% 55% at 22% 35%,var(--orange) 0%,transparent 62%),
+             radial-gradient(50% 55% at 78% 25%,var(--magenta) 0%,transparent 62%),
+             radial-gradient(60% 60% at 60% 95%,var(--violet) 0%,transparent 60%),
+             radial-gradient(70% 50% at 95% 80%,var(--blue) 0%,transparent 60%)}
+.nav{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.8);border-radius:var(--r-pill);padding:10px 16px;backdrop-filter:blur(10px);box-shadow:0 8px 30px rgba(27,42,143,.10)}
+.eyebrow{display:inline-block;background:rgba(255,255,255,.8);border:1px solid rgba(90,43,214,.18);border-radius:var(--r-pill);padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--violet)}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(38px,8vw,80px);line-height:1.02;letter-spacing:-.03em;color:var(--navy);text-wrap:balance}
+h1 .accent{background:var(--text-wash);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn-primary{background:var(--btn-wash);color:#fff;border-radius:var(--r-pill);box-shadow:var(--shadow-btn);font-weight:800;font-size:14px;padding:14px 22px}
+.btn-secondary{background:#fff;color:var(--navy);border:1.5px solid rgba(27,42,143,.2);border-radius:var(--r-pill);font-weight:800;font-size:14px;padding:14px 22px}
+.photo-card{background:#fff;padding:8px;border-radius:var(--r-card);box-shadow:var(--shadow-card)}
+.photo-card img{display:block;width:100%;height:100%;object-fit:cover;border-radius:14px}
+.photo-card:nth-child(odd){transform:rotate(-4deg) translateY(10px)}.photo-card:nth-child(even){transform:rotate(3deg)}
+.stat{background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:var(--r-tile);padding:14px 18px;text-align:center}
+.stat b{display:block;font-family:var(--font-display);font-weight:800;font-size:30px;line-height:1;color:var(--violet);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.deep{background:var(--deep-band);color:#fff;padding:40px 16px 48px}
+.deep .eyebrow{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:var(--peach)}
+.deep .btn-secondary{background:#fff;color:var(--navy);border:0}
+
+/* ---- page build on top of the tokens above ---- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+body{font-size:14px;font-weight:500;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+ul{list-style:none}
+strong{font-weight:800;color:var(--navy)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
+
+/* i18n (same mechanism as before) */
+[data-lang]{display:none}
+[data-lang].active{display:block}
+span[data-lang].active{display:inline}
+
+/* type */
+h2{font-family:var(--font-display);font-weight:800;font-size:28px;line-height:1.3;letter-spacing:-.02em;color:var(--navy)}
+html[lang=ja] h2{font-family:var(--font-jp);font-weight:900;letter-spacing:.02em}
+@media(min-width:768px){h2{font-size:34px}}
+html[lang=ja] h1{font-family:var(--font-jp);font-weight:900;font-size:clamp(20px,4vw,34px);line-height:1.3;letter-spacing:.02em}
+.h-sm{font-size:20px;font-weight:800;line-height:1.35;letter-spacing:-.01em;color:var(--navy)}
+.body-lg{font-size:16px;line-height:1.7;color:var(--mute)}
+.body{font-size:14px;line-height:1.7;color:var(--mute)}
+.caption{font-size:12px;line-height:1.4;color:var(--label)}
+.eyebrow{margin-bottom:16px}
+.sec{padding:var(--gap-section) 0}
+.sec-head{max-width:760px;margin-bottom:28px}
+.sec-head h2{margin-bottom:12px}
+
+/* icons */
+.ic{display:inline-block;width:16px;height:16px;flex-shrink:0;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.ic-form{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM7.5 12h9v1.8h-9V12zm0 3.6h9v1.8h-9v-1.8zm0-7.2h4v1.8h-4V8.4z'/%3E%3C/svg%3E")}
+.ic-chat{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.2a9.8 9.8 0 0 0-8.4 14.9L2.2 21.8l4.8-1.3A9.8 9.8 0 1 0 12 2.2zm0 1.8a8 8 0 1 1-4.3 14.8l-.3-.2-2.6.7.7-2.5-.2-.3A8 8 0 0 1 12 4zM8.9 7.4c-.2 0-.5 0-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3.1 4.8 4.3 2.4 1 2.9.8 3.4.7.5 0 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4l-.4-.3-2-.9c-.3-.1-.5-.2-.7.1l-.9 1.1c-.2.2-.3.2-.6.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.9-2.1c-.2-.6-.5-.5-.7-.5h-.5z'/%3E%3C/svg%3E")}
+
+/* buttons */
+.btn-primary,.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);line-height:1.4;text-align:center;cursor:pointer;border:0}
+.btn-secondary{border:1.5px solid rgba(27,42,143,.2)}
+.btn-primary:hover{filter:saturate(1.1)}
+.btn-secondary:hover{border-color:var(--violet);color:var(--violet)}
+.btn-navy{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--navy);color:#fff;border:0;border-radius:var(--r-pill);font-weight:800;font-size:14px;padding:10px 18px;cursor:pointer}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* 1. nav */
+#lang-bar{position:fixed;top:12px;left:0;right:0;z-index:9999;padding:0 12px}
+.nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+nav{display:none;align-items:center;gap:4px}
+.nav-link{padding:8px 10px;font-size:14px;font-weight:700;color:var(--mute);white-space:nowrap}
+.nav-link:hover{color:var(--violet)}
+.bar-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.lang-btns{display:flex;gap:2px;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:var(--r-pill);padding:3px}
+.lang-btn{border:0;border-radius:var(--r-pill);background:none;color:var(--label);font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-height:30px;padding:0 9px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.lang-btn:hover{color:var(--violet)}
+.lang-btn.active{background:var(--navy);color:#fff}
+.nav-cta{display:none}
+.hamburger{min-width:38px;min-height:38px;border:0;background:none;color:var(--navy);font-size:16px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.mobile-nav{display:none;flex-direction:column;max-width:var(--max);margin:8px auto 0;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:var(--r-tile);overflow:hidden}
+.mobile-nav.open{display:flex}
+.mobile-nav a{padding:12px 16px;font-size:14px;font-weight:700;color:var(--mute);border-bottom:1px solid var(--line)}
+.mobile-nav a:last-child{border-bottom:0}
+.mobile-nav a:hover{color:var(--violet)}
+@media(max-width:430px){.nav{padding:8px 10px;gap:6px}.bar-right{gap:4px}.lang-btns{padding:2px;gap:0}.lang-btn{font-size:10px;letter-spacing:0;padding:0 5px;min-height:28px}.hamburger{min-width:32px}}
+@media(min-width:1024px){nav{display:flex}.hamburger{display:none}.nav-cta{display:inline-flex}}
+
+/* sticky CTA (kept) */
+#sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.92);border-top:1px solid var(--line);backdrop-filter:blur(10px);padding:10px 16px calc(12px + env(safe-area-inset-bottom))}
+#sticky-cta a{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px}
+@media(min-width:769px){#sticky-cta{display:none!important}}
+
+/* 2. hero */
+.hero{padding:112px 0 56px}
+.hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
+.hero h1{margin-top:4px}
+.hero-sub{max-width:560px;font-size:16px;line-height:1.7;color:var(--mute)}
+.hero .btn-row{justify-content:center}
+.photo-strip{position:relative;z-index:1;max-width:var(--max);margin:44px auto 0;padding:14px 4px;display:flex;flex-wrap:wrap;justify-content:center;gap:14px;overflow:hidden}
+.photo-card{width:150px;flex:0 0 auto}
+.photo-card img{aspect-ratio:3/4}
+@media(min-width:768px){.photo-card{width:190px}}
+.stats{position:relative;z-index:1;max-width:var(--max);margin:36px auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 16px}
+.stat>span{display:block;margin-top:6px;font-size:12px;line-height:1.4;color:var(--label)}
+@media(min-width:768px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.strip-note{position:relative;z-index:1;max-width:var(--max);margin:24px auto 0;padding:0 16px;text-align:center;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--label);line-height:1.8}
+
+/* cards */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-tile);padding:24px;box-shadow:0 8px 30px rgba(27,42,143,.10)}
+.cards{display:grid;gap:14px}
+@media(min-width:768px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* 5. about */
+.about{display:grid;gap:28px}
+.checks{margin-top:20px;display:grid;gap:10px}
+.checks li{display:flex;gap:10px;font-size:14px;line-height:1.7;color:var(--ink)}
+.checks li::before{content:'✓';color:var(--violet);font-weight:800;flex-shrink:0}
+.about-photo{background:#fff;padding:8px;border-radius:var(--r-card);box-shadow:var(--shadow-card)}
+.about-photo img{width:100%;border-radius:14px}
+@media(min-width:900px){.about{grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}}
+
+/* 6. deep band (for productions) */
+.deep{border-radius:var(--r-card);margin:var(--gap-section) 0}
+.deep-inner{display:grid;gap:24px;align-items:center}
+.deep h2{color:#fff;font-family:var(--font-jp);font-weight:900;letter-spacing:.02em;margin-bottom:16px}
+.deep p{color:rgba(255,255,255,.82);font-size:16px;line-height:1.7}
+.deep .checks li{color:#fff}
+.deep strong{color:#fff}
+.deep .checks li::before{color:var(--peach)}
+.deep .note{color:rgba(255,255,255,.82);font-size:12px;line-height:1.6;margin-top:16px}
+.deep-photo{border-radius:18px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.deep-photo img{width:100%}
+.deep-photo{align-self:center}
+@media(min-width:768px){.deep{padding:48px 40px 52px}.deep-inner{grid-template-columns:1.1fr .9fr;gap:40px}}
+
+/* 7. steps */
+.steps{display:grid;gap:14px}
+.step-num{width:36px;height:36px;border-radius:var(--r-pill);background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:16px;margin-bottom:12px}
+.step p{font-size:14px;line-height:1.7;color:var(--mute)}
+.step strong{display:block;font-size:20px;line-height:1.35;letter-spacing:-.01em;margin-bottom:8px}
+@media(min-width:768px){.steps{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+/* 8. fit */
+.fit{display:grid;gap:14px}
+.fit h3{margin-bottom:16px;font-size:20px;font-weight:800;line-height:1.35;color:var(--navy);display:flex;gap:8px}
+.fit ul{display:grid;gap:10px}
+.fit li{display:flex;gap:10px;font-size:14px;line-height:1.7;color:var(--mute)}
+.fit .mk{flex-shrink:0;font-weight:800}
+.fit-good .mk,.fit-good h3 .mk{color:var(--violet)}
+.fit-bad .mk,.fit-bad h3 .mk{color:var(--magenta)}
+@media(min-width:768px){.fit{grid-template-columns:1fr 1fr}}
+
+/* 9. rules */
+.card h3{margin-bottom:12px;font-size:20px;font-weight:800;line-height:1.35;color:var(--navy)}
+.card h4{margin:16px 0 8px;font-size:16px;font-weight:800;color:var(--navy)}
+.card p{font-size:14px;line-height:1.7;color:var(--mute);margin-bottom:8px}
+.card ul{display:grid;gap:10px}
+.card li{display:flex;gap:10px;font-size:14px;line-height:1.7;color:var(--mute)}
+.card .tag{display:inline-block;margin-top:8px;border:1px solid var(--line);border-radius:var(--r-pill);padding:4px 12px;color:var(--violet);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.rule-icon{width:36px;height:36px;border-radius:var(--r-pill);border:1.5px solid var(--violet);color:var(--violet);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.rule-icon svg{width:18px;height:18px}
+.ic-mail{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1.6 2L12 12.2 19.4 7H4.6z'/%3E%3C/svg%3E")}
+.deep-tel{margin-top:14px;font-size:16px;font-weight:800;color:#fff}
+.deep-tel a:hover{color:var(--peach)}
+.deep-wa{margin-top:8px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.82)}
+.deep-wa a{border-bottom:1px solid rgba(255,255,255,.25)}
+.deep-wa a:hover{color:var(--peach);border-color:var(--peach)}
+
+/* 10. works */
+.works{display:grid;gap:14px}
+.work-item{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-tile);padding:24px;overflow:hidden;box-shadow:0 8px 30px rgba(27,42,143,.10)}
+.work-item::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--text-wash)}
+.work-type{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--violet)}
+.work-title{margin-top:8px;font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.35;letter-spacing:-.01em;color:var(--navy)}
+html[lang=ja] .work-title{font-family:var(--font-jp)}
+.work-platform{margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
+.work-meta{margin-top:4px;font-size:12px;line-height:1.4;color:var(--label)}
+.work-title br{display:none}
+.note{margin-top:20px;font-size:12px;line-height:1.6;color:var(--label)}
+@media(min-width:700px){.works{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* 11. gallery */
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.gallery .photo-card{width:auto;transform:none;transition:box-shadow .2s,transform .2s}
+.gallery .photo-card:hover{transform:translateY(-4px);box-shadow:0 30px 60px rgba(27,42,143,.24)}
+.gallery img{aspect-ratio:4/5}
+@media(min-width:700px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1024px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* 12. calls, faq, final cta */
+.calls p{font-size:16px;line-height:1.7;color:var(--mute);margin-bottom:12px}
+.sns-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}
+.sns-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--mute)}
+.sns-link:hover{color:var(--violet)}
+.sns-link svg{width:16px;height:16px}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item:last-child{border-bottom:0}
+.faq-q{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:16px 0;font-size:16px;font-weight:700;line-height:1.5;color:var(--navy);cursor:pointer}
+.faq-q:hover{color:var(--violet)}
+.faq-icon{color:var(--violet);font-weight:800;flex-shrink:0}
+.faq-a{display:none;padding-bottom:16px;font-size:14px;line-height:1.7;color:var(--mute)}
+.faq-item.open .faq-a{display:block}
+.final{position:relative;overflow:hidden;padding:var(--gap-section) 0}
+.final:before{content:"";position:absolute;inset:-30% -20% auto -20%;height:85%;pointer-events:none;opacity:.3;filter:blur(34px);
+  background:radial-gradient(55% 55% at 22% 35%,var(--orange) 0%,transparent 62%),
+             radial-gradient(50% 55% at 78% 25%,var(--magenta) 0%,transparent 62%),
+             radial-gradient(60% 60% at 60% 95%,var(--violet) 0%,transparent 60%),
+             radial-gradient(70% 50% at 95% 80%,var(--blue) 0%,transparent 60%)}
+.final .wrap{position:relative;z-index:1}
+.final .body-lg{margin-top:16px;max-width:640px}
+.final .note{margin-top:16px}
+.cta-dm{margin-top:16px;font-size:12px;line-height:1.6;color:var(--label);overflow-wrap:anywhere}
+
+/* 13. footer */
+footer{border-top:1px solid var(--line);padding:32px 0 104px}
+.footer-inner{display:grid;gap:14px}
+.footer-logo{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--navy)}
+.footer-links{display:flex;flex-wrap:wrap;gap:10px 20px}
+.footer-links a{font-size:14px;color:var(--label)}
+.footer-links a:hover{color:var(--violet)}
+.footer-copy{font-size:12px;line-height:1.4;color:var(--label)}
+@media(min-width:769px){footer{padding-bottom:40px}}
+
+:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+<style>
+/* productions.html only: spacing under the floating nav, operator table, link in the note (existing tokens only) */
+.page-top{padding-top:48px}
+.deep .op-title{font-family:var(--font-jp);font-weight:900;font-size:18px;color:#fff;margin-top:28px}
+.deep .op{width:100%;border-collapse:collapse;margin-top:12px}
+.deep .op th,.deep .op td{padding:10px 0;font-size:14px;line-height:1.7;text-align:left;vertical-align:top;border-top:1px solid rgba(255,255,255,.25)}
+.deep .op tr:last-child th,.deep .op tr:last-child td{border-bottom:1px solid rgba(255,255,255,.25)}
+.deep .op th{width:6.5em;padding-right:12px;font-weight:700;color:var(--peach)}
+.deep .op td{color:#fff}
+.deep .note a{border-bottom:1px solid rgba(255,255,255,.25)}
+.deep .note a:hover{color:var(--peach);border-color:var(--peach)}
+</style>
+</head>
+<body>
+
+<!-- nav（日本語のみ。言語切替ボタンは置かない） -->
+<div id="lang-bar">
+  <div class="nav">
+    <div class="logo">Rr.production's</div>
+    <nav>
+      <a href="index.html#about" class="nav-link">会社について</a>
+      <a href="index.html#how" class="nav-link">登録から撮影まで</a>
+      <a href="index.html#works" class="nav-link">実績</a>
+      <a href="index.html#gallery" class="nav-link">ギャラリー</a>
+      <a href="productions.html" class="nav-link">制作会社の方へ</a>
+      <a href="index.html#faq" class="nav-link">よくある質問</a>
+    </nav>
+    <div class="bar-right">
+      <a href="register.html" target="_blank" rel="noopener" class="btn-navy nav-cta">登録する</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html#about" onclick="toggleMenu()">会社について</a>
+    <a href="index.html#how" onclick="toggleMenu()">登録から撮影まで</a>
+    <a href="index.html#works" onclick="toggleMenu()">実績</a>
+    <a href="index.html#gallery" onclick="toggleMenu()">ギャラリー</a>
+    <a href="productions.html" onclick="toggleMenu()">制作会社の方へ</a>
+    <a href="index.html#faq" onclick="toggleMenu()">よくある質問</a>
+  </div>
+</div>
+
+<main class="wrap page-top">
+  <section class="deep" id="productions">
+    <div class="deep-inner">
+      <div>
+        <p class="eyebrow">制作会社の方へ</p>
+        <h2>外国人キャストの手配を、業務委託で。</h2>
+        <p>外国人キャスト（エキストラ・モデル・役者）の手配を<strong>業務委託ベース</strong>で承ります。30か国以上の登録タレントネットワークから、作品の要件（国籍・年齢層・人数・撮影地）に合わせて手配いたします。関東を中心に、案件により全国対応。英語・スペイン語対応スタッフが現場でのコミュニケーションもサポートします。</p>
+        <ul class="checks">
+          <li><span>多国籍の登録タレントネットワーク（30か国以上）</span></li>
+          <li><span>映画・ドラマ・CM・MVでの手配実績</span></li>
+          <li><span>英語・スペイン語・日本語でのディレクション対応</span></li>
+        </ul>
+        <h3 class="op-title">運営者情報</h3>
+        <table class="op">
+          <tr><th>屋号</th><td>Rr.production's（アールプロダクションズ）</td></tr>
+          <tr><th>代表</th><td>ミランダ リチャード</td></tr>
+          <tr><th>所在地</th><td>〒107-0062 東京都港区南青山3丁目1番36号 青山丸竹ビル6F</td></tr>
+          <tr><th>事業内容</th><td>外国人エキストラ・タレントのキャスティング</td></tr>
+          <tr><th>開業</th><td>2022年</td></tr>
+        </table>
+        <p class="btn-row" style="margin-top:24px"><a href="mailto:rcomp.productions@gmail.com?subject=%E5%A4%96%E5%9B%BD%E4%BA%BA%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E6%89%8B%E9%85%8D%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87&body=%E4%BC%9A%E7%A4%BE%E5%90%8D%EF%BC%9A%0A%E3%81%94%E6%8B%85%E5%BD%93%E8%80%85%E5%90%8D%EF%BC%9A%0A%E4%BD%9C%E5%93%81%E7%A8%AE%E5%88%A5%EF%BC%88%E6%98%A0%E7%94%BB%EF%BC%8F%E3%83%89%E3%83%A9%E3%83%9E%EF%BC%8FCM%EF%BC%8FMV%EF%BC%89%EF%BC%9A%0A%E6%92%AE%E5%BD%B1%E6%97%A5%E3%83%BB%E6%92%AE%E5%BD%B1%E5%9C%B0%EF%BC%9A%0A%E5%BF%85%E8%A6%81%E3%81%AA%E4%BA%BA%E6%95%B0%E3%83%BB%E6%9D%A1%E4%BB%B6%EF%BC%88%E5%9B%BD%E7%B1%8D%E3%83%BB%E5%B9%B4%E9%BD%A2%E5%B1%A4%E3%81%AA%E3%81%A9%EF%BC%89%EF%BC%9A%0A" class="btn-secondary"><i class="ic ic-mail" aria-hidden="true"></i>メールでお問い合わせ</a></p>
+        <p class="deep-tel"><a href="tel:+81-70-8510-1040">お電話：070-8510-1040（日本語）</a></p>
+        <p class="deep-wa"><a href="https://wa.me/817085101040?text=%5BProduction%20Inquiry%5D%0ACompany%20name%3A%20%0AContact%20person%3A%20%0AProject%20type%20(Film%2FDrama%2FCM%2FMV)%3A%20%0AShoot%20date%20%26%20location%3A%20%0ACast%20requirements%3A%20" target="_blank" rel="noopener">海外の制作会社の方は WhatsApp からもご連絡いただけます</a></p>
+        <p class="note">ご参加をご希望の方（タレント）のお問い合わせはこちらではなく、<a href="register.html" target="_blank" rel="noopener">登録フォーム</a>からお願いいたします。</p>
+      </div>
+      <figure class="deep-photo"><img src="https://rrcasting.github.io/rr-production-site/assets/cast/cast_member10.jpeg" alt="" width="2016" height="1512" loading="lazy" /></figure>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-logo">Rr.production's</div>
+    <p class="footer-copy">外国人キャスティング会社 | 関東中心・全国対応</p>
+    <p class="footer-copy">Rr.production's ｜ 〒107-0062 東京都港区南青山3丁目1番36号 青山丸竹ビル6F</p>
+    <div class="footer-links">
+      <a href="index.html#about">会社について</a>
+      <a href="index.html#how">登録から撮影まで</a>
+      <a href="index.html#works">実績</a>
+      <a href="index.html#gallery">ギャラリー</a>
+      <a href="productions.html">制作会社の方へ</a>
+      <a href="index.html#faq">よくある質問</a>
+      <a href="register.html" target="_blank" rel="noopener">登録する</a>
+      <a href="https://www.instagram.com/rrproduction_casting?igsh=MWg0dWI1MWdtd3AyaQ==" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/share/18HoJeMUm5/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+    <p class="footer-copy">© 2026 Rr.production's. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  /* ── Mobile nav ── */
+  function toggleMenu() {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  }
+
+  /* ── Nav: the floating pill gets a stronger background once scrolled (DESIGN.md 1) ── */
+  (function () {
+    var bar = document.getElementById('lang-bar');
+    var onScroll = function () { bar.classList.toggle('on', window.scrollY > 8); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
+</body>
+</html>
